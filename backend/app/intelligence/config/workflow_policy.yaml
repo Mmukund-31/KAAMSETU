@@ -14,3 +14,20 @@ approval_required_for_roles: [technician, supervisor, manager]
 
 # Maximum utterances (report + corrections + follow-up answers) kept as evidence for one report.
 max_utterances: 8
+
+# Target hours from report to completion, by priority. due_at = created_at + this. Overdue = open and past due_at.
+sla_hours:
+  critical: 4
+  high: 24
+  medium: 72
+  low: 168
+
+handover:
+  # Completed work is taken from this many hours before the handover is created.
+  shift_hours: 12
+  # A sentence in the handover notes that contains one of these becomes a next-shift action.
+  # Matching is on normalised tokens (stems), the same as the taxonomy.
+  action_cues: [check, replace, follow up, next shift, pending, monitor, inspect, order, "need to", "needs to",
+                "to be", "karna hai", "karna", "dekhna", "check karo", "badalna", "next shift",
+                करना, देखना, बदलना, जाँच, जांच, चेक, अगली शिफ्ट,
+                చేయాలి, చూడాలి, మార్చాలి, తనిఖీ, చెక్, తర్వాతి షిఫ్ట్]

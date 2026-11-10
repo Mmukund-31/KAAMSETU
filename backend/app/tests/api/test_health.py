@@ -13,9 +13,14 @@ def test_versioned_health_reports_gnani_presence_not_key(client):
 
 
 def test_db_health_reports_migration_revision(client):
+    from alembic.script import ScriptDirectory
+
+    from app.tests.conftest import alembic_config
+
+    head = ScriptDirectory.from_config(alembic_config("unused")).get_current_head()
     r = client.get("/api/v1/health/db")
     assert r.status_code == 200
-    assert r.json() == {"status": "ok", "database": "ok", "migration_revision": "0001"}
+    assert r.json() == {"status": "ok", "database": "ok", "migration_revision": head}
 
 
 def test_request_id_header_is_echoed(client):

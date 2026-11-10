@@ -11,12 +11,13 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 3 complete (intelligence engine).** A spoken or typed fault
-> report becomes a structured, register-validated work-order preview, in English, Hindi,
-> Telugu or Hinglish. It covers equipment, symptoms, category, production impact and a
-> rule-based priority. Short follow-up questions are spoken back through Gnani Timbre.
-> Saving work orders and the approval lifecycle come in Phase 4. See
-> [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+> **Project status: Phase 4 complete (backend feature-complete).** Spoken or typed
+> reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
+> moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
+> close) with a full audit trail. Shift handovers, the equipment history and the dashboard
+> numbers all come from real records, with spoken acknowledgements from Gnani Timbre.
+> The supervisor web app is next (Phase 5). See [docs/ROADMAP.md](docs/ROADMAP.md) and
+> [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
 

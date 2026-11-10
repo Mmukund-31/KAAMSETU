@@ -103,3 +103,24 @@ def synthesize(timbre: TimbreClient, text: str, language: str, speed: float | No
     except GnaniError as exc:
         logger.warning("Synthesis failed", extra={"ctx": {"error": str(exc)}})
         raise to_app_error(exc) from exc
+
+
+def spoken(timbre: TimbreClient | None, text: str, language: str):
+    """Text response, plus Timbre audio when requested. A TTS failure never fails the action."""
+    import base64
+
+    from app.schemas.report import SpokenResponse
+
+    response = SpokenResponse(text=text)
+    if timbre is None:
+        return response
+    try:
+        result = synthesize(timbre, text[:500], language, None)
+    except AppError as exc:
+        response.tts_available, response.tts_error = False, exc.code
+        return response
+    response.tts_available = True
+    response.audio_base64 = base64.b64encode(result.audio).decode("ascii")
+    response.content_type, response.voice, response.gnani_request_id = result.content_type, result.voice, \
+        result.request_id
+    return response

@@ -204,27 +204,43 @@ Unique `(checklist_id, checklist_item_id)`.
 
 Index `(entity_type, entity_id, timestamp)`, `actor_id`.
 
-## Work-order state machine
+## Work-order state machine (as implemented in `app/services/state_machine.py`)
 
-| From | To | Roles | Comment required |
-|---|---|---|---|
-| reported | under_review | supervisor, manager | no |
-| reported, under_review | rejected | supervisor, manager | yes |
-| under_review | approved | supervisor, manager (not the reporter unless ALLOW_SELF_APPROVAL) | no |
-| under_review | escalated | supervisor, manager | yes |
-| approved | assigned | supervisor, manager | no |
-| assigned | in_progress | assigned technician, supervisor | no |
-| in_progress | blocked / awaiting_parts | assigned technician, supervisor | yes |
-| blocked, awaiting_parts | in_progress | assigned technician, supervisor | no |
-| in_progress | completion_review | assigned technician (mandatory checklist items complete) | no |
-| completion_review | closed | supervisor, manager | no |
-| completion_review | reopened | supervisor, manager | yes |
-| reopened | assigned | supervisor, manager | no |
-| escalated | approved / rejected | manager | yes |
-| any open | escalated | supervisor, manager | yes |
+"Supervisor" means supervisor or manager, at the order's site. "Assignee" means the technician the order is assigned to.
+Action is the API call that performs the move. Generic transitions use `POST /work-orders/{id}/status`, which
+refuses moves that have a dedicated action.
 
-Priority override on approve: allowed for supervisor/manager, reason required, audited.
+| From | To | Who | Reason required | Action / guard |
+|---|---|---|---|---|
+| reported | under_review | reporter, supervisor | no | `submit` (automatic on creation unless `submit=false`) |
+| reported, under_review, approved | rejected | supervisor | yes | `reject` |
+| under_review | approved | supervisor, not the reporter (unless `ALLOW_SELF_APPROVAL`) | no | `approve`, optional priority override with reason |
+| under_review, approved, assigned, in_progress, blocked, awaiting_parts | escalated | supervisor | yes | `escalate` |
+| escalated | approved / rejected / in_progress | manager only | yes | `approve` / `reject` / `status` |
+| approved, reopened | assigned | supervisor | no | `assign` (escalated -> assigned: manager) |
+| assigned, reopened | in_progress | assignee, supervisor | no | technician must be assigned |
+| in_progress | blocked / awaiting_parts | assignee, supervisor | yes | |
+| blocked, awaiting_parts | in_progress | assignee, supervisor | no | |
+| in_progress | completion_review | assignee only | no | `complete`; every mandatory checklist step done or N/A |
+| completion_review | closed | supervisor | no | sets `closed_at` |
+| completion_review | reopened | supervisor | yes | keeps the assignee |
 
-## SLA (configurable, Phase 4)
+`closed` and `rejected` are terminal. A test walks the table to check that every status is
+reachable and every open status can still reach an end. Reassignment while assigned,
+in_progress, blocked or awaiting_parts keeps the status and writes `work_order.reassign`.
 
-critical 4 h, high 24 h, medium 72 h, low 7 d -> `due_at`. Overdue = open and `now() > due_at`.
+Priority override (on approve or PATCH): supervisor only, reason required, writes `work_order.priority_override`,
+sets `priority_rule = supervisor_override`, recomputes `due_at`.
+
+## SLA (configurable in `workflow_policy.yaml`)
+
+critical 4 h, high 24 h, medium 72 h, low 7 d -> `due_at = created_at + hours`. Overdue = past `due_at` while
+still owed (any open status except `completion_review`).
+
+## Phase 4 schema changes (migration 0002)
+
+- `work_order_evidence.report_id` (uuid, unique). One preview report becomes at most one work order, alongside the
+  client `submission_key`.
+- `audit_logs.seq` (bigint identity, unique). Strict insertion order. Several audit rows are often written in one
+  transaction, and PostgreSQL `now()` is the transaction start time, so timestamps alone cannot order them.
+- `audit_logs.timestamp` and `assignments.assigned_at` default to `clock_timestamp()`, the actual write time.

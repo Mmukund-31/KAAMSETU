@@ -126,11 +126,31 @@ class PriorityRules(BaseModel):
         return self
 
 
+class HandoverPolicy(BaseModel):
+    shift_hours: int = Field(ge=1, le=48)
+    action_cues: list[str] = Field(min_length=1)
+
+    @property
+    def cue_keywords(self) -> list[Keyword]:
+        return [Keyword.parse(c) for c in self.action_cues]
+
+
 class WorkflowPolicy(BaseModel):
     version: int
     required_fields: list[FollowUpField]
     approval_required_for_roles: list[UserRole]
     max_utterances: int = Field(ge=2, le=20)
+    sla_hours: dict[Priority, int]
+    handover: HandoverPolicy
+
+    @model_validator(mode="after")
+    def _sla_for_every_priority(self) -> "WorkflowPolicy":
+        if set(self.sla_hours) != set(Priority):
+            raise ValueError("sla_hours must define every priority")
+        if any(h <= 0 for h in self.sla_hours.values()):
+            raise ValueError("sla_hours must be positive")
+        self.handover.cue_keywords  # noqa: B018 - parse now so bad cues fail at load time
+        return self
 
 
 class Responses(BaseModel):

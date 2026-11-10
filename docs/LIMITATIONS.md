@@ -23,6 +23,16 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 - Hindi and Telugu response templates and labels were written for this prototype and need review by native speakers before any pilot.
 - Spoken-number parsing covers common forms (digit by digit, "two hundred four", Hindi and Telugu number words). Unusual forms are not converted, and the technician is asked to confirm the machine.
 
+## Workflow (Phase 4)
+
+- Overdue orders are flagged and counted, but nothing escalates them automatically. Escalation is a manual supervisor
+  action; no scheduler runs in the MVP.
+- Notifications are pull-based: technicians see new tasks when their app refreshes. There are no push messages.
+- Handover summaries sort the author's sentences by cue words only. A sentence with no cue word is listed as an
+  observation even if it implies an action.
+- Concurrent actions on one work order are serialised by a row lock, but no automated multi-connection race test
+  exists yet.
+
 ## Platform
 
 - The rate limiter is in memory and per process.

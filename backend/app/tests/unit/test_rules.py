@@ -160,7 +160,8 @@ def test_templates_use_same_placeholders_in_every_language(key):
 @pytest.mark.parametrize("lang", LANGS)
 def test_every_template_renders(lang):
     for key in responses().messages:
-        text = render(key, lang, code="M-204", heard="M-209", priority=priority_label(Priority.HIGH, lang))
+        text = render(key, lang, code="M-204", heard="M-209", number="WO-1001",
+                      priority=priority_label(Priority.HIGH, lang))
         assert "{" not in text and text.strip()
 
 

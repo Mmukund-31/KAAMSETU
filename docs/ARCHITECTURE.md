@@ -124,3 +124,8 @@ the single source of truth for `services/state_machine.py`.
 | 14 | Stateless preview plus signed evidence token | No half-finished rows in the database; the original transcript stays tamper-proof while draft fields stay editable. |
 | 15 | Domain enums in `app/domain` (no SQLAlchemy) | Keeps `intelligence/` importable without the ORM; a test enforces this in a fresh interpreter. |
 | 16 | Response text from templates only | Spoken replies are fixed, reviewable strings per language. No generated text reaches the technician. |
+| 17 | Work order created only from verified evidence | `POST /work-orders` re-runs the whole evaluation. The client cannot set priority, category or equipment it was not matched to. |
+| 18 | Dedicated actions for key transitions | Approve, reject, assign, complete and escalate carry their own rules (override reason, technician checks, checklist gate). The generic status endpoint refuses them. |
+| 19 | Row lock per action | `SELECT ... FOR UPDATE OF work_orders` serialises concurrent actions on one order, for example two approvals. |
+| 20 | Out-of-scope records return 404 | Users cannot discover the existence of other sites' or other technicians' work orders. |
+| 21 | Audit ordered by an identity sequence | Several audit rows are written per transaction, and `now()` is the transaction start time. |

@@ -42,6 +42,24 @@ messages:
     hi: "{code} के लिए मेंटेनेंस रिक्वेस्ट तैयार है। प्राथमिकता {priority} है। कृपया जाँच कर के सबमिट करें।"
     te: "{code} కోసం మెయింటెనెన్స్ రిక్వెస్ట్ సిద్ధంగా ఉంది. ప్రాధాన్యత {priority}. దయచేసి సరిచూసి సబ్మిట్ చేయండి."
 
+  submitted:
+    en: "Your request has been submitted for supervisor review. Work order {number}."
+    hinglish: "Request supervisor review ke liye submit kar di gayi hai. Work order number {number}."
+    hi: "आपकी रिक्वेस्ट सुपरवाइज़र रिव्यू के लिए भेज दी गई है। वर्क ऑर्डर नंबर {number}।"
+    te: "మీ రిక్వెస్ట్ సూపర్వైజర్ రివ్యూ కోసం పంపబడింది. వర్క్ ఆర్డర్ నంబర్ {number}."
+
+  task_assigned:
+    en: "New task {number} on {code}, {priority} priority. Please check the details and start when ready."
+    hinglish: "Aapko {code} ka naya kaam {number} assign hua hai. Priority {priority} hai. Details dekhkar kaam shuru kijiye."
+    hi: "आपको {code} का नया काम {number} दिया गया है। प्राथमिकता {priority} है। विवरण देखकर काम शुरू करें।"
+    te: "{code} పై కొత్త పని {number} మీకు కేటాయించబడింది. ప్రాధాన్యత {priority}. వివరాలు చూసి పని ప్రారంభించండి."
+
+  completion_submitted:
+    en: "Work order {number} has been sent for completion review."
+    hinglish: "Work order {number} completion review ke liye bhej diya gaya hai."
+    hi: "वर्क ऑर्डर {number} पूर्णता समीक्षा के लिए भेज दिया गया है।"
+    te: "వర్క్ ఆర్డర్ {number} పూర్తి సమీక్ష కోసం పంపబడింది."
+
   safety_warning:
     en: "You reported a safety hazard. Keep clear and follow the site emergency procedure."
     hinglish: "Aapne safety hazard report kiya hai. Door rahiye aur site emergency procedure follow kijiye."

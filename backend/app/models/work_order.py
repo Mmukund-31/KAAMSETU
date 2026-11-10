@@ -12,6 +12,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    Uuid,
     false,
     func,
     true,
@@ -89,6 +90,8 @@ class WorkOrderEvidence(UUIDPrimaryKey, CreatedAt, Base):
     work_order_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("work_orders.id", ondelete="CASCADE"), nullable=False, unique=True
     )
+    # report_id from the signed evidence token: one report can become at most one work order.
+    report_id: Mapped[uuid.UUID | None] = mapped_column(Uuid, unique=True)
     original_transcript: Mapped[str] = mapped_column(Text, nullable=False)
     detected_language: Mapped[str | None] = mapped_column(String(32))
     selected_language: Mapped[LanguageCode | None] = mapped_column(pg_enum(LanguageCode, "language_code"))
@@ -108,5 +111,6 @@ class Assignment(UUIDPrimaryKey, Base):
     )
     technician_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"), nullable=False, index=True)
     assigned_by: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"), nullable=False)
-    assigned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    assigned_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.clock_timestamp(),
+                                                  nullable=False)
     comments: Mapped[str | None] = mapped_column(Text)

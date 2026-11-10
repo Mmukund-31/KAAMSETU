@@ -9,7 +9,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 1 | 3 d | FastAPI + settings + Postgres + models + Alembic + JWT auth + RBAC + health + seed + tests | done 2026-11-10 (63 tests passing) |
 | 2 | 2 d | Prisma + Timbre httpx adapters, real smoke test, mocked unit tests, gated integration tests | done 2026-11-10 (156 tests + 12 real-API tests passing) |
 | 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | done 2026-11-10 (334 tests + 14 real-API tests passing) |
-| 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | pending |
+| 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | done 2026-11-10 (406 tests passing; live demo scenario verified) |
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | pending |
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | pending |
 | 7 | 2 d | End-to-end verification of the demo scenario + error paths | pending |
@@ -75,9 +75,33 @@ next starts only on confirmation. "Done" means implemented **and** verified.
   `work_order_evidence` (from the token's utterances) and `audit_logs`.
 - `priority_rule` is already a column on `work_orders`.
 
-## Phase 4 file list (next)
+## Phase 4 output
 
-`app/services/state_machine.py`, `app/workflows/{work_order,assignment,escalation}.py`, `app/services/{work_orders,
-checklists,handovers,dashboard,equipment}.py`, `app/schemas/{work_order,checklist,handover,dashboard,equipment}.py`,
-`app/api/v1/{work_orders,equipment,checklists,handovers,dashboard,audit,users}.py`, and API tests for every allowed
-and forbidden transition.
+- `app/services/state_machine.py`: one transition table with role, assignee or reporter, reason and dedicated-action
+  rules, plus guards (assigned technician, self-approval, checklist complete). `allowed_actions` drives UI buttons.
+- `app/workflows/work_order.py`: create from confirmed evidence (re-validated, duplicate-proof), approve with priority
+  override, reject, escalate, complete, generic status, edits. `assignment.py`: assign or reassign, which auto-attaches
+  the SOP checklist. `escalation.py`: SLA due dates and the overdue rule.
+- `app/services/`: `access` (site and ownership scope, row lock for actions), `checklists` (versioned templates, steps),
+  `work_orders` (list, filters, detail), `equipment` (register and history), `handovers` (fact-based summary),
+  `dashboard` (SQL aggregates).
+- 27 new routes: 38 in total.
+- Migration `0002`: evidence `report_id`, audit `seq`, `clock_timestamp()` defaults.
+- Tests: the demo scenario end to end with an exact audit trail, every lifecycle rule, the transition-table
+  structure, creation and duplicate protection, scope, filters, checklists, handovers, exact dashboard numbers
+  including a cross-site regression guard, and equipment, users and audit.
+- Live check on the dev server with real Prisma and Timbre: report, create (WO-1008), duplicate 409, approve, assign,
+  start, checklist gate, 7 steps, complete, close, and dashboard +1. The test order was then removed from the dev DB.
+
+## Phase 5 inputs from Phase 4
+
+- The web app can build its action buttons from `allowed_actions` and `can_assign`. Disabled buttons show
+  `blocked_reason`.
+- The approval queue is `GET /work-orders?status=under_review&status=escalated&sort=priority`.
+- Every dashboard tile maps to one field of `GET /dashboard/overview`.
+
+## Phase 5 file list (next)
+
+`supervisor-web/` (Vite + React + TS + Tailwind): `src/services/api.ts`, typed clients per domain, `layouts/AppShell`,
+shared components (DataTable, FilterBar, StatusBadge, PriorityBadge, StatCard, states), and pages: Login, Overview,
+WorkOrders, WorkOrderDetail, Approvals, Equipment (+detail), Technicians, Handovers (+detail), Analytics, Settings.

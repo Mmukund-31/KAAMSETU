@@ -37,6 +37,12 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | `scripts/gnani_smoke.py`, real round trip in en / hi / te / hinglish | passed |
 | 2026-11-10 | Phase 3: unit + API (extraction, rules, evidence, report flow), Gnani mocked | 334 passed |
 | 2026-11-10 | Phase 3: real Gnani integration incl. end-to-end report pipeline (Hinglish demo, Telugu with voice follow-up) | 14 passed |
+| 2026-11-10 | Phase 4: unit + API incl. lifecycle, permissions, checklists, handovers, dashboard, audit | 406 passed |
+| 2026-11-10 | Phase 4: live HTTP walk-through of the demo scenario on the dev server (real Prisma + Timbre, real PostgreSQL) | passed (13 checks) |
+
+Not yet covered by automated tests: two requests acting on the same work order at the same moment. The code takes a
+row lock (`SELECT ... FOR UPDATE OF work_orders`) for every action, but a multi-connection race test is still to be
+written (Phase 8).
 
 ### Extraction test set (Phase 3)
 

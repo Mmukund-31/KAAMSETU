@@ -80,7 +80,40 @@ Error details carry `gnani_request_id` when Gnani returned one. User-facing mess
 
 Errors specific to the report flow: `422 evidence_invalid` (token modified or not an evidence token), `422 evidence_expired` (older than 2 hours), `403 evidence_wrong_user`, `422 invalid_draft`, `422 empty_answer`, `422 too_many_utterances`.
 
-## Work orders (Phase 4)
+## Work orders (implemented in Phase 4)
+
+**Create:** `POST /work-orders` body `{evidence_token, draft, submission_key?, submit = true, speak = true}` ->
+201 `{work_order, response}`. The server:
+
+1. verifies the signed evidence (`403 evidence_wrong_user`, `422 evidence_invalid`);
+2. rejects replays (`409 duplicate_submission` with the existing `work_order_id`), by `submission_key` or by the
+   report itself;
+3. re-runs the full evaluation and requires a complete report (`422 report_incomplete`, with the missing fields and
+   equipment status). Unregistered or other-site equipment can never produce a work order;
+4. writes the order, the immutable evidence and the audit rows, then submits for review;
+5. returns the spoken acknowledgement (Timbre audio, or text if TTS fails).
+
+**Detail** (`GET /work-orders/{id}`) includes:
+
+- the evidence: original transcript, utterances, Prisma request id, validated fields;
+- assignments, checklists with per-step state, and the full audit history;
+- `allowed_actions` for the current user, each with `comment_required` and `blocked_reason`, such as
+  `checklist_incomplete`;
+- `can_assign`, and `task_announcement`, a localised spoken-style message for the assignee.
+
+**List filters:** `status` (repeatable), `priority` (repeatable), `equipment_id`, `assigned_to`, `reported_by`, `mine`,
+`overdue`, `safety_only`, `q` (description, equipment code or name, or `WO-1001`), `created_from`, `created_to`, and
+`sort` = `created_desc` / `created_asc` / `due_asc` / `priority` / `updated_desc`. Pagination is `page` and
+`page_size` (at most 100).
+
+**Scope:** technicians see orders they reported or are assigned. Supervisors see their site, and managers without a
+site see everything. Orders out of scope return 404.
+
+Lifecycle errors: `409 invalid_transition` (with `allowed` targets), `409 use_dedicated_action`, `403 transition_not_permitted`,
+`403 self_approval_not_allowed`, `409 checklist_incomplete`, `409 no_technician_assigned`, `422 comment_required`,
+`422 priority_reason_required`, `422 not_a_technician`, `422 technician_wrong_site`, `409 already_assigned`.
+
+The original planned contract follows.
 | Method | Path | Auth | Notes |
 |---|---|---|---|
 | POST | `/work-orders` | T | confirmed draft + `submission_key` -> work order (status `reported`); 422 unknown equipment; 409 duplicate |
@@ -107,13 +140,31 @@ Errors specific to the report flow: `422 evidence_invalid` (token modified or no
 |---|---|---|
 | GET | `/users?role=technician&site_id=` | S/M |
 
-## Checklists
+## Checklists (implemented in Phase 4)
 | Method | Path | Auth |
 |---|---|---|
-| GET | `/checklists/templates` | any |
-| POST / PATCH | `/checklists/templates[/{id}]` | S/M; new version, deactivate old |
-| POST | `/work-orders/{id}/checklists` | S or assigned T; auto-picks active template by equipment category |
-| PATCH | `/checklists/{id}/items/{item_id}` | assigned T; `{response, notes}` |
+| GET | `/checklists/templates?category&active_only` | any |
+| GET | `/checklists/templates/{id}` | any |
+| POST | `/checklists/templates` | S/M; publishes the next version and deactivates the previous one (supervisor-entered SOP steps only) |
+| POST | `/checklists/templates/{id}/deactivate` | S/M |
+| POST | `/work-orders/{id}/checklists` | S or assignee; `{template_id?}`, default is the active template for the equipment category; idempotent. Also attached automatically on assignment |
+| GET | `/checklists/{id}` | anyone who can see the work order |
+| PATCH | `/checklists/{id}/items/{item_id}` | assignee only, order `in_progress`; `{response: done / not_applicable / failed, notes}`. Notes are required unless done. Mandatory steps must be done or N/A before `complete` |
+
+Running checklists keep the template version they started with.
+
+## Handovers (implemented in Phase 4)
+
+- `POST /handovers` `{shift_identifier, notes, language?}` and `POST /handovers/voice` (multipart `shift_identifier`,
+  `audio`, `language?`; the Prisma transcript becomes `original_notes`).
+- `generated_summary` is assembled from records at the author's site:
+  - `completed`: moved to completion review or closed within `shift_hours`;
+  - `pending`, `blocked`, `awaiting_approval`;
+  - `equipment_attention`: open high or critical priority, safety concerns, and registered codes mentioned in the notes;
+  - from the notes: `next_shift_actions` (sentences with configured cue words) and `observations`.
+- `pending_actions` combines the note actions with blocked orders.
+- `GET /handovers`, `GET /handovers/{id}` (with history), and `POST /handovers/{id}/review` (S/M, not the author)
+  `{comment?, pending_actions?}`.
 
 ## Handovers
 | Method | Path | Auth |
