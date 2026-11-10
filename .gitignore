@@ -1,0 +1,40 @@
+# Secrets — never commit
+.env
+*.env
+.env.*
+!.env.example
+backend/.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+build/
+.expo/
+.expo-shared/
+*.tsbuildinfo
+npm-debug.log*
+
+# Audio / uploads / evaluation artefacts
+backend/uploads/
+evaluation/audio/generated/
+*.mp3
+*.wav
+*.m4a
+!evaluation/audio/samples/*.wav
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

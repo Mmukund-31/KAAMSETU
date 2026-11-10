@@ -1,0 +1,31 @@
+[project]
+name = "kaamsetu-backend"
+version = "0.1.0"
+description = "KAAMSETU voice-first field workforce platform - backend"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["app"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+# backend/alembic/ (migrations folder) would otherwise make ruff treat the alembic package as first-party.
+known-third-party = ["alembic"]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["app/tests"]
+asyncio_mode = "auto"
+markers = [
+  "integration: real Gnani API calls; needs GNANI_API_KEY and RUN_GNANI_INTEGRATION=1",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  # Starlette 1.x asks for httpx2 in its TestClient; httpx 0.28 still works and is what the app uses.
+  "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+]

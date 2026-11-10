@@ -1,0 +1,21 @@
+# Pinned 2026-11-10; verified installing and importing on Python 3.14 (Windows, Smart App Control on).
+# SQLAlchemy must be installed WITHOUT its Cython extensions on that machine - see README "Windows note".
+fastapi==0.162.2
+uvicorn[standard]==0.54.0
+pydantic==2.14.3
+pydantic-settings==2.16.2
+SQLAlchemy==2.1.8
+alembic==1.20.1
+# pg8000: pure-Python Postgres driver. Chosen over psycopg because Windows Smart App Control
+# blocks psycopg-binary's unsigned libpq DLL on the dev machine. Works identically in Docker.
+pg8000==1.31.6
+PyJWT==2.15.1
+argon2-cffi==25.1.0
+python-multipart==0.0.33
+httpx==0.28.1
+PyYAML==6.0.3
+
+# Tooling / tests
+pytest==9.2.0
+pytest-asyncio==1.4.1.post1
+ruff==0.17.4
