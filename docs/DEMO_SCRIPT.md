@@ -7,11 +7,11 @@ it. Every step uses the real backend, real Gnani Prisma and Timbre calls and rea
 This exact scenario is automated in `e2e/` (`node run.mjs demo`). The timings below are from that run, so the live
 demo can be paced on measured numbers rather than guesses.
 
-## Measured on the dev machine (2026-11-10, two runs)
+## Measured on the dev machine (2026-11-10, three runs)
 
 | Step | Measured | What it includes |
 |---|---|---|
-| Stop recording → preview on screen | 2.4–2.9 s | upload of the `.m4a`, Prisma STT, extraction, register match, priority, Timbre reply |
+| Stop recording → preview on screen | 2.4–3.0 s | upload of the `.m4a`, Prisma STT, extraction, register match, priority, Timbre reply |
 | Send → work-order number and spoken acknowledgement | 1.1–1.5 s | re-validation, database write, audit rows, Timbre |
 | Report visible in the supervisor's approval queue | 0.8–1.3 s in the runs | the queue polls every 15 s, so allow up to 15 s; "Refresh" on Overview is instant |
 | Task appears in the assignee's list | under 1 s after opening the tab | the list also refreshes every 30 s and on pull-down |

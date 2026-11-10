@@ -40,5 +40,17 @@ services:
       sh -c "alembic upgrade head &&
              uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
+  web:
+    # Supervisor console, built and served by nginx; /api is forwarded to the backend on the compose network.
+    build:
+      context: ./supervisor-web
+    container_name: kaamsetu-web
+    restart: unless-stopped
+    ports:
+      - "${KAAMSETU_WEB_HOST_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
 volumes:
   kaamsetu_pgdata:

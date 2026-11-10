@@ -33,6 +33,13 @@ backend's default `CORS_ORIGINS` already includes `http://localhost:8081`.
 Demo sign-in: `tech1@kaamsetu.demo` (Hinglish), `tech2@kaamsetu.demo` (Telugu), `tech3@kaamsetu.demo` (Hindi),
 password `Kaamsetu@2026` (synthetic seed accounts).
 
+## Installable Android build
+
+`eas build -p android --profile preview` (needs a free Expo account and `npm i -g eas-cli`) produces an APK for
+demo phones. Set `EXPO_PUBLIC_API_URL` in `eas.json` → `preview` to the laptop's LAN address first. That profile
+sets `KAAMSETU_ALLOW_HTTP=1`, so `app.config.js` allows plain HTTP to the LAN backend. Other builds keep Android's
+HTTPS-only default. See `docs/DEPLOYMENT.md`.
+
 ## Screens
 
 | Screen | What happens | API |

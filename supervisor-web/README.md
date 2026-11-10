@@ -27,6 +27,12 @@ to the backend's `CORS_ORIGINS`.
 
 Demo sign-in: `supervisor@kaamsetu.demo` or `manager@kaamsetu.demo`, password `Kaamsetu@2026` (synthetic seed data).
 
+## Docker
+
+`docker compose up -d --build` (repository root) builds this app with Node, serves it with nginx on
+http://localhost:8080 and forwards `/api` to the backend container, so the console and the API share one origin.
+See `Dockerfile` and `nginx.conf`, which set security headers, the SPA fallback and an 11 MB body limit.
+
 ## Pages
 
 | Route | Purpose | Data |

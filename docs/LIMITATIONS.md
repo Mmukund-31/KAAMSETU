@@ -62,6 +62,7 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
   exception.
 - No offline mode: reports need a connection at the moment of sending. Pull-based updates only, with no push
   notifications.
+- The Android preview build profile (`eas.json`) has not been built here, because EAS needs an Expo account.
 - The web build is a development preview. Its token is stored in `localStorage`, not a secure store.
 
 ## Security (Phase 8, see `docs/SECURITY.md`)

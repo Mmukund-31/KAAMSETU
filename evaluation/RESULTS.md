@@ -75,7 +75,7 @@ action 75%, priority 98%.
   "E-602", which is not in the register, so the app asked which machine was meant. In noise, Prisma once inserted a
   comma inside the Telugu word for sparks; burning smell still raised the safety concern.
 - Latency covers the whole `/voice/process-report` request in-process: upload, Prisma, extraction and database. With
-  Timbre speaking the reply, the app measured 2.4–2.9 s from stop to preview (`docs/DEMO_SCRIPT.md`).
+  Timbre speaking the reply, the app measured 2.4–3.0 s from stop to preview (`docs/DEMO_SCRIPT.md`).
 
 ## Where the rules fall short (v2 held-out misses)
 

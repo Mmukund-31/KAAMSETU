@@ -60,6 +60,9 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 8: supervisor-web after the React Router 7 / Vitest 5 upgrade | 49 passed; coverage 91.6% lines |
 | 2026-11-10 | Phase 8: technician-app | 39 passed; coverage 91.7% lines |
 | 2026-11-10 | Phase 8: `e2e/` full regression after all Phase 8 changes | 74 of 74 checks passed |
+| 2026-11-10 | Phase 9: `docker compose up -d --build` (db, backend, nginx console) as written in the README, seed, browser check through nginx | healthy; sign-in, 7 orders, detail, analytics, deep-link reload, no console errors |
+| 2026-11-10 | Phase 9 final: backend / supervisor-web / technician-app | 494 passed (15 skipped) / 49 passed / 39 passed; web build and web+Android+iOS bundles compiled |
+| 2026-11-10 | Phase 9 final: `e2e/` all scenarios from fresh builds | 74 of 74 checks passed; DB back to seed counts; logs clean |
 
 Concurrency is covered by the end-to-end harness (Phase 7, E8):
 - two supervisors approving one order at the same moment give 200 + 409, with exactly one approval audited;

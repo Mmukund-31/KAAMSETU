@@ -14,7 +14,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | done 2026-11-10 (29 app tests; 27-check live run with real Prisma + Timbre; M4A verified) |
 | 7 | 2 d | End-to-end verification of the demo scenario + error paths | done 2026-11-10 (`e2e/` 74/74 against real APIs; phone checklist pending, run by the user) |
 | 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | done 2026-11-10 (held-out 45% whole-report; coverage 96% / 92% / 92%; 0 vulns in shipped web deps; Docker verified) |
-| 9 | 2 d | README, screenshots, demo script, limitations, submission write-up | pending |
+| 9 | 2 d | README, screenshots, demo script, limitations, submission write-up | done 2026-11-10 (submission docs; console in Docker Compose; Android preview profile; final verification) |
 
 ## Phase 0 output
 
@@ -161,7 +161,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - `e2e/`: one-command harness (`node run.mjs`). It starts two backends, a Gnani fault proxy, the supervisor console
   and two technician web builds; drives three browser contexts with a fake microphone; cites PostgreSQL rows; cleans
   up to the starting counts; and scans the logs for secrets.
-- Demo scenario, 32 checks: Hinglish voice report → preview (2.4–2.9 s) → work order with spoken acknowledgement
+- Demo scenario, 32 checks: Hinglish voice report → preview (2.4–3.0 s) → work order with spoken acknowledgement
   (1.1–1.5 s) → visible in the supervisor queue (0.8–1.3 s) → approve and assign → Telugu announcement → 7 steps →
   complete → close. The audit trail is in exact order and the Prisma request id and verbatim transcript are in
   `work_order_evidence`.
@@ -202,6 +202,23 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - **Polish:** `PATCH /auth/me` (own language). The technician app saves a language switch on the account, so task
   announcements follow it. This closes a Phase 6 limitation.
 - **Regression:** `e2e/` 74 of 74 after all changes.
+
+## Phase 9 output
+
+- **Build completed:**
+  - The supervisor console is now in Docker Compose (`supervisor-web/Dockerfile`, nginx forwarding `/api`), so
+    `docker compose up -d --build` runs the database, API and console.
+  - Verified in a browser through nginx: sign-in, the 7 seed orders, detail, analytics, deep-link reload, no console
+    errors.
+- **Technician app:**
+  - `eas.json` with an Android `preview` APK profile.
+  - `app.config.js` allows plain HTTP only for that profile (checked with `expo config`). The EAS build itself
+    needs an Expo account and was not run.
+- **Docs:**
+  - `docs/SUBMISSION.md` (challenge write-up; the individual-contribution section is left for the submitter);
+  - `docs/DEPLOYMENT.md`, `docs/DEMO_VIDEO.md` (shot list);
+  - a rewritten `README.md` with screenshots (13 in `docs/screenshots/`).
+- **Final verification:** see `docs/TESTING.md` (2026-11-10, Phase 9 rows).
 
 ## Phase 9 inputs from Phase 8
 

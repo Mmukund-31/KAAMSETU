@@ -2,146 +2,128 @@
 
 **Speak the work. Structure the action. Keep operations moving.**
 
-KAAMSETU is a multilingual, voice-first field-workforce intelligence platform for
-factory maintenance. A technician reports a machine fault by speaking in Hindi,
-Telugu, English or Hinglish. Gnani **Prisma** transcribes the speech, a
-deterministic extraction engine turns the transcript into a validated work-order
-request, a supervisor approves and assigns it on a web dashboard, and Gnani
-**Timbre** speaks acknowledgements and follow-up questions back to the technician.
+KAAMSETU is a voice-first maintenance platform for factory floors.
+- A technician reports a machine fault by speaking in **Hindi, Telugu, English or Hinglish**.
+- Gnani **Prisma** transcribes it, and a deterministic engine turns it into a validated work order request.
+- A supervisor approves and assigns it in the web console.
+- The assigned technician hears the task in their own language and works the SOP checklist to completion.
+- Gnani **Timbre** speaks every reply, and every step is audited.
 
-Built for the Gnani AI Great Indian AI Internship Challenge.
+Built for the Gnani AI Great Indian AI Internship Challenge. Submission write-up: [docs/SUBMISSION.md](docs/SUBMISSION.md).
 
-> **Project status: Phase 8 complete (measured, reviewed, containerised; phone run pending).** Spoken or typed
-> reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
-> moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
-> close) with a full audit trail. Supervisors run that lifecycle in the web console, which has
-> a live dashboard, approvals, work-order detail with the original transcript, equipment,
-> technicians, handovers, analytics, the audit log and SOP templates. Technicians report by voice
-> in the Expo app, answer follow-up questions, confirm the preview, work their assigned tasks through
-> the SOP checklist and hand over the shift, hearing Timbre replies in their language. One command
-> (`e2e/`) runs the whole demo across both apps plus twelve failure cases against the real
-> backend, Prisma and Timbre (74/74 checks). The run on a physical phone is a manual checklist in
-> [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md). Measured accuracy on held-out synthetic speech is in
-> [evaluation/RESULTS.md](evaluation/RESULTS.md) (45% of new reports fully right on the first pass,
-> equipment 95%, most misses become a follow-up question); the security review is
-> [docs/SECURITY.md](docs/SECURITY.md). See [docs/ROADMAP.md](docs/ROADMAP.md) and
-> [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+> **Status: complete prototype (phases 0–9).** Measured, reviewed and containerised. The only link not yet
+> verified is a run on a physical phone; [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md) is the checklist for it.
+> All data is synthetic.
 
-## Why
+| Technician speaks | Spoken preview | Supervisor sees the evidence | Task in Telugu |
+|---|---|---|---|
+| ![Report](docs/screenshots/demo-01-report-home.png) | ![Preview](docs/screenshots/demo-02-preview.png) | ![Detail](docs/screenshots/demo-05-detail.png) | ![Task](docs/screenshots/demo-06-task-telugu.png) |
 
-Maintenance teams run on phone calls, WhatsApp and paper logs. Reports are
-incomplete, language-mixed and invisible to supervisors until too late. KAAMSETU
-keeps voice as the interface but makes the backend the source of truth: every
-report becomes a structured, traceable, approval-gated work order.
+| Approval queue | Closed, with full history | Overview | Timbre down: text, work continues |
+|---|---|---|---|
+| ![Approvals](docs/screenshots/demo-04-approvals.png) | ![Closed](docs/screenshots/demo-09-closed.png) | ![Overview](docs/screenshots/demo-10-overview.png) | ![TTS down](docs/screenshots/err-07-tts-down.png) |
 
-## Architecture at a glance
+## How it works
 
 ```
-Technician app (Expo) --audio/JSON-->  FastAPI /api/v1  --> PostgreSQL 16
-Supervisor web (Vite) --JSON-------->       |
-                                            +- gnani/prisma.py  --> api.vachana.ai  (Prisma v3.0 STT)
-                                            +- gnani/timbre.py  --> api.vachana.ai  (Timbre v2.5 TTS)
-                                            +- intelligence/    rule-based extraction, classification, priority
-                                            +- workflows/       orchestrator, lifecycle state machine, audit
+Technician (Expo app)                       Backend (FastAPI + PostgreSQL)                      Supervisor (web)
+ speak, up to 30 s (.m4a) ──────────────▶  Prisma v3.0 STT (site machine codes as key terms)
+                                           rules: machine code, symptoms, production, safety
+                                           register check · priority policy · missing fields
+ hear + see the preview ◀─── Timbre v2.5 ─ next step: confirm / ask one question / pick machine
+ confirm ───────────────────────────────▶  work order + immutable evidence + audit ─────────▶  approve / assign
+ hear the task, SOP checklist, complete ◀─ Timbre task announcement in the assignee's language  close
 ```
 
-- **Voice is the interface.** Prisma and Timbre are called only from the backend; API keys never reach a client.
-- **AI is the language layer.** Extraction is deterministic and configurable (no LLM); Gnani provides speech in and speech out.
-- **The backend is the source of truth.** Every state change is validated by a state machine and written to an audit log.
+- **Voice is the interface.** Prisma and Timbre are called only from the backend; the key never reaches a client.
+- **No LLM.** Extraction is rule-based and configurable (`backend/app/intelligence/config/*.yaml`). It cannot invent
+  a machine: unregistered codes never become work orders.
+- **The backend is the source of truth.** One state-machine table, role checks, a checklist gate, no
+  self-approval, row locks, and an append-only audit trail.
+- **It asks instead of guessing.** A missing field becomes one spoken question; a failed speech service degrades to
+  text.
 
-Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+## Gnani usage
 
-## Stack
+| | Prisma | Timbre |
+|---|---|---|
+| Model | `prisma-v3.0` (`POST /stt/v3`) | `timbre-v2.5` (`POST /api/v1/tts/inference`) |
+| Languages / voices | `en-IN`, `hi-IN`, `te-IN`; Hinglish as `en-IN` | Kaveri, Nalini, Suhana, Poorvi (Hinglish) |
+| Where | reports, follow-up answers, spoken handovers | previews, questions, acknowledgements, task announcements, completion |
 
-| Layer | Technology |
-|---|---|
-| Backend | Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic, PostgreSQL 16, PyJWT, argon2 |
-| Speech | Gnani Prisma v3.0 (STT), Gnani Timbre v2.5 (TTS) via REST (`httpx`) |
-| Supervisor web | React 18, TypeScript 5, Vite 6, Tailwind CSS 3, TanStack Query 5, React Router 7, Recharts 3, Vitest 5 |
-| Technician app | React Native 0.88, Expo SDK 58, TypeScript 6, expo-audio, expo-secure-store, React Navigation 7, TanStack Query 5, Jest + RNTL 14 |
-| Infra | Docker Compose (Postgres + backend) |
+Details, measured behaviour and failure mapping: [docs/GNANI_INTEGRATION.md](docs/GNANI_INTEGRATION.md).
 
-## Repository layout
+## Measured results
 
-```
-backend/          FastAPI application, Alembic migrations, tests
-supervisor-web/   Supervisor console (Vite + React), see supervisor-web/README.md
-technician-app/   Technician mobile app (Expo), see technician-app/README.md
-e2e/              End-to-end harness (both apps, real APIs, fault injection), see e2e/README.md
-evaluation/       Labelled multilingual sets, runner and measured results (evaluation/RESULTS.md)
-docs/             Architecture, DB design, API, Gnani integration, testing, demo script, roadmap
-docker-compose.yml
-```
+From [evaluation/RESULTS.md](evaluation/RESULTS.md). The speech is Timbre-generated, not human, so these are
+synthetic results:
 
-## Quick start
+- **Held-out v2** (20 new reports): **45%** of reports came out fully right on the first pass. Equipment 95%,
+  category 100%, safety 95%. Of the rest, most needed one follow-up answer and 2 of 20 gave a wrong preview.
+- **Held-out v1** (40 reports, before any tuning): 68% fully right from speech, 72% from typed text.
+- **Prisma:** word error rate about 0 for English, Hinglish and Telugu; 0.3 for Hindi, mostly English loanwords
+  written in Latin script.
+- **Timing:** the app measured 2.4–3.0 s from "stop" to a spoken preview. Median request latency is about 0.3 s.
+- **Tests:**
+  - backend: 494 tests, 95.9% line coverage, plus 15 real-API tests;
+  - supervisor web: 49 tests, 91.6%;
+  - technician app: 39 tests, 91.7%;
+  - end to end: **74 of 74** across both apps with real Gnani, including 12 failure cases ([e2e/README.md](e2e/README.md)).
 
-Prerequisites: Docker Desktop (running), Python 3.12+ (`py -3.14` on this machine), Node 20+.
+## Run it
 
-Ports: Postgres is published on host port **5433** and the API runs on **8001**,
-because a native PostgreSQL service and another project already use 5432 and 8000
-on the development machine. Override with `KAAMSETU_DB_HOST_PORT` / `KAAMSETU_API_HOST_PORT`.
+### A. Docker: database, API and supervisor console
 
 ```powershell
-# 1. Environment
-Copy-Item backend\.env.example backend\.env
-# edit backend\.env: paste GNANI_API_KEY (https://app.gnani.ai/voice) and set a random JWT_SECRET_KEY
+Copy-Item backend\.env.example backend\.env      # paste GNANI_API_KEY; set a random JWT_SECRET_KEY (32+ chars)
+docker compose up -d --build
+docker compose exec backend python scripts/seed.py
+# console http://localhost:8080   API http://localhost:8001/docs   (Postgres on host port 5433)
+```
 
-# 2. Database
+### B. Development setup
+
+Prerequisites: Docker Desktop, Python 3.12+ (`py -3.14` here), Node 20+.
+
+```powershell
 docker compose up -d db
 
-# 3. Backend
 cd backend
 py -3.14 -m venv .venv
-$env:DISABLE_SQLALCHEMY_CEXT="1"   # see Windows note below
+$env:DISABLE_SQLALCHEMY_CEXT="1"                                   # see the Windows note
 .\.venv\Scripts\python.exe -m pip install --no-binary sqlalchemy -r requirements.txt
 .\.venv\Scripts\python.exe -m alembic upgrade head
 .\.venv\Scripts\python.exe scripts\seed.py
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8001
-# API docs: http://localhost:8001/docs
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 
-# Tests (uses a separate kaamsetu_test database, created automatically; Gnani is mocked)
-.\.venv\Scripts\python.exe -m pytest
-
-# Real Gnani checks (spend a few credits)
-.\.venv\Scripts\python.exe scripts\gnani_smoke.py
-$env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integration
-
-# 4. Supervisor console (proxies /api to the backend on 8001)
-cd ..\supervisor-web ; npm install ; npm run dev     # http://localhost:5173
-npm test ; npm run build
-
-# 5. Technician app (Expo Go on a phone: set EXPO_PUBLIC_API_URL to your LAN IP and run the
-#    backend with --host 0.0.0.0, see technician-app/README.md)
-cd ..\technician-app ; npm install ; npx expo start
-npm test ; npm run typecheck
+cd ..\supervisor-web ; npm install ; npm run dev                   # http://localhost:5173 (proxies /api to 8001)
+cd ..\technician-app ; npm install ; npx expo start                # Expo Go; EXPO_PUBLIC_API_URL=http://<LAN-IP>:8001
 ```
 
-Or run DB + backend together: `docker compose up --build`.
+Ports 5433 (DB) and 8001 (API) are used because a native PostgreSQL and another project already take 5432 and 8000
+on the development machine; override them with `KAAMSETU_DB_HOST_PORT`, `KAAMSETU_API_HOST_PORT` and
+`KAAMSETU_WEB_HOST_PORT`. An installable Android preview build (`eas build -p android --profile preview`) is
+described in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-End-to-end check of everything (Windows with Microsoft Edge; spends a few Gnani credits; leaves the DB as it was):
+### C. Verify
 
 ```powershell
-cd e2e ; npm install ; node run.mjs
+cd backend ; .\.venv\Scripts\python.exe -m pytest                  # Gnani mocked; separate kaamsetu_test DB
+$env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integration   # real Gnani
+cd ..\supervisor-web ; npm test ; npm run build
+cd ..\technician-app ; npm test ; npm run typecheck
+cd ..\e2e ; npm install ; node run.mjs                             # both apps, real APIs, about 4 min
+cd ..\backend ; .\.venv\Scripts\python.exe ..\evaluation\run_eval.py --text-only   # accuracy, no Gnani calls
 ```
 
 ### Windows note (Smart App Control)
 
-On a Windows machine with Smart App Control on, unsigned native binaries inside a
-virtualenv are blocked. Three workarounds are built in:
+Unsigned native binaries in a virtualenv are blocked on the development machine. So SQLAlchemy runs without its C
+extensions (`--no-binary sqlalchemy`), the Postgres driver is pure-Python `pg8000`, and tools run as
+`python -m <tool>`. None of this applies inside Docker. The `e2e/` harness drives Microsoft Edge and uses Windows
+Media Foundation for its fake-microphone audio.
 
-- **SQLAlchemy** is installed without its Cython extensions (`--no-binary sqlalchemy`
-  with `DISABLE_SQLALCHEMY_CEXT=1`). It then runs in its pure-Python mode.
-- **The Postgres driver is `pg8000`**, which is pure Python, instead of `psycopg[binary]`,
-  whose bundled libpq DLL is blocked.
-- **Tools run as `python -m <tool>`** (`pytest`, `alembic`, `uvicorn`), because the
-  pip-generated `.exe` launchers are blocked. `python.exe` itself is signed.
-
-Inside Docker (Linux) none of this applies, but the same requirements file is used.
-
-## Demo accounts (seeded, synthetic)
-
-Created by `backend/scripts/seed.py` from Phase 1. All data is synthetic
-industrial demo data, clearly separate from any live operational records.
+## Demo accounts (synthetic seed)
 
 | Role | Email | Language |
 |---|---|---|
@@ -151,36 +133,44 @@ industrial demo data, clearly separate from any live operational records.
 | Supervisor | supervisor@kaamsetu.demo | English |
 | Manager | manager@kaamsetu.demo | English |
 
-Password for every demo account: `Kaamsetu@2026`. These are synthetic demo
-credentials only; change them before any shared deployment.
+The password for every demo account is `Kaamsetu@2026`. The seed also creates 12 machines (M-204 is the demo motor),
+three `[DEMO SOP]` checklists and seven closed historical orders. Do not run the seed on a shared deployment.
 
-The seed also creates 12 machines (including `M-204`, the demo motor), three
-`[DEMO SOP]` checklist templates and seven closed historical work orders marked
-`report_channel = seed`. There is no self-registration: managers create accounts of
-any role, and supervisors create technicians for their own site.
+## Stack and layout
+
+| Part | Technology |
+|---|---|
+| Backend | Python 3.12+, FastAPI, Pydantic 2, SQLAlchemy 2, Alembic, PostgreSQL 16, PyJWT, argon2 |
+| Speech | Gnani Prisma v3.0, Gnani Timbre v2.5 (REST via `httpx`) |
+| Supervisor web | React 18, TypeScript, Vite 6, Tailwind 3, TanStack Query 5, React Router 7, Recharts 3, Vitest 5 |
+| Technician app | React Native 0.88, Expo SDK 58, expo-audio, expo-secure-store, React Navigation 7, Jest + RNTL 14 |
+| Infra | Docker Compose (db, backend, nginx console), Playwright-driven `e2e/` harness |
+
+```
+backend/          FastAPI app, migrations, tests, seed        supervisor-web/  console (Vite + React) + nginx image
+technician-app/   Expo app                                     e2e/             end-to-end harness, fault proxy
+evaluation/       labelled sets, runner, measured results      docs/            everything below
+```
 
 ## Documentation
 
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-- [docs/DATABASE_DESIGN.md](docs/DATABASE_DESIGN.md)
-- [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)
-- [docs/GNANI_INTEGRATION.md](docs/GNANI_INTEGRATION.md)
-- [docs/TESTING.md](docs/TESTING.md)
-- [docs/SECURITY.md](docs/SECURITY.md)
-- [evaluation/RESULTS.md](evaluation/RESULTS.md) (measured accuracy)
-- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) (measured timings, recovery lines)
-- [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md) (real-phone checklist)
-- [e2e/README.md](e2e/README.md)
-- [docs/ROADMAP.md](docs/ROADMAP.md)
-- [docs/LIMITATIONS.md](docs/LIMITATIONS.md)
+| | |
+|---|---|
+| [SUBMISSION.md](docs/SUBMISSION.md) | challenge write-up |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | design and 34 recorded decisions |
+| [API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) · [DATABASE_DESIGN.md](docs/DATABASE_DESIGN.md) | contracts and schema |
+| [GNANI_INTEGRATION.md](docs/GNANI_INTEGRATION.md) | how Prisma and Timbre are called, and what was measured |
+| [evaluation/RESULTS.md](evaluation/RESULTS.md) · [TESTING.md](docs/TESTING.md) | accuracy and test results |
+| [SECURITY.md](docs/SECURITY.md) · [LIMITATIONS.md](docs/LIMITATIONS.md) | review and known limits |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Docker, Android build, what changes for a pilot |
+| [DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) · [DEMO_VIDEO.md](docs/DEMO_VIDEO.md) · [DEVICE_TEST.md](docs/DEVICE_TEST.md) | demo, video shot list, phone checklist |
+| [ROADMAP.md](docs/ROADMAP.md) | the nine phases and what each delivered |
 
 ## Honesty notes
 
-- KAAMSETU is a prototype. It is not an industrial safety certification system
-  and does not diagnose machines autonomously. Checklists show only
-  company-approved SOP content.
-- Speech recognition and synthesis are real Gnani API calls. If the API is
-  unavailable the app falls back to text and says so; it never fakes a result.
-- Measured results in `evaluation/RESULTS.md` are on Timbre-generated speech for a
-  synthetic labelled set, not human speech and not a pilot. The held-out figure (45% of
-  unseen reports fully right on the first pass) is reported as measured, before any tuning.
+- KAAMSETU is a prototype. It is not a safety system and does not diagnose machines. Priority comes from
+  configured rules, and checklists only show company-approved SOP text.
+- Speech is real Gnani API traffic. When a service fails, the app says so and falls back to text; it never fakes
+  a result.
+- The accuracy numbers come from synthetic speech. The headline held-out figure was measured before any tuning on
+  that set.
