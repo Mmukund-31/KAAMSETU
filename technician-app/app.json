@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "KAAMSETU",
+    "slug": "kaamsetu-technician",
+    "version": "0.6.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "demo.kaamsetu.technician",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "KAAMSETU records your spoken fault reports and answers so they can be turned into work orders."
+      }
+    },
+    "android": {
+      "package": "demo.kaamsetu.technician",
+      "permissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "KAAMSETU records your spoken fault reports and answers so they can be turned into work orders."
+        }
+      ],
+      "expo-secure-store"
+    ]
+  }
+}

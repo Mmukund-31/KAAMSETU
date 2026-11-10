@@ -71,6 +71,16 @@ def test_prisma_accepts_wav_with_streaming_header_and_ogg(prisma):
     assert ogg.transcript
 
 
+def test_prisma_accepts_aac_m4a_like_phone_recordings(prisma):
+    """AAC-LC in an MPEG-4 container (.m4a) is what expo-audio records on iOS and Android."""
+    result = prisma.transcribe((FIXTURES / "hinglish_m204.m4a").read_bytes(), "report.m4a", language="hinglish",
+                               keyterms=["M-204"])
+    print("\nPrisma m4a:", result.transcript, "| request_id:", result.request_id)
+    assert result.request_id
+    assert "M204" in compact(result.transcript)
+    assert re.search(r"production", result.transcript, re.I)
+
+
 def test_prisma_english(prisma):
     result = prisma.transcribe((FIXTURES / "english_h401.mp3").read_bytes(), "a.mp3", language="en")
     assert "H401" in compact(result.transcript)

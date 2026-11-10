@@ -133,3 +133,7 @@ the single source of truth for `services/state_machine.py`.
 | 23 | Vite dev proxy for `/api` | Same-origin requests in development, so no CORS configuration. `VITE_API_BASE_URL` covers split hosting. |
 | 24 | Polling, not websockets | The dashboard and queues refetch every 15 s through React Query, which is enough for the demo and adds no server push infrastructure. |
 | 25 | Web console limited to supervisors and managers | Technicians work in the mobile app. The console refuses their sign-in, and the API still enforces roles on every route. |
+| 26 | App records AAC in MP4 (.m4a), mono, 64 kbit/s | Accepted by Prisma (measured), small uploads, native on iOS and Android. Web recording uses the same container through MediaRecorder; WebM is refused. |
+| 27 | One idempotency key per report in the app | A double tap or a retry after a lost reply returns `409 duplicate_submission`, which the app shows as already sent. |
+| 28 | Language chosen on the device | It drives the Prisma language hint, the Timbre voice and the UI labels, and is asked once before anything else. |
+| 29 | Timbre audio written to the cache before playback on phones | Native players do not take `data:` URIs. The text is always on screen, so playback failure never blocks work. |

@@ -11,7 +11,8 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 ## Speech (Gnani)
 
 - All speech measurements so far use Timbre-generated speech, not human recordings. Real voices, accents, factory noise and phone microphones are untested until Phase 7 and Phase 8.
-- Prisma's handling of Expo `.m4a` recordings is not yet verified (Phase 6).
+- Prisma accepts AAC `.m4a` (verified in Phase 6 with a Media Foundation file and with recordings from the app's own
+  recorder in a browser). A recording from a physical phone microphone is still to be tried, in Phase 7.
 - Gnani allows one in-flight request per key. KAAMSETU serialises calls in one process. Several server processes or many simultaneous technicians would queue or get `503 speech_rate_limited`.
 - Per-request credit cost is unknown; the API does not report it.
 
@@ -42,6 +43,21 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 - Light theme only. The layout works at phone width, but the console is designed for desktop use.
 - Supervisors cannot record checklist steps; by design only the assigned technician can (mobile app).
 - The UI is English only. Technician-facing language support lives in the mobile app and the spoken responses.
+
+## Technician app (Phase 6)
+
+- Not yet run on a physical phone or an emulator. This machine has no Android system image or connected device. The
+  app was verified through its Jest suite, by compiling the Android and iOS Hermes bundles, and by driving its web
+  build against the real backend, Prisma and Timbre (with a fake microphone playing a Timbre-generated clip). Phase 7
+  runs it in Expo Go on a phone.
+- The language choice is stored on the device. Task announcements use the account's `preferred_language` on the
+  server, so a technician who switches language in the app still hears announcements in the account language until
+  an admin changes it.
+- Plain `http://` to a LAN IP works in Expo Go. A standalone release build needs HTTPS, or an Android cleartext
+  exception.
+- No offline mode: reports need a connection at the moment of sending. Pull-based updates only, with no push
+  notifications.
+- The web build is a development preview. Its token is stored in `localStorage`, not a secure store.
 
 ## Platform
 

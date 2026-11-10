@@ -11,13 +11,15 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 5 complete (backend plus supervisor console).** Spoken or typed
+> **Project status: Phase 6 complete (backend, supervisor console and technician app).** Spoken or typed
 > reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
 > moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
 > close) with a full audit trail. Supervisors run that lifecycle in the web console, which has
 > a live dashboard, approvals, work-order detail with the original transcript, equipment,
-> technicians, handovers, analytics, the audit log and SOP templates. The technician mobile
-> app is next (Phase 6). See [docs/ROADMAP.md](docs/ROADMAP.md) and
+> technicians, handovers, analytics, the audit log and SOP templates. Technicians report by voice
+> in the Expo app, answer follow-up questions, confirm the preview, work their assigned tasks through
+> the SOP checklist and hand over the shift, hearing Timbre replies in their language. End-to-end
+> verification on real devices is next (Phase 7). See [docs/ROADMAP.md](docs/ROADMAP.md) and
 > [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
@@ -51,7 +53,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 | Backend | Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic, PostgreSQL 16, PyJWT, argon2 |
 | Speech | Gnani Prisma v3.0 (STT), Gnani Timbre v2.5 (TTS) via REST (`httpx`) |
 | Supervisor web | React 18, TypeScript 5, Vite 6, Tailwind CSS 3, TanStack Query 5, React Router 6, Recharts 3, Vitest |
-| Technician app | React Native, Expo SDK 58, TypeScript, expo-audio, expo-secure-store |
+| Technician app | React Native 0.88, Expo SDK 58, TypeScript 6, expo-audio, expo-secure-store, React Navigation 7, TanStack Query 5, Jest + RNTL 14 |
 | Infra | Docker Compose (Postgres + backend) |
 
 ## Repository layout
@@ -59,7 +61,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ```
 backend/          FastAPI application, Alembic migrations, tests
 supervisor-web/   Supervisor console (Vite + React), see supervisor-web/README.md
-technician-app/   Technician mobile app (Expo)             - created in Phase 6
+technician-app/   Technician mobile app (Expo), see technician-app/README.md
 evaluation/       Labelled multilingual test set + runner  - created in Phase 8
 docs/             Architecture, DB design, API, Gnani integration, testing, demo script, roadmap
 docker-compose.yml
@@ -102,8 +104,10 @@ $env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integrat
 cd ..\supervisor-web ; npm install ; npm run dev     # http://localhost:5173
 npm test ; npm run build
 
-# 5. Technician app (Phase 6+)
+# 5. Technician app (Expo Go on a phone: set EXPO_PUBLIC_API_URL to your LAN IP and run the
+#    backend with --host 0.0.0.0, see technician-app/README.md)
 cd ..\technician-app ; npm install ; npx expo start
+npm test ; npm run typecheck
 ```
 
 Or run DB + backend together: `docker compose up --build`.

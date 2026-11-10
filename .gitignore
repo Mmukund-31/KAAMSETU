@@ -19,6 +19,7 @@ htmlcov/
 # Node
 node_modules/
 dist/
+dist-native/
 build/
 .expo/
 .expo-shared/

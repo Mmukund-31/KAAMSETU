@@ -50,7 +50,7 @@ def test_real_timbre_wav_with_placeholder_header():
 
 
 @pytest.mark.parametrize("name, fmt", [("hinglish_m204.mp3", "mp3"), ("hinglish_m204.ogg", "ogg"),
-                                       ("english_h401.mp3", "mp3")])
+                                       ("english_h401.mp3", "mp3"), ("hinglish_m204.m4a", "m4a")])
 def test_real_compressed_fixtures(name, fmt):
     info = validate_audio((FIXTURES / name).read_bytes(), fake_settings())
     assert info.format == fmt

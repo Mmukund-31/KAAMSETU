@@ -11,7 +11,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | done 2026-11-10 (334 tests + 14 real-API tests passing) |
 | 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | done 2026-11-10 (406 tests passing; live demo scenario verified) |
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | done 2026-11-10 (37 web tests; 31-check live UI run against the real backend) |
-| 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | pending |
+| 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | done 2026-11-10 (29 app tests; 27-check live run with real Prisma + Timbre; M4A verified) |
 | 7 | 2 d | End-to-end verification of the demo scenario + error paths | pending |
 | 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | pending |
 | 9 | 2 d | README, screenshots, demo script, limitations, submission write-up | pending |
@@ -125,6 +125,43 @@ next starts only on confirmation. "Done" means implemented **and** verified.
   - The trend chart smoothed daily counts. It now draws straight segments with daily dots.
   - The supervisor view had a block for the task announcement, but the API sends that text only to the assigned
     technician, so the block could never show. It was removed.
+
+## Phase 6 output
+
+- `technician-app/`: Expo SDK 58 (React Native 0.88, React 19.3, TypeScript 6), expo-audio, expo-secure-store,
+  React Navigation 7 (tabs plus a task stack), TanStack Query 5, Ionicons.
+- Flow: sign in (technicians only) → language (once) → Report (mic with a 30 s cap, or type) → Review (spoken reply,
+  transcript correction, registered-machine picker, follow-up by one tap, voice or text) → Preview (editable,
+  priority with explanation) → Send (one idempotency key per report; 409 duplicate shown as already sent) →
+  spoken acknowledgement.
+- My work: assigned tasks and my reports. Task: announcement shown and spoken, start, blocked or parts (reason), SOP
+  checklist (N/A or failed needs a note), complete blocked until the mandatory steps are done, spoken confirmation.
+- Handover: voice (Prisma transcript) or text, with the record-based summary.
+- Interface text in English, Hinglish, Hindi and Telugu, with key-parity and placeholder tests. Hindi and Telugu still
+  need native-speaker review.
+- Tests: 29 Jest + RNTL 14 tests covering strings, the API client, sign-in and roles, session restore and expiry,
+  recording and upload, mic denied, the 30 s auto-stop, busy speech service, follow-up by tap and by voice, unknown
+  machine, typed report and submit, duplicate, report incomplete, task list, start, checklist rules, blocked reason,
+  complete with voice, and handover.
+- Builds: web export and Android + iOS Hermes bundles compile.
+- **M4A settled:** Prisma accepts AAC in MP4. A Windows Media Foundation fixture `hinglish_m204.m4a` was added with a
+  format unit test and a gated real-Prisma test, which passed.
+- Live run (Edge, 390 px, fake microphone playing a Timbre clip, real backend, Prisma and Timbre): 27 of 27 checks
+  passed. The app's own recorder produced `audio/mp4;codecs=mp4a.40.2`. A recording cut off at
+  "production abhi." correctly triggered the production follow-up, which was answered by voice. The run covered two
+  work orders, the unknown-machine picker, an assigned task announced in voice and text, start, 7 checklist steps,
+  complete, a spoken handover, switching to Telugu, sign-out and zero console errors. Test records removed afterwards;
+  the dev DB is back to the seed.
+- Fixed during the run: emoji icons looked inconsistent on Windows (now Ionicons); the Telugu title was clipped (title
+  line height); the task screen showed the announcement only as audio (now also text).
+- No Gnani key, host or auth header in any client bundle (scanned).
+
+## Phase 7 inputs from Phase 6
+
+- Run in Expo Go on a real phone (`EXPO_PUBLIC_API_URL` = LAN IP, backend `--host 0.0.0.0`) and record with a real
+  microphone in a noisy room, in all four languages.
+- Walk the demo script across both apps: phone report → web approve and assign → phone checklist and complete → web
+  close.
 
 ## Phase 6 inputs from Phase 5
 

@@ -42,6 +42,11 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 5: supervisor-web Vitest + Testing Library, API mocked with backend-shaped fixtures | 37 passed |
 | 2026-11-10 | Phase 5: live UI run in headless Edge against the real backend and PostgreSQL (report, approve with override, assign, technician completes, close; every page; 390 px layout; console errors) | 31 of 31 checks passed |
 | 2026-11-10 | Phase 5: backend regression after the web work | 406 passed, 14 skipped (integration) |
+| 2026-11-10 | Phase 6: technician-app Jest (jest-expo) + React Native Testing Library 14, native modules faked | 29 passed |
+| 2026-11-10 | Phase 6: Expo web export and Android + iOS Hermes bundles | compiled |
+| 2026-11-10 | Phase 6: M4A (AAC/MP4) through real Prisma: Media Foundation files via `/voice/process-report`, plus new gated test `test_prisma_accepts_aac_m4a_like_phone_recordings` | passed |
+| 2026-11-10 | Phase 6: live run of the technician web build in headless Edge with a fake microphone, real backend, Prisma and Timbre | 27 of 27 checks passed |
+| 2026-11-10 | Phase 6: backend after adding the m4a fixture | 407 passed, 15 skipped (integration) |
 
 Not yet covered by automated tests: two requests acting on the same work order at the same moment. The code takes a
 row lock (`SELECT ... FOR UPDATE OF work_orders`) for every action, but a multi-connection race test is still to be
@@ -68,6 +73,17 @@ measured on synthetic data; they are not pilot results.
 Targets (aspirational, not guaranteed): at least 90 % required-field extraction accuracy on the
 labelled set; 100 % pass on permission and state-transition tests; zero work orders for
 invalid equipment IDs; real Prisma + Timbre demonstrated end to end.
+
+### Technician app (Phase 6)
+
+`technician-app/src/test/`: `setup.ts` replaces the native modules with fakes. The fake expo-audio recorder
+publishes its status like the real hook, so the 30 s auto-stop is testable; the player records what it played. The
+secure store, crypto and file system are faked too. `harness.tsx` swaps `fetch` for a route table with
+backend-shaped fixtures, and multipart bodies stay inspectable (`form.get("language")`).
+
+The live run used Chromium's fake capture device (`--use-file-for-fake-audio-capture`) playing a Timbre-generated
+WAV. It exercises the app's real recorder, upload, Prisma, extraction and Timbre playback. It does not measure
+accuracy on human speech or phone microphones; that is Phases 7 and 8.
 
 ### Supervisor web (Phase 5)
 
@@ -96,4 +112,7 @@ $env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integrat
 
 cd ..\supervisor-web
 npm test ; npm run typecheck ; npm run build
+
+cd ..\technician-app
+npm test ; npm run typecheck ; npm run export:native
 ```

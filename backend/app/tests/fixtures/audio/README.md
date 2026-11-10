@@ -10,3 +10,4 @@ integration tests (Prisma transcription).
 | `hinglish_m204.ogg` | Poorvi, hi-en | same sentence, Ogg Opus |
 | `hindi_m204_streaming_header.wav` | Nalini, hi-IN | "Machine M-204 mein vibration aa raha hai." 16 kHz PCM. RIFF sizes are the 0xFFFFFFFF streaming placeholder. |
 | `english_h401.mp3` | Kaveri, en-IN | "Machine H-401 has an oil leak near the pump. Production is still running." |
+| `hinglish_m204.m4a` | Poorvi, hi-en | same sentence as `hinglish_m204.mp3`, re-encoded to AAC-LC mono in an MPEG-4 container (`ftyp mp42`, `mp4a`) with Windows Media Foundation, i.e. the format phones record. Added in Phase 6. |

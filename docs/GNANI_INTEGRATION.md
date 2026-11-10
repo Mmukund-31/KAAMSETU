@@ -96,7 +96,7 @@ background noise and real phone microphones are measured in Phase 7 and Phase 8.
 | Auth header `X-API-Key-ID` on `api.vachana.ai` | Works for both products |
 | Prisma `POST /stt/v3` with `model=prisma-v3.0` | 200, body as documented; `request_id` is in the body only (no header) |
 | Timbre `POST /api/v1/tts/inference`, `timbre-v2.5` | 200, raw audio; `x-api-request-id` and `x-audio-container` headers |
-| Input formats accepted by Prisma | MP3, WAV, OGG (Opus) verified. M4A not yet verified (no ffmpeg or phone recording available); Phase 6 tests a real Expo recording |
+| Input formats accepted by Prisma | MP3, WAV, OGG (Opus) and **M4A (AAC-LC in MPEG-4)** verified. M4A verified in Phase 6 two ways: a file encoded by Windows Media Foundation (`ftyp mp42`, `mp4a`, now fixture `hinglish_m204.m4a` with a gated integration test), and recordings made by the app's own recorder in Edge (`audio/mp4;codecs=mp4a.40.2`, `ftyp isom`). Both transcribed correctly: Hinglish M-204 in 1.2 s and English H-401 in 0.5 s, end to end through `/voice/process-report` |
 | Timbre containers | mp3 (`audio/mpeg`), wav (`audio/wav`), ogg (`audio/ogg`) all work |
 | Timbre `speed` on v2.5 | Accepted (0.9 tested) |
 | Hinglish TTS | `language=hi-en` and `language=auto` with voice Poorvi both return 200. KAAMSETU uses `hi-en` |
@@ -161,7 +161,7 @@ is still unmeasured. Check the remaining balance at https://app.gnani.ai/voice a
 
 | # | Status |
 |---|---|
-| a | M4A from Expo: **open**, verified in Phase 6 with a real recording. If rejected, the app records WAV (Expo supports LINEARPCM on iOS) or the backend transcodes. |
+| a | M4A (AAC in MP4): **accepted**, measured in Phase 6 (see above). Not yet measured: an actual iPhone or Android recording over a real microphone. That is Phase 7 on a device, and the codec and container are the same. |
 | b | Hinglish TTS language: **settled** (`hi-en`; `auto` also works). |
 | c | `timbre-v3.0` parameters: not needed; v2.5 is used. |
 | d | Max upload size: **open** but low-risk. The app caps uploads at 10 MB and 30 s; 30 s of 128 kbps AAC is about 0.5 MB. |
