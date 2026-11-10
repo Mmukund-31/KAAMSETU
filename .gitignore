@@ -38,3 +38,6 @@ evaluation/audio/generated/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Small synthetic (Timbre-generated) audio fixtures used by tests
+!backend/app/tests/fixtures/audio/*

@@ -11,9 +11,10 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 1 complete (backend foundation).** The API runs with
-> PostgreSQL, migrations, JWT login and role-based access. Voice features start in
-> Phase 2. See [docs/ROADMAP.md](docs/ROADMAP.md) for what each phase delivers.
+> **Project status: Phase 2 complete (Gnani integration).** The API runs with
+> PostgreSQL, JWT login and role-based access, and transcribes and speaks through real
+> Gnani Prisma and Timbre calls (`/api/v1/voice/transcribe`, `/api/v1/voice/synthesize`).
+> Work-order extraction starts in Phase 3. See [docs/ROADMAP.md](docs/ROADMAP.md).
 
 ## Why
 
@@ -86,8 +87,12 @@ $env:DISABLE_SQLALCHEMY_CEXT="1"   # see Windows note below
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8001
 # API docs: http://localhost:8001/docs
 
-# Tests (uses a separate kaamsetu_test database, created automatically)
+# Tests (uses a separate kaamsetu_test database, created automatically; Gnani is mocked)
 .\.venv\Scripts\python.exe -m pytest
+
+# Real Gnani checks (spend a few credits)
+.\.venv\Scripts\python.exe scripts\gnani_smoke.py
+$env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integration
 
 # 4. Supervisor web (Phase 5+)
 cd ..\supervisor-web ; npm install ; npm run dev     # http://localhost:5173

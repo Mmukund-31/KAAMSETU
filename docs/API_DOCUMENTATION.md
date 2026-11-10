@@ -31,8 +31,31 @@ Roles: **T** technician, **S** supervisor, **M** manager (M includes S).
 ## Voice (Phase 2-3)
 | Method | Path | Auth | Notes |
 |---|---|---|---|
-| POST | `/voice/transcribe` | T/S/M | multipart `audio`, `language` -> `{transcript, detected_language, request_id, processing_time}` |
-| POST | `/voice/synthesize` | any | `{text, language, speed?}` -> audio/mpeg (or `?base64=true` -> `{audio_base64, mime}`) |
+| POST | `/voice/transcribe` | any role | multipart `audio` (file), `language` (`en`, `hi`, `te`, `hinglish`, `auto`; default: user's preferred language) -> `{transcript, language_requested, detected_language, model, gnani_request_id, processing_time_s, truncated, audio_format, audio_duration_s}` |
+| POST | `/voice/synthesize` | any role | JSON `{text (1-500 chars), language, speed? (0.85-1.15)}` -> `audio/mpeg` bytes with `X-Voice` and `X-Gnani-Request-ID` headers; `?as_base64=true` -> `{audio_base64, content_type, voice, language_code, model, gnani_request_id}` |
+
+**Implemented in Phase 2.** Both routes share a per-IP limit (`RATE_LIMIT_VOICE_PER_MINUTE`, default 30).
+
+Audio checks before anything is sent to Gnani:
+- `422 empty_audio`, `413 audio_too_large` (over `MAX_AUDIO_UPLOAD_MB`), `415 unsupported_audio_format`.
+- The format comes from the file's magic bytes; the filename and declared type are ignored.
+- `422 audio_too_short` (under 0.1 s) and `422 audio_too_long` (over 30 s), when the duration can be read.
+
+Equipment codes registered at the user's site are sent to Prisma as `keyterms`.
+
+Gnani failures are reported, never hidden:
+
+| Upstream | KAAMSETU response |
+|---|---|
+| Silence (empty transcript) | `422 no_speech_detected` |
+| 429 busy | `503 speech_rate_limited` with `Retry-After: 2` |
+| 401/403 key or scope | `502 speech_auth_failed` |
+| 402 credit | `502 speech_credit_exhausted` |
+| 400/422 rejected input | `422 speech_request_rejected` with `gnani_code` |
+| 5xx, timeout, network | `503 speech_unavailable` |
+| Key not set | `503 speech_not_configured` |
+
+Error details carry `gnani_request_id` when Gnani returned one. User-facing messages suggest text input as the fallback.
 | POST | `/voice/process-report` | T | multipart `audio`, `language` -> `ReportOutcome` (transcript, extracted, equipment_status, suggestions, missing_fields, follow_up_question, priority, next_action, response_text, response_audio_base64?, tts_available) |
 | POST | `/voice/process-text` | T | `{text, language}` -> same `ReportOutcome` (text fallback / after transcript edit) |
 | POST | `/voice/follow-up` | T | `{draft, answer_text?}` or multipart with `answer_audio` -> updated `ReportOutcome` |

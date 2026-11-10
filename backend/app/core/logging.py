@@ -68,8 +68,10 @@ def configure_logging(level: str = "INFO", secrets: tuple[str, ...] = ()) -> Non
     root.addHandler(handler)
     root.setLevel(level.upper())
 
-    # Uvicorn's own access log duplicates our request log.
+    # Uvicorn's own access log duplicates our request log; httpx logs every outbound URL at INFO.
     logging.getLogger("uvicorn.access").disabled = True
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
     for name in ("uvicorn", "uvicorn.error"):
         lg = logging.getLogger(name)
         lg.handlers.clear()

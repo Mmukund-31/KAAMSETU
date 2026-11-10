@@ -42,7 +42,8 @@ Phase 2 with real requests; findings are recorded in the "Measured" section.
 | Not provided | confidence scores, word-level timestamps |
 
 KAAMSETU usage: UI language -> `language_code` map `en -> en-IN`, `hi -> hi-IN`, `te -> te-IN`,
-`hinglish -> hi-IN,en-IN` (fallback `indic-auto`). Registered equipment codes are passed as
+`hinglish -> en-IN` (chosen from measurements below; configurable via `GNANI_PRISMA_HINGLISH_LANGUAGE`),
+`auto -> indic-auto`. Registered equipment codes are passed as
 `keyterms`; `topic="factory maintenance fault report"`. Streaming (`wss://api.vachana.ai/stt/v3/stream`)
 and batch (`/stt/v3/batch/jobs`) exist but are not needed for reports of 30 s or less.
 
@@ -83,6 +84,87 @@ mobile payloads; voice chosen per language from env (`GNANI_TIMBRE_VOICE_*`).
 - Audio is **not retained** by default (`AUDIO_RETENTION=none`). Transcript and extracted JSON are retained as evidence.
 - Logs record `request_id`, latency, status code; never transcript bodies at INFO level.
 
-## Measured (filled in Phase 2)
+## Measured (Phase 2, 2026-11-10, real requests)
 
-_Pending real smoke test._
+All inputs were Timbre-generated synthetic speech, not human recordings. Human speech,
+background noise and real phone microphones are measured in Phase 7 and Phase 8.
+
+### Contract confirmations
+
+| Check | Result |
+|---|---|
+| Auth header `X-API-Key-ID` on `api.vachana.ai` | Works for both products |
+| Prisma `POST /stt/v3` with `model=prisma-v3.0` | 200, body as documented; `request_id` is in the body only (no header) |
+| Timbre `POST /api/v1/tts/inference`, `timbre-v2.5` | 200, raw audio; `x-api-request-id` and `x-audio-container` headers |
+| Input formats accepted by Prisma | MP3, WAV, OGG (Opus) verified. M4A not yet verified (no ffmpeg or phone recording available); Phase 6 tests a real Expo recording |
+| Timbre containers | mp3 (`audio/mpeg`), wav (`audio/wav`), ogg (`audio/ogg`) all work |
+| Timbre `speed` on v2.5 | Accepted (0.9 tested) |
+| Hinglish TTS | `language=hi-en` and `language=auto` with voice Poorvi both return 200. KAAMSETU uses `hi-en` |
+| Invalid key | 401 `{"detail":{"error_code":"INVALID_API_KEY","message":"Unauthorized"}}` |
+| Unknown voice | 400 TTS envelope; the message lists supported voices, which include names not in the docs (e.g. Aarohi, Bhavini) |
+| Missing `language_code` | 422 `{"detail":[{"type":"missing","loc":["body","language_code"],...}]}` |
+| 0.05 s of silence | **200 with `transcript: ""` and no `model` field** (not an error). KAAMSETU returns `422 no_speech_detected` |
+| 3 parallel STT requests | 1 succeeded, 2 got **429 "Only 1 active request is allowed at a time"**. KAAMSETU serialises all Gnani calls (`GNANI_MAX_CONCURRENCY=1`) |
+
+### Timbre WAV header quirk
+
+Timbre's WAV output writes `0xFFFFFFFF` as the RIFF and data chunk sizes (a streaming
+placeholder). Python's `wave` module and `mutagen` both report about 134,217 seconds for a
+2.56-second clip. `app/services/audio.py` parses RIFF chunks itself and uses the real byte
+count. A fixture keeps this covered by tests.
+
+### Hinglish recognition strategy
+
+Same Timbre-generated Hinglish clip ("Motor ka pressure abnormal hai. Bearing mein vibration aa raha hai.
+Machine number M-204 hai. Production abhi chal raha hai."), different `language_code` values:
+
+| language_code | Transcript (abridged) | Equipment code |
+|---|---|---|
+| **`en-IN` (chosen)** | `motor ka pressure abnormal hai, bearing mein vibration aa raha hai, machine number M204 hai, production abhi chal raha hai.` | `M204` / `M-204` |
+| `hi-IN,en-IN` | `मोटर का प्रेशर एबनॉर्मल है, बेयरिंग में वाइब्रेशन ...` (all Devanagari) | `M-204` |
+| `hi-IN` | `मोटर का pressure abnormal है, bearing में vibration ...` (mixed script) | `M204` |
+| `hi-IN,en-IN` + `format=codemix` | `मोटर का pressure abnormal है, bearing में vibration ...` | `M-204` |
+| `indic-auto` | `... मशीन नंबर एम टू ज़ीरो फोर है ...` | spelled out in words |
+
+`en-IN` is used for Hinglish because it reproduces what the technician said in Latin script,
+the same form used for typed Hinglish. Explicit languages beat `indic-auto` for equipment codes:
+auto-detect spelled them as words ("H four hundred one"). The app therefore always sends the
+user's selected language and offers `auto` only as an explicit choice.
+
+### Equipment code forms seen in transcripts (input for Phase 3 extraction)
+
+| Language | Forms observed |
+|---|---|
+| English | `H-401`, `E-110` |
+| Hinglish (`en-IN`) | `M204`, `M-204` |
+| Hindi (`hi-IN`) | `M-204`, `M 204` (also from spoken "एम दो सौ चार") |
+| Telugu (`te-IN`) | `ఎం రెండు వందల నాలుగు`: spoken number words are **not** converted to digits |
+| `indic-auto` | `एम टू ज़ीरो फोर`, `H four hundred one` |
+
+Passing site equipment codes as `keyterms` did not change these results in the tests run so far.
+It is kept because it is documented to bias recognition, and Phase 8 will measure it on more clips.
+
+### Latency (single requests, Hyderabad dev machine to api.vachana.ai)
+
+| Operation | Observed |
+|---|---|
+| Prisma, clip of 2.5-7.5 s | 0.4-0.9 s end to end (server `processing_time` 0.13-0.51 s) |
+| Timbre, one or two sentences | 0.5-2.0 s |
+
+### Credit usage
+
+Phase 2 made roughly 60 billable requests in total: the probe, experiments, integration tests,
+smoke test and live check. The API returns no balance or cost information, so per-request cost
+is still unmeasured. Check the remaining balance at https://app.gnani.ai/voice and record it here.
+
+### Remaining uncertainties
+
+| # | Status |
+|---|---|
+| a | M4A from Expo: **open**, verified in Phase 6 with a real recording. If rejected, the app records WAV (Expo supports LINEARPCM on iOS) or the backend transcodes. |
+| b | Hinglish TTS language: **settled** (`hi-en`; `auto` also works). |
+| c | `timbre-v3.0` parameters: not needed; v2.5 is used. |
+| d | Max upload size: **open** but low-risk. The app caps uploads at 10 MB and 30 s; 30 s of 128 kbps AAC is about 0.5 MB. |
+| e | Credit cost per call: **open**; needs the dashboard balance. |
+| f | `indic-auto` vs explicit hints: **settled for equipment codes** (explicit wins); full accuracy comparison in Phase 8. |
+| g | Streaming header names: not needed. |

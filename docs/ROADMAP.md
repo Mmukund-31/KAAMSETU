@@ -7,7 +7,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 |---|---|---|---|
 | 0 | 1 d | Repository scaffold, env template, docs skeleton, Gnani API research | done 2026-11-10 |
 | 1 | 3 d | FastAPI + settings + Postgres + models + Alembic + JWT auth + RBAC + health + seed + tests | done 2026-11-10 (63 tests passing) |
-| 2 | 2 d | Prisma + Timbre httpx adapters, real smoke test, mocked unit tests, gated integration tests | pending |
+| 2 | 2 d | Prisma + Timbre httpx adapters, real smoke test, mocked unit tests, gated integration tests | done 2026-11-10 (156 tests + 12 real-API tests passing) |
 | 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | pending |
 | 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | pending |
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | pending |
@@ -37,9 +37,24 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - Live check: server started against the dev DB; login, `me`, register RBAC, 401/403, docs and CORS behaved as expected; a scan found no secret, password or token in the server log.
 - Environment findings: a native PostgreSQL 17 service holds port 5432, so the container uses 5433; another project serves on 8000, so KAAMSETU uses 8001.
 
-## Phase 2 file list (next)
+## Phase 2 output
 
-`app/gnani/{base,errors,prisma,timbre}.py`, `app/services/audio.py`, `app/schemas/voice.py`, `app/api/v1/voice.py`,
-`scripts/gnani_smoke.py`, `app/tests/unit/test_gnani_prisma.py`, `app/tests/unit/test_gnani_timbre.py`,
-`app/tests/unit/test_audio_validation.py`, `app/tests/integration/test_gnani_real.py`, and the "Measured" section of
-`docs/GNANI_INTEGRATION.md`.
+- `app/gnani/`: typed errors; shared httpx client with retry on 429/5xx/timeouts, one-in-flight guard, error-envelope mapping; Prisma and Timbre adapters.
+- `app/services/audio.py`: magic-byte format detection, duration (custom RIFF parser plus mutagen), size and length limits.
+- `app/services/speech.py`: language resolution, site equipment codes as keyterms, Gnani error to API error mapping.
+- Routes `POST /api/v1/voice/transcribe` and `POST /api/v1/voice/synthesize`.
+- `scripts/gnani_smoke.py`: real round trip in all four languages.
+- Tests: 93 new mocked tests (adapters, retries, error mapping, audio validation, voice API), 12 real-API integration tests.
+- Real measurements recorded in `docs/GNANI_INTEGRATION.md` "Measured"; Hinglish set to Prisma `en-IN`.
+
+## Phase 3 inputs from Phase 2
+
+- Equipment codes arrive as `M-204`, `M204`, `M 204`, and in Telugu as number words (`ఎం రెండు వందల నాలుగు`). The extractor must normalise all of them and validate against the registry.
+- Hinglish transcripts are Latin script; Hindi transcripts are Devanagari with some English words in Latin; Telugu transcripts are Telugu script with English loanwords transliterated (`వైబ్రేషన్`, `ప్రొడక్షన్`).
+
+## Phase 3 file list (next)
+
+`app/intelligence/{extraction,classification,prioritization,missing_fields,response,numbers}.py`,
+`app/intelligence/config/{taxonomy,priority_rules,required_fields,responses}.yaml`, `app/workflows/orchestrator.py`,
+`app/schemas/report.py`, additions to `app/api/v1/voice.py` (`process-report`, `process-text`, `follow-up`),
+and table-driven tests in `app/tests/unit/test_extraction.py` and siblings.

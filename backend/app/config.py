@@ -4,7 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import SecretStr, model_validator
+from pydantic import SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy.engine import make_url
 
@@ -41,6 +41,16 @@ class Settings(BaseSettings):
     gnani_timbre_voice_hinglish: str = "Poorvi"
     gnani_timeout_seconds: float = 30.0
     gnani_max_retries: int = 3
+    # Docs give "Only 1 active request is allowed at a time" as an example limit. Shared by Prisma and Timbre.
+    gnani_max_concurrency: int = 1
+    # Hinglish handling (settled empirically in Phase 2; see docs/GNANI_INTEGRATION.md "Measured").
+    # en-IN returns Latin-script Hinglish ("motor ka pressure abnormal hai"), matching how users type it.
+    gnani_prisma_hinglish_language: str = "en-IN"
+    gnani_prisma_hinglish_format: str | None = None
+    gnani_timbre_hinglish_language: str = "hi-en"
+    gnani_timbre_container: Literal["wav", "mp3", "ogg"] = "mp3"
+    gnani_timbre_sample_rate: int = 24000
+    gnani_timbre_mp3_bitrate: str = "64k"
 
     # Database
     database_url: str = "postgresql+pg8000://kaamsetu:kaamsetu@localhost:5432/kaamsetu"
@@ -58,6 +68,7 @@ class Settings(BaseSettings):
     allow_self_approval: bool = False
     rate_limit_enabled: bool = True
     rate_limit_login_per_minute: int = 10
+    rate_limit_voice_per_minute: int = 30
 
     @model_validator(mode="after")
     def _check_production_secrets(self) -> "Settings":
@@ -83,6 +94,11 @@ class Settings(BaseSettings):
     def max_request_bytes(self) -> int:
         # Audio limit plus 1 MB headroom for multipart overhead and form fields.
         return (self.max_audio_upload_mb + 1) * 1024 * 1024
+
+    @field_validator("gnani_prisma_hinglish_format", mode="before")
+    @classmethod
+    def _empty_format_is_none(cls, value: object) -> object:
+        return None if value in ("", None) else value
 
     @property
     def gnani_configured(self) -> bool:

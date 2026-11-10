@@ -14,6 +14,8 @@ argon2-cffi==25.1.0
 python-multipart==0.0.33
 httpx==0.28.1
 PyYAML==6.0.3
+# Pure-Python audio metadata (duration of MP3/OGG/M4A/FLAC uploads)
+mutagen==1.48.1
 
 # Tooling / tests
 pytest==9.2.0

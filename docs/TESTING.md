@@ -27,6 +27,18 @@ Integration test results are reported separately with request IDs and latencies.
 - Gnani adapters: success, 401, 402, 429 then success, 500, timeout, malformed body; TTS failure -> text fallback in `/voice/process-report`
 - Audio validation: oversize, wrong type, too long
 
+## Results so far
+
+| Date | Suite | Result |
+|---|---|---|
+| 2026-11-10 | Phase 1: unit + API (auth, RBAC, schema, migrations, seed) | 63 passed |
+| 2026-11-10 | Phase 2: unit + API, Gnani mocked | 156 passed |
+| 2026-11-10 | Phase 2: real Gnani integration (`-m integration`) | 12 passed |
+| 2026-11-10 | `scripts/gnani_smoke.py`, real round trip in en / hi / te / hinglish | passed |
+
+The integration tests and smoke script use Timbre-generated speech as input, so they prove
+the integration works. They do not measure accuracy on human speech.
+
 ## Evaluation dataset (Phase 8)
 
 ~40 synthetic reports, 10 per language, labelled with expected
