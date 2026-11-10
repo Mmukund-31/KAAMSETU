@@ -5,7 +5,7 @@ from app.core.deps import CurrentUser, DbSession, SupervisorOrManager
 from app.core.rate_limit import rate_limit
 from app.schemas.auth import LoginRequest, TokenResponse
 from app.schemas.common import ErrorResponse
-from app.schemas.user import UserCreate, UserOut
+from app.schemas.user import ProfileUpdate, UserCreate, UserOut
 from app.services import auth as auth_service
 from app.services import users as users_service
 
@@ -37,3 +37,10 @@ def register(body: UserCreate, db: DbSession, actor: SupervisorOrManager) -> Use
 @router.get("/me", response_model=UserOut, responses={401: {"model": ErrorResponse}})
 def me(user: CurrentUser) -> UserOut:
     return UserOut.model_validate(user)
+
+
+@router.patch("/me", response_model=UserOut, responses={401: {"model": ErrorResponse}, 422: {"model": ErrorResponse}})
+def update_me(body: ProfileUpdate, user: CurrentUser, db: DbSession) -> UserOut:
+    """Self-service profile change: only the preferred language (it sets the Prisma language and Timbre voice
+    for this user, including spoken task announcements). Role, site and email stay with supervisors/managers."""
+    return UserOut.model_validate(users_service.update_language(db, user, body.preferred_language))

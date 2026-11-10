@@ -50,7 +50,7 @@ export function renderWithProviders(ui: ReactElement, path = "/", routePath?: st
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, refetchInterval: false } } });
   return render(
     <QueryClientProvider client={client}>
-      <MemoryRouter initialEntries={[path]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <MemoryRouter initialEntries={[path]}>
         <AuthProvider>
           {routePath ? (
             <Routes>

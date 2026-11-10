@@ -19,6 +19,7 @@ Roles: **T** technician, **S** supervisor, **M** manager (M includes S).
 | POST | `/auth/register` | S/M | `{name,email,password,role,preferred_language,site_id?}` -> 201 user |
 | POST | `/auth/login` | none, rate limited | `{email,password}` -> `{access_token, token_type, expires_at, user}` |
 | GET | `/auth/me` | any | -> user (with site) |
+| PATCH | `/auth/me` | any | `{preferred_language}` -> user. Self-service, audited (`user.update`); the only field a user can change about themselves. It sets the Prisma language and Timbre voice used for them, including spoken task announcements (Phase 8) |
 
 **Implemented in Phase 1.** Notes:
 

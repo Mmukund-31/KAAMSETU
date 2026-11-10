@@ -1,0 +1,6 @@
+# Development and review tools (not needed to run the API). Install after requirements.txt:
+#   python -m pip install -r requirements-dev.txt
+coverage==7.13.1
+pytest-cov==7.0.0
+pip-audit==2.9.0
+bandit==1.9.4

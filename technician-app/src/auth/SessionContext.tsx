@@ -89,10 +89,22 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     setStatus("signed_in");
   }, []);
 
-  const setLanguage = useCallback(async (value: Language) => {
-    setLanguageState(value);
-    await storage.set(KEYS.language, value);
-  }, []);
+  const setLanguage = useCallback(
+    async (value: Language) => {
+      setLanguageState(value);
+      await storage.set(KEYS.language, value);
+      // Also on the account, so task announcements (made by the server) are spoken in this language.
+      // Best effort: the app works in the chosen language even if this call fails.
+      if (status === "signed_in" && user && user.preferred_language !== value) {
+        try {
+          setUser(await authApi.setLanguage(value));
+        } catch {
+          // keep the local choice; the server keeps the old preference until the next successful change
+        }
+      }
+    },
+    [status, user],
+  );
 
   // Before a language is chosen, show the account's preferred language (or English on the sign-in screen).
   const uiLanguage: Language = language ?? user?.preferred_language ?? "en";

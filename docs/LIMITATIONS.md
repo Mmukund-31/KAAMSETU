@@ -18,6 +18,10 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 
 ## Language understanding (rule-based, no LLM)
 
+- **Measured:** on 20 unseen synthetic reports (v2 held-out), 45% came out fully right on the first pass. 9 of 20
+  needed one follow-up answer, usually production status phrased in a new way, and 2 produced a wrong preview, one
+  with a missed safety concern (since fixed). See `evaluation/RESULTS.md`. That is synthetic speech; human speech
+  is unmeasured.
 - Extraction recognises the 26 symptoms in `config/taxonomy.yaml`. Faults outside it are not classified. After one follow-up question the technician's own description is accepted, and the category falls back to the equipment's category.
 - Negation handling is window-based. Unusual sentence structures can defeat it, for example double negatives or negation far from the word.
 - The 44-case extraction test set was written alongside the rules. Passing it is a regression check, not evidence of accuracy on new speech.
@@ -51,14 +55,21 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
   app is verified by its Jest suite, by compiling the Android and iOS Hermes bundles, and end to end (Phase 7) by
   driving its web build with the real recorder against the real backend, Prisma and Timbre, using a fake microphone
   that plays a Timbre-generated clip. The phone run is the manual checklist in `docs/DEVICE_TEST.md`.
-- The language choice is stored on the device. Task announcements use the account's `preferred_language` on the
-  server, so a technician who switches language in the app still hears announcements in the account language until
-  an admin changes it.
+- A language switch in the app is saved to the account (`PATCH /auth/me`, Phase 8), so announcements follow it. If
+  that call fails (offline), the app still works in the new language, and the account keeps the old one until the
+  next successful switch.
 - Plain `http://` to a LAN IP works in Expo Go. A standalone release build needs HTTPS, or an Android cleartext
   exception.
 - No offline mode: reports need a connection at the moment of sending. Pull-based updates only, with no push
   notifications.
 - The web build is a development preview. Its token is stored in `localStorage`, not a secure store.
+
+## Security (Phase 8, see `docs/SECURITY.md`)
+
+- Build-time advisories in the technician app's tooling (`glob`, `minimatch` via Expo CLI and Jest) are accepted:
+  they are not in the app bundle.
+- Chunked JSON bodies without `Content-Length` are not size-capped by the app; use a reverse proxy limit.
+- No token refresh or revocation list; TLS is left to the deployment's proxy.
 
 ## Platform
 

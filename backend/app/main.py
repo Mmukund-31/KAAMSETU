@@ -17,6 +17,13 @@ from app.core.logging import configure_logging
 
 logger = logging.getLogger("kaamsetu.http")
 
+SECURITY_HEADERS = {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "no-referrer",
+    "Cross-Origin-Resource-Policy": "same-site",
+}
+
 
 def create_app() -> FastAPI:
     settings = get_settings()
@@ -33,11 +40,16 @@ def create_app() -> FastAPI:
         )
         yield
 
+    production = settings.app_env == "production"
     app = FastAPI(
         title="KAAMSETU API",
         version=settings.app_version,
         description="Voice-first field workforce platform. Speech by Gnani Prisma and Timbre.",
         lifespan=lifespan,
+        # The interactive docs map every route; they are a development aid, not a production surface.
+        docs_url=None if production else "/docs",
+        redoc_url=None if production else "/redoc",
+        openapi_url=None if production else "/openapi.json",
     )
 
     app.add_middleware(
@@ -68,6 +80,11 @@ def create_app() -> FastAPI:
         start = time.perf_counter()
         response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
+        # JSON API: never sniff, never frame, never leak the URL, never cache personal data.
+        for header, value in SECURITY_HEADERS.items():
+            response.headers.setdefault(header, value)
+        if request.url.path.startswith(settings.api_prefix):
+            response.headers.setdefault("Cache-Control", "no-store")
         logger.info(
             "request",
             extra={

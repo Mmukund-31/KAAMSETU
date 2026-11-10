@@ -9,14 +9,15 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@tanstack/react-query": "5.107.1",
     "lucide-react": "0.577.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.30.6",
+    "react-router-dom": "7.18.5",
     "recharts": "3.10.1"
   },
   "devDependencies": {
@@ -27,12 +28,13 @@
     "@types/react": "18.3.31",
     "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "4.7.0",
+    "@vitest/coverage-v8": "5.1.0",
     "autoprefixer": "10.6.2",
     "jsdom": "26.1.0",
     "postcss": "8.5.32",
     "tailwindcss": "3.4.19",
     "typescript": "5.9.3",
     "vite": "6.4.6",
-    "vitest": "3.2.7"
+    "vitest": "5.1.0"
   }
 }

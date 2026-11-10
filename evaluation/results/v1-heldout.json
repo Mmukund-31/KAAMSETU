@@ -1,0 +1,5311 @@
+{
+ "dataset_version": 1,
+ "run_at": "2026-11-10T17:32:01+00:00",
+ "conditions": [
+  "text",
+  "clean",
+  "noisy",
+  "auto"
+ ],
+ "snr_db": 10.0,
+ "items": [
+  {
+   "id": "en-01",
+   "language": "en",
+   "text": "The hydraulic power unit H-401 is leaking oil from the main pump seal. Production is still running.",
+   "expected": {
+    "equipment": "H-401",
+    "symptoms": [
+     "oil_leak"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-1181-7ab5-8af9-591064e72c68",
+    "seconds": 5.44,
+    "sha256": "38756ec89610b4c510708f0cde6dc2af514d97561343f35c352cd689dbbb3570"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.11,
+     "transcript": "The hydraulic power unit H-401 is leaking oil from the main pump seal. Production is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.33,
+     "transcript": "The hydraulic power unit H-401 is leaking oil from the main pump seal, production is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-9111-7758-bb4f-3ca18717d240"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.51,
+     "transcript": "The hydraulic power unit H-401 is leaking oil from the main pump. Production is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.056,
+     "cer": 0.05,
+     "prisma_request_id": "01a1c67f-931a-7a8e-911e-6d28459fa5bc"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "The hydraulic power unit H-four hundred one is leaking oil from the main pump seal, production is still running.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-02",
+   "language": "en",
+   "text": "Conveyor drive motor M-305 is making a loud grinding noise and the belt keeps slipping. The line has slowed down.",
+   "expected": {
+    "equipment": "M-305",
+    "symptoms": [
+     "abnormal_noise",
+     "belt_issue"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-14ed-7e48-b1d1-59470e6a6b58",
+    "seconds": 6.78,
+    "sha256": "6cce9589b24e2445faa2795321455d55471d9a4a871834c7e07ab026ceb4fa9d"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.03,
+     "transcript": "Conveyor drive motor M-305 is making a loud grinding noise and the belt keeps slipping. The line has slowed down.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "abnormal_noise",
+       "belt_issue"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "Conveyor drive motor M-305 is making a loud grinding noise and the belt keeps slipping. The line has slowed down.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "abnormal_noise",
+       "belt_issue"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-9551-72f9-acbe-bca936bf1c03"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.6,
+     "transcript": "Conveyor drive motor M-305 is making a loud grinding noise, and the belt keeps slipping. The line has slowed down.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "abnormal_noise",
+       "belt_issue"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-97bd-7384-8e05-e61b6f01a046"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.29,
+     "transcript": "Conveyor drive motor M-three hundred five is making a loud grinding noise, and the belt keeps slipping. The line has slowed down.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-03",
+   "language": "en",
+   "text": "Main distribution panel E-110 tripped twice this morning and now the whole bay has no power. Production has stopped.",
+   "expected": {
+    "equipment": "E-110",
+    "symptoms": [
+     "tripping",
+     "power_failure"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-1931-70f4-a7bb-4cf7dc83df97",
+    "seconds": 5.48,
+    "sha256": "838e5ab618321c875b535e483b1f1bc5ff52f60586310c5e209581d255b038bd"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "Main distribution panel E-110 tripped twice this morning and now the whole bay has no power. Production has stopped.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "Main distribution panel E-110 tripped twice this morning, and now the whole bay has no power. Production has stopped.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-9a44-7087-94ae-44290b59961b"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.52,
+     "transcript": "Main distribution panel E-110 tripped twice this morning, and now the whole bay has no power. Production has stopped.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-9c47-72e4-9d1b-2f147989bdf3"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "Main distribution panel E-one hundred ten tripped twice this morning, and now the whole bay has no power. Production has stopped.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-04",
+   "language": "en",
+   "text": "I can see sparks coming from the starter of E-220 and there is a burning smell. We switched it off.",
+   "expected": {
+    "equipment": "E-220",
+    "symptoms": [
+     "sparking",
+     "burning_smell"
+    ],
+    "production_impact": "unknown",
+    "safety_concern": true,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "ask_follow_up"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-1d1f-7eec-a136-4b3eb58cbe27",
+    "seconds": 5.28,
+    "sha256": "abbcdb2245da787476614aac580a805074ca443f3698415b61382994c23bd683"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "I can see sparks coming from the starter of E-220 and there is a burning smell. We switched it off.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.29,
+     "transcript": "I can see sparks coming from the starter of E-220, and there is a burning smell. We switched it off.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-9eaa-7e6d-914d-3d9f90ad7284"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.5,
+     "transcript": "I can see sparks coming from the starter of E-220, and there is a burning smell. Please switch it off.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.095,
+     "cer": 0.091,
+     "prisma_request_id": "01a1c67f-a0a2-77b6-865d-73fa8733f54e"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "I can see sparks coming from the starter of E-two hundred twenty, and there is a burning smell. We switched it off.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-05",
+   "language": "en",
+   "text": "Boiler pressure transmitter I-601 is showing readings that jump up and down every few seconds. The boiler is still running.",
+   "expected": {
+    "equipment": "I-601",
+    "symptoms": [
+     "erratic_reading"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "instrumentation"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-2010-7d6f-8bc5-fb51028cdb32",
+    "seconds": 6.78,
+    "sha256": "735a542a2de37c0c69320a22034f4f4994af592941c4253f60aef425ad1e2c13"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "Boiler pressure transmitter I-601 is showing readings that jump up and down every few seconds. The boiler is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.33,
+     "transcript": "Boiler pressure transmitter I-601 is showing readings that jump up and down every few seconds. The boiler is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-a321-7383-8351-d699b147e3e8"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.6,
+     "transcript": "Boiler pressure transmitter I-601 is showing readings that jump up and down every few seconds. The boiler is still running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-a570-7104-a7b1-b59e2421ddbd"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "Boiler pressure transmitter I-six hundred one is showing readings that jump up and down every few seconds. The boiler is still running.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-06",
+   "language": "en",
+   "text": "Machine number 101, the lathe spindle, is overheating and the coolant is not helping. Output is reduced.",
+   "expected": {
+    "equipment": "M-101",
+    "symptoms": [
+     "overheating"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-23fc-7dc6-8f1e-42d391ca9d24",
+    "seconds": 5.78,
+    "sha256": "c0fd094f1b05982b11020f10d4e3bec873cecba61afe3e07a14ead76be7e2a00"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "Machine number 101, the lathe spindle, is overheating and the coolant is not helping. Output is reduced.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "101",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "Machine number 1-01, the lathe spindle is overheating and the coolant is not helping, output is reduced.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.118,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-a7f4-775c-a6b5-6d48ca7a9401"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.56,
+     "transcript": "Machine number 1-01, the lathe spindle is overheating and the coolant is not helping, output is reduced.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.118,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-aa1b-7938-9eac-f42b478f1039"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.25,
+     "transcript": "Machine number one zero one, the lathe spindle is overheating and the coolant is not helping, output is reduced.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-07",
+   "language": "en",
+   "text": "There is an air leak at the pneumatic clamp line P-501, you can hear hissing near clamp four. Production is running normally.",
+   "expected": {
+    "equipment": "P-501",
+    "symptoms": [
+     "air_leak"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "pneumatic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-270c-78e9-9b30-280a044c31a5",
+    "seconds": 6.56,
+    "sha256": "1796fb876f75f02efa85b18cb58b336ed7b532bf1a46ebbd6c86445ecbe9f727"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "There is an air leak at the pneumatic clamp line P-501, you can hear hissing near clamp four. Production is running normally.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.31,
+     "transcript": "There is an air leak at the pneumatic clamp line P-501, you can hear hissing near clamp four. Production is running normally.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-ac62-70df-87aa-abe9cd6070b4"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.61,
+     "transcript": "There is an air leak at the pneumatic clamp line P-501. You can hear hissing near clamp 4. Production is running normally.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.043,
+     "cer": 0.04,
+     "prisma_request_id": "01a1c67f-aeb7-7e73-ab96-3ea1aa957b6e"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.31,
+     "transcript": "There is an air leak at the pneumatic clamp line P-five hundred one. You can hear hissing near clamp four. Production is running normally.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-08",
+   "language": "en",
+   "text": "Packaging line L-701 keeps jamming at the sealing station. The line is stopped right now.",
+   "expected": {
+    "equipment": "L-701",
+    "symptoms": [
+     "jam_stuck"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "mechanical",
+     "production"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-2b0e-7723-9fea-b919f6fff571",
+    "seconds": 5.74,
+    "sha256": "c9b5e0b551d4c1a5c4f45377bc442aca916a30b92a6f16edf773b2c8aac6d84e"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "Packaging line L-701 keeps jamming at the sealing station. The line is stopped right now.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "Packaging line L-701 keeps jamming at the sealing station, the line is stopped right now.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-b160-744f-bb78-db53f2337658"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.53,
+     "transcript": "Packaging line L-701 keeps jamming at the sealing station, the line is stopped right now.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-b363-7595-aa89-eeee97b289fd"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.25,
+     "transcript": "Packaging line L-seven hundred one keeps jamming at the sealing station, the line is stopped right now.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-09",
+   "language": "en",
+   "text": "Machine M-999 is vibrating badly. Production is still on.",
+   "expected": {
+    "equipment": null,
+    "symptoms": [
+     "vibration"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "fix_equipment"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-2e95-72d3-a929-3bff77988904",
+    "seconds": 3.7,
+    "sha256": "ec8be6cfc13ef6ca812cffce23a920e3f1f331b2ed6380e09bd9d38ba625878a"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.03,
+     "transcript": "Machine M-999 is vibrating badly. Production is still on.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": "M-999",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "fix_equipment",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.22,
+     "transcript": "Machine M-909 is vibrating badly. Production is still on.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": "M-909",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "fix_equipment",
+      "priority": "medium"
+     },
+     "wer": 0.1,
+     "cer": 0.022,
+     "prisma_request_id": "01a1c67f-b588-732d-82ae-010c7d0f69d3"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.4,
+     "transcript": "Machine M-999 is vibrating badly. Production is still on.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": "M-999",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "fix_equipment",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-b70f-7c38-b445-1e219744e9c5"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.21,
+     "transcript": "Machine M-nine hundred ninety-nine is vibrating badly. Production is still on.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "en-10",
+   "language": "en",
+   "text": "Compressed air dryer P-502 is making a strange noise. There is no leak and no smoke. Production is running.",
+   "expected": {
+    "equipment": "P-502",
+    "symptoms": [
+     "abnormal_noise"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "pneumatic",
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Kaveri",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-3194-7189-add7-adb60621f786",
+    "seconds": 6.56,
+    "sha256": "8f5da20dcf546213816ec686ed7a994a729c8bd0d880276647118ae41684af49"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.04,
+     "transcript": "Compressed air dryer P-502 is making a strange noise. There is no leak and no smoke. Production is running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_noise"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "Compressed air dryer P-502 is making a strange noise. There is no leak and no smoke. Production is running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_noise"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-b8fb-7772-acb5-f93addb28033"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.6,
+     "transcript": "Compressed air dryer P-502 is making a strange noise. There is no leak and no smell. Production is running.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_noise"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.05,
+     "cer": 0.035,
+     "prisma_request_id": "01a1c67f-bb50-7d84-97ac-35e13bc5c4dc"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.29,
+     "transcript": "Compressed air dryer P-five hundred two is making a strange noise. There is no leak and no smoke. Production is running.",
+     "detected": "en-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hl-01",
+   "language": "hinglish",
+   "text": "Bhai H-402 injection moulding ke hydraulics mein pressure bahut kam aa raha hai, production dheema ho gaya hai.",
+   "expected": {
+    "equipment": "H-402",
+    "symptoms": [
+     "abnormal_pressure"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-34b1-7289-9c7b-9b09a63d7750",
+    "seconds": 6.96,
+    "sha256": "6a06f337605a2131a93469494d3ebf54dcd4fcf5802688eacd1f12ac4492fdca"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.03,
+     "transcript": "Bhai H-402 injection moulding ke hydraulics mein pressure bahut kam aa raha hai, production dheema ho gaya hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.33,
+     "transcript": "Bhai, H-402 injection molding ke hydraulics mein pressure bahut kam aa raha hai, production dheema ho gaya hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.053,
+     "cer": 0.011,
+     "prisma_request_id": "01a1c67f-bdd7-70c6-abe2-97f583aabf9e"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.57,
+     "transcript": "bhai, H-402 injection molding ke hydraulics mein pressure bahut kam aa raha hai, production dheema ho gaya hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.053,
+     "cer": 0.011,
+     "prisma_request_id": "01a1c67f-c019-7cc9-8f03-a5d5723626f1"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.31,
+     "transcript": "भाई, एच-फोर हंड्रेड टू इंजेक्शन मोल्डिंग के हाइड्रॉलिक्स में प्रेशर बहुत कम आ रहा है, प्रोडक्शन धीमा हो गया है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-02",
+   "language": "hinglish",
+   "text": "M-305 conveyor motor bahut garam ho gaya hai aur jalne ki smell aa rahi hai, humne line band kar di.",
+   "expected": {
+    "equipment": "M-305",
+    "symptoms": [
+     "overheating",
+     "burning_smell"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": true,
+    "category": [
+     "mechanical",
+     "electrical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-38e6-7d0e-a48c-c43c83b01bd4",
+    "seconds": 5.33,
+    "sha256": "ad7f67b9932dc256cd64962ce4451efc4cb579113c3cc2a961f8944ef6cae42e"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "M-305 conveyor motor bahut garam ho gaya hai aur jalne ki smell aa rahi hai, humne line band kar di.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "burning_smell",
+       "overheating"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": true,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "M-305 conveyor motor bahut garam ho gaya hai aur jalne ki smell aa rahi hai, humne line band kar di.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "burning_smell",
+       "overheating"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": true,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-c2ae-7160-8851-22fcd248358f"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.37,
+     "transcript": "M-305 conveyor motor bahut garam ho gaya hai aur jalne ki smell aa rahi hai, humne line band kar di.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "burning_smell",
+       "overheating"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": true,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-c41d-77d5-a58d-5f17bc47ebc6"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "एम-थ्री हंड्रेड-फाइव कन्वेयर मोटर बहुत गर्म हो गया है और जलने की स्मेल आ रही है, हमने लाइन बैन कर दी।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-03",
+   "language": "hinglish",
+   "text": "E-220 compressor starter baar baar trip ho raha hai, compressor chal hi nahi raha. Production ruka hua hai.",
+   "expected": {
+    "equipment": "E-220",
+    "symptoms": [
+     "tripping",
+     "not_starting"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-3bea-7950-a6fc-024ee71feb2f",
+    "seconds": 6.08,
+    "sha256": "bfd3a851125b5b0dc214cd6f5b04f633baae0a00d788331571ece45438e2154e"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "E-220 compressor starter baar baar trip ho raha hai, compressor chal hi nahi raha. Production ruka hua hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "E-220 compressor starter baar baar trip ho raha hai. Compressor chal hi nahi raha, production ruka hua hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-c679-799a-9aa4-d9f5b1ff9988"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.41,
+     "transcript": "E-220 compressor starter baar-baar trip ho raha hai, compressor chal hi nahi raha, production ruka hua hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-c80d-7ac6-bd51-1aa0295f8fc3"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.31,
+     "transcript": "ई-टू हंड्रेड ट्वेंटी कम्प्रेसर स्टार्टर बार बार ट्रिप हो रहा है। कम्प्रेसर चल ही नहीं रहा, प्रोडक्शन रुका हुआ है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-04",
+   "language": "hinglish",
+   "text": "Machine number 204 mein bearing se khat khat awaaz aa rahi hai, production abhi chal raha hai.",
+   "expected": {
+    "equipment": "M-204",
+    "symptoms": [
+     "bearing_issue",
+     "abnormal_noise"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-3f10-79d0-aefb-81cffb33652d",
+    "seconds": 5.57,
+    "sha256": "d40a36c328f88edc71c067e17183bb3366e543dfa858b43c1fa3f20fac254154"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "Machine number 204 mein bearing se khat khat awaaz aa rahi hai, production abhi chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "204",
+      "symptoms": [
+       "abnormal_noise",
+       "bearing_issue"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "machine number 204 mein bearing se khat khat awaaz aa rahi hai, production abhi chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "204",
+      "symptoms": [
+       "abnormal_noise",
+       "bearing_issue"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-ca79-7a36-ace5-b090c193e06a"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "machine number 204 mein bearing se khat khat awaaz aa rahi hai, production abhi chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "204",
+      "symptoms": [
+       "abnormal_noise",
+       "bearing_issue"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-cbe8-7098-ba3e-7b52dd8c5f73"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "मशीन नंबर टू ज़ीरो फ़ोर में बेयरिंग से खत-खत आवाज़ आ रही है, प्रोडक्शन अभी चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-05",
+   "language": "hinglish",
+   "text": "P-502 air dryer ke paas se hawa leak ho rahi hai, machine chal rahi hai lekin pressure gir raha hai.",
+   "expected": {
+    "equipment": "P-502",
+    "symptoms": [
+     "air_leak",
+     "abnormal_pressure"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "pneumatic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-42ab-7aaa-bc9c-af9fb61bd91c",
+    "seconds": 5.48,
+    "sha256": "afe8b511d8d1171bc0afc93136cc39862073149118f1b6d52c2c3a659b9a5c23"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "P-502 air dryer ke paas se hawa leak ho rahi hai, machine chal rahi hai lekin pressure gir raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_pressure",
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.34,
+     "transcript": "P-502 air dryer ke paas se hava leak ho rahi hai. Machine chal rahi hai, lekin pressure gir raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_pressure",
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.048,
+     "cer": 0.013,
+     "prisma_request_id": "01a1c67f-ce4a-787c-b250-b1f3effbfa09"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.37,
+     "transcript": "P-502 air dryer ke paas se hava leak ho rahi hai. Machine chal rahi hai, lekin pressure gir raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-502",
+      "heard": "P-502",
+      "symptoms": [
+       "abnormal_pressure",
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.048,
+     "cer": 0.013,
+     "prisma_request_id": "01a1c67f-cfe3-7337-aaef-ec48740c346e"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "पी-फाइव हंड्रेड टू एयर ड्रायर के पास से हवा लीक हो रही है। मशीन चल रही है, लेकिन प्रेशर गिर रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-06",
+   "language": "hinglish",
+   "text": "I-602 furnace ka temperature reading galat dikha raha hai, sensor kharab lagta hai. Production chal raha hai.",
+   "expected": {
+    "equipment": "I-602",
+    "symptoms": [
+     "erratic_reading",
+     "sensor_fault"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "instrumentation"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-45a0-71b2-8398-375e5507d07f",
+    "seconds": 6.24,
+    "sha256": "0909b1c32d3e297deb9c29890a3532aa2448964542f7dc7cf1a111c840408192"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "I-602 furnace ka temperature reading galat dikha raha hai, sensor kharab lagta hai. Production chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-602",
+      "heard": "I-602",
+      "symptoms": [
+       "erratic_reading",
+       "sensor_fault"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.51,
+     "transcript": "E-602 furnace ka temperature reading galat dikha raha hai, sensor kharab lagta hai, production chal raha hai.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": "E-602",
+      "symptoms": [
+       "erratic_reading",
+       "sensor_fault"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "fix_equipment",
+      "priority": "medium"
+     },
+     "wer": 0.056,
+     "cer": 0.011,
+     "prisma_request_id": "01a1c67f-d23b-754d-bdc3-47eaa731c21f"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.43,
+     "transcript": "E-602 furnace ka temperature reading galat dikha raha hai, sensor kharab lagta hai, production chal raha hai.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": "E-602",
+      "symptoms": [
+       "erratic_reading",
+       "sensor_fault"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "fix_equipment",
+      "priority": "medium"
+     },
+     "wer": 0.056,
+     "cer": 0.011,
+     "prisma_request_id": "01a1c67f-d4a2-7511-ad15-561b96a9d9ba"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "ई सिक्स हंड्रेड टू फर्न्स का टेम्परेचर रीडिंग गलत दिखा रहा है, सेंसर खराब लगता है, प्रोडक्शन चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-07",
+   "language": "hinglish",
+   "text": "L-701 packing line pe product ki sealing kharab aa rahi hai, quality issue hai, line slow chal rahi hai.",
+   "expected": {
+    "equipment": "L-701",
+    "symptoms": [
+     "quality_defect"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "production"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-48e7-7a64-807b-551803118861",
+    "seconds": 7.13,
+    "sha256": "8945315d356d1a73301b18f08db4dfbbda2fea00f3c42881e89502b6a321ef8f"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "L-701 packing line pe product ki sealing kharab aa rahi hai, quality issue hai, line slow chal rahi hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "quality_defect"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "L-701 packing line pe product ki sealing kharab aa rahi hai, quality issue hai, line slow chal rahi hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "quality_defect"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-d762-7c52-a311-c22a8dbf0c45"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.51,
+     "transcript": "L-701 packing line pe product ki sealing kharab aa rahi hai, quality issue hai, line slow chal rahi hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "quality_defect"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-d911-77cd-8088-b8409ef30efa"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "एल सेवन हंड्रेड वन पैकिंग लाइन पे प्रोडक्ट की सीलिंग खराब आ रही है, क्वालिटी इश्यू है, लाइन स्लो चल रही है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-08",
+   "language": "hinglish",
+   "text": "M-101 lathe start hi nahi ho raha, button dabane pe kuch nahi hota.",
+   "expected": {
+    "equipment": "M-101",
+    "symptoms": [
+     "not_starting"
+    ],
+    "production_impact": "unknown",
+    "safety_concern": false,
+    "category": [
+     "electrical",
+     "mechanical"
+    ],
+    "next_action": "ask_follow_up"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-4bfe-7e73-9d08-0afa1b367c90",
+    "seconds": 4.0,
+    "sha256": "d73a2fd932b4a9a60925d5cbfc81c219aeb050e1c8df581dfe5d8eb6c57e4c93"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "M-101 lathe start hi nahi ho raha, button dabane pe kuch nahi hota.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": false,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "M-101",
+      "symptoms": [],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "low"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.24,
+     "transcript": "M-101 late start hi nahi ho raha, button dabane pe kuch nahi hota.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": false,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "M-101",
+      "symptoms": [],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "low"
+     },
+     "wer": 0.071,
+     "cer": 0.019,
+     "prisma_request_id": "01a1c67f-dbc4-7696-89df-2f10eaa16c0a"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.57,
+     "transcript": "M-101 lathe start hi nahi ho raha, button dabane pe kuch nahi hota.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": false,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "M-101",
+      "symptoms": [],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "low"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-dcf6-72ad-889c-cfeb926e9ec9"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "एम-वन हंड्रेड वन लेथ स्टार्ट हाई नहीं हो रहा, बटन दबाने पे कुछ नहीं होता।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-09",
+   "language": "hinglish",
+   "text": "H-401 power unit ke neeche oil hi oil hai, leak ho raha hai, lekin koi dhuan ya aag nahi hai. Production chal raha hai.",
+   "expected": {
+    "equipment": "H-401",
+    "symptoms": [
+     "oil_leak"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-4f57-7936-88aa-986467488962",
+    "seconds": 7.84,
+    "sha256": "6d444c1256192b72cdf2e26fbc92cfafde63f2604c25b421602ce8ef98487938"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "H-401 power unit ke neeche oil hi oil hai, leak ho raha hai, lekin koi dhuan ya aag nahi hai. Production chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 0,
+     "fp": 1,
+     "fn": 1,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.33,
+     "transcript": "H-401 power unit ke neeche oil hi oil hai, leak ho raha hai lekin koi dhuan ya aag nahi hai, production chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 0,
+     "fp": 1,
+     "fn": 1,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-dfe1-7968-9965-a91b2f91774d"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.46,
+     "transcript": "H-401 power unit ke neeche oil hi oil hai, leak ho raha hai lekin koi dhuan ya aag nahi hai, production chal raha hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 0,
+     "fp": 1,
+     "fn": 1,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-e1b9-7c81-8102-d0334fdf72db"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "एच-फोर हंड्रेड वन पावर यूनिट के नीचे ऑयल ही ऑयल है, लीक हो रहा है, लेकिन कोई धुआँ या आग नहीं है। प्रोडक्शन चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hl-10",
+   "language": "hinglish",
+   "text": "Line 2 ki press motor mein vibration hai.",
+   "expected": {
+    "equipment": null,
+    "symptoms": [
+     "vibration"
+    ],
+    "production_impact": "unknown",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "ask_follow_up"
+   },
+   "audio": {
+    "voice": "Poorvi",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-53f8-7a5f-a91f-4765f4b0c0a9",
+    "seconds": 2.61,
+    "sha256": "8a10c80f47e54af1baba02bd1dbf89811d696edca036bdb302d5aacdac573ed8"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "Line 2 ki press motor mein vibration hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.2,
+     "transcript": "Line 2 ki press motor mein vibration hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-e44d-76c5-9660-40266d02f916"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "Line 2 ki press motor mein vibration hai.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c67f-e540-75b9-8d5c-7f28886e8a1b"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.18,
+     "transcript": "लाइन टू की प्रेस मोटर में वाइब्रेशन है।",
+     "detected": "hi-IN",
+     "detection_ok": false
+    }
+   }
+  },
+  {
+   "id": "hi-01",
+   "language": "hi",
+   "text": "मशीन एम दो सौ चार में बहुत ज़्यादा कंपन हो रहा है, उत्पादन चल रहा है।",
+   "expected": {
+    "equipment": "M-204",
+    "symptoms": [
+     "vibration"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-55bd-71be-9cc9-85b38e2475d9",
+    "seconds": 4.0,
+    "sha256": "e3e220693ac2a1e042e5c8e603bda1ba08d30a87e933f570474bafbb0d3ba124"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "मशीन एम दो सौ चार में बहुत ज़्यादा कंपन हो रहा है, उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.25,
+     "transcript": "मशीन M-204 में बहुत ज्यादा कंपन हो रहा है, उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.312,
+     "cer": 0.192,
+     "prisma_request_id": "01a1c67f-e6c1-727f-93f6-84d0d1d25098"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "मशीन M-204 में बहुत ज्यादा कंपन हो रहा है, उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.312,
+     "cer": 0.192,
+     "prisma_request_id": "01a1c67f-e80a-7560-9840-07c75f18f611"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "मशीन एम दो सौ चार में बहुत ज्यादा कंपन हो रहा है, उत्पादन चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-02",
+   "language": "hi",
+   "text": "एच चार सौ एक हाइड्रोलिक यूनिट से तेल रिस रहा है, उत्पादन रुक गया है।",
+   "expected": {
+    "equipment": "H-401",
+    "symptoms": [
+     "oil_leak"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-580c-7497-9a37-b9759c4f7c25",
+    "seconds": 4.8,
+    "sha256": "b4bee76b3e137f06096be291e5c96d82ba9adea91cfd6187a3d393f7d0b83fa5"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "एच चार सौ एक हाइड्रोलिक यूनिट से तेल रिस रहा है, उत्पादन रुक गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "H-401 hydraulic unit से तेल रिस रहा है, उत्पादन रुक गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.4,
+     "cer": 0.462,
+     "prisma_request_id": "01a1c67f-ea4d-7ad5-b5ec-b0da6f6399cb"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "H-401 hydraulic unit से तेल रिस रहा है, उत्पादन रुक गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.4,
+     "cer": 0.462,
+     "prisma_request_id": "01a1c67f-eb8a-74ca-889b-6cb9918c6759"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.21,
+     "transcript": "एच-चार सौ एक हाइड्रोलिक यूनिट से तेल रिस रहा है, उत्पादन रुक गया है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-03",
+   "language": "hi",
+   "text": "ई एक सौ दस पैनल में चिंगारी निकल रही है और धुआँ भी है, हमने बिजली बंद कर दी है।",
+   "expected": {
+    "equipment": "E-110",
+    "symptoms": [
+     "sparking",
+     "smoke"
+    ],
+    "production_impact": "unknown",
+    "safety_concern": true,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "ask_follow_up"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-5a96-718c-b2b8-10bca908ecd6",
+    "seconds": 5.57,
+    "sha256": "2e6b01d554fb39544124da06c1708a2198f15304e57d12c0522271ba83df2fe4"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ई एक सौ दस पैनल में चिंगारी निकल रही है और धुआँ भी है, हमने बिजली बंद कर दी है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "smoke",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "E-110 पैनल में चिंगारी निकल रही है और धुआँ भी है। हमने बिजली बंद कर दी है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "smoke",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.2,
+     "cer": 0.121,
+     "prisma_request_id": "01a1c67f-ed5a-7833-b8d8-e3cbf91fce95"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.37,
+     "transcript": "E-110 panel में चिंगारी निकल रही है और धुआँ भी है। हमने बिजली बंद कर दी है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "smoke",
+       "sparking"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.25,
+     "cer": 0.19,
+     "prisma_request_id": "01a1c67f-eec5-7269-b1d7-3706e2178c6d"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "ई-एक सौ दस पैनल में चिंगारी निकल रही है और धुआँ भी है। हमने बिजली बंद कर दी है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-04",
+   "language": "hi",
+   "text": "पी पाँच सौ एक क्लैंप लाइन में हवा का रिसाव है, काम धीमा हो गया है।",
+   "expected": {
+    "equipment": "P-501",
+    "symptoms": [
+     "air_leak"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "pneumatic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-5d1a-7410-bc5e-b51e9db26ff1",
+    "seconds": 3.7,
+    "sha256": "34a3c80c2757e8e5bf4c48cc3543474d4000e73d85e619d1be278474002efbb1"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "पी पाँच सौ एक क्लैंप लाइन में हवा का रिसाव है, काम धीमा हो गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.25,
+     "transcript": "P-501 lamp line में हवा का रिसाव है, काम धीमा हो गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.375,
+     "cer": 0.408,
+     "prisma_request_id": "01a1c67f-f101-72cb-b0b9-6d1028e89e59"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "P-501 lamp line में हवा का रिसाव है, काम धीमा हो गया है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.375,
+     "cer": 0.408,
+     "prisma_request_id": "01a1c67f-f244-7054-8504-9b326d85a2f1"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "पी-पांच सौ एक लैम्प लाइन में हवा का रिसाव है, काम धीमा हो गया है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-05",
+   "language": "hi",
+   "text": "कन्वेयर मोटर एम तीन सौ पाँच बहुत गरम हो रही है, उत्पादन अभी चल रहा है।",
+   "expected": {
+    "equipment": "M-305",
+    "symptoms": [
+     "overheating"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-5f43-75ef-9675-af541b7d49e7",
+    "seconds": 4.64,
+    "sha256": "193791d6ce9e5ea0e0c90a7d53581cc7049a348b824cfc4877213dedc20ab70d"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "कन्वेयर मोटर एम तीन सौ पाँच बहुत गरम हो रही है, उत्पादन अभी चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.24,
+     "transcript": "कनवेयर मोटर M-305 बहुत गरम हो रही है, उत्पादन अभी चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.312,
+     "cer": 0.226,
+     "prisma_request_id": "01a1c67f-f434-7619-8d73-9879e4561fec"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.34,
+     "transcript": "कन्वियर मोटर M-305 बहुत गरम हो रही है, उत्पादन अभी चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.312,
+     "cer": 0.226,
+     "prisma_request_id": "01a1c67f-f57b-71ad-a88b-706f798e83d4"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.24,
+     "transcript": "कनवेयर मोटर एम-तीन सौ पांच बहुत गरम हो रही है, उत्पादन अभी चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-06",
+   "language": "hi",
+   "text": "आई छह सौ एक का प्रेशर मीटर गलत रीडिंग दिखा रहा है, बॉयलर चल रहा है।",
+   "expected": {
+    "equipment": "I-601",
+    "symptoms": [
+     "erratic_reading"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "instrumentation"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-62d1-77cf-a3c3-7e4ccd627ee7",
+    "seconds": 4.87,
+    "sha256": "a58e82a4ba17428c540e01fd5fc70a7c15c4fdfc04c695781b0aa4bf3c9a3292"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.03,
+     "transcript": "आई छह सौ एक का प्रेशर मीटर गलत रीडिंग दिखा रहा है, बॉयलर चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "I-601 का pressure meter गलत reading दिखा रहा है, boiler चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.5,
+     "cer": 0.66,
+     "prisma_request_id": "01a1c67f-f77f-7347-b6a3-7c3d65234c70"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.35,
+     "transcript": "I-601 का प्रेशर मीटर गलत रीडिंग दिखा रहा है, बॉयलर चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.25,
+     "cer": 0.16,
+     "prisma_request_id": "01a1c67f-f8d3-76db-bcbf-e6845199ec63"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "आई-छह सौ एक का प्रेशर मीटर गलत रीडिंग दिखा रहा है, बॉयलर चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-07",
+   "language": "hi",
+   "text": "मशीन नंबर एक सौ एक की बेल्ट ढीली हो गई है और फिसल रही है, उत्पादन धीमा है।",
+   "expected": {
+    "equipment": "M-101",
+    "symptoms": [
+     "belt_issue"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-6617-730c-9bd6-b557b2efb611",
+    "seconds": 4.74,
+    "sha256": "8db98b7142e06047c67fbe1dee344ac62194f9dc78bf93a5ac23bf3c6f862aef"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "मशीन नंबर एक सौ एक की बेल्ट ढीली हो गई है और फिसल रही है, उत्पादन धीमा है।",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": false,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "other",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "मशीन नंबर 101 की belt ढीली हो गई है और फिसल रही है, उत्पादन धीमा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "101",
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.222,
+     "cer": 0.2,
+     "prisma_request_id": "01a1c67f-fac8-7366-8250-3acc906fc2d2"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "मशीन नंबर 101 की belt ढीली हो गई है और फिसल रही है, उत्पादन धीमा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 0,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "M-101",
+      "heard": "101",
+      "symptoms": [],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.222,
+     "cer": 0.2,
+     "prisma_request_id": "01a1c67f-fc2e-7152-8982-e656e3019c46"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "मशीन नंबर एक सौ एक की बेल्ट ढीली हो गई है और फिसल रही है, उत्पादन धीमा है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-08",
+   "language": "hi",
+   "text": "ई दो सौ बीस स्टार्टर बार बार ट्रिप हो रहा है, कंप्रेसर बंद पड़ा है, उत्पादन रुका हुआ है।",
+   "expected": {
+    "equipment": "E-220",
+    "symptoms": [
+     "tripping"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-68b7-7953-b0df-eb298d32b716",
+    "seconds": 5.28,
+    "sha256": "3e988dbc1935bbcfa66ff231c8e227a2d5f2d0c66e3299f92976aada46907f6c"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ई दो सौ बीस स्टार्टर बार बार ट्रिप हो रहा है, कंप्रेसर बंद पड़ा है, उत्पादन रुका हुआ है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "E-220 starter बार बार trip हो रहा है, compressor बंद पड़ा है, उत्पादन रुका हुआ है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.368,
+     "cer": 0.463,
+     "prisma_request_id": "01a1c67f-fe56-7007-8afd-8c92b05a709f"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "E-220 starter बार बार trip हो रहा है, compressor बंद पड़ा है, उत्पादन रुका हुआ है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.368,
+     "cer": 0.463,
+     "prisma_request_id": "01a1c67f-ffb7-7fe4-ba48-7da5c7e514c4"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "ई-दो सौ बीस स्टार्टर बार बार ट्रिप हो रहा है, कम्प्रेसर बंद पड़ा है, उत्पादन रुका हुआ है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-09",
+   "language": "hi",
+   "text": "एल सात सौ एक पैकिंग लाइन में डिब्बे अटक रहे हैं, लाइन बंद है।",
+   "expected": {
+    "equipment": "L-701",
+    "symptoms": [
+     "jam_stuck"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "mechanical",
+     "production"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-6c0c-77cf-a4dc-e549307ab0e1",
+    "seconds": 4.0,
+    "sha256": "dca90834797882183aff545960e08f322ff27b0297102b8e9b969dcefba9b7be"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "एल सात सौ एक पैकिंग लाइन में डिब्बे अटक रहे हैं, लाइन बंद है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "L-701 पैकिंग लाइन में डिब्बे अटक रहे हैं, लाइन बंद है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.286,
+     "cer": 0.196,
+     "prisma_request_id": "01a1c680-01f8-753f-8e48-331305eacabf"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.29,
+     "transcript": "L-701 पैकिंग लाइन में डिब्बे अटक रहे हैं, लाइन बंद है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.286,
+     "cer": 0.196,
+     "prisma_request_id": "01a1c680-0311-7a1c-938a-c62fc3aa77f7"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.21,
+     "transcript": "एल सात सौ एक पैकिंग लाइन में डिब्बे अटक रहे हैं, लाइन बंद है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "hi-10",
+   "language": "hi",
+   "text": "एच चार सौ दो में प्रेशर कम है लेकिन कोई रिसाव नहीं है, उत्पादन चल रहा है।",
+   "expected": {
+    "equipment": "H-402",
+    "symptoms": [
+     "abnormal_pressure"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Nalini",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-6e17-7df8-809c-2580d54cb2fc",
+    "seconds": 4.44,
+    "sha256": "37b7b34806d36f1c49738e069cb06b93ba89c7c221d9ebf5eb5da6107f46e1fe"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "एच चार सौ दो में प्रेशर कम है लेकिन कोई रिसाव नहीं है, उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.24,
+     "transcript": "H-402 में pressure कम है, लेकिन कोई रिसाव नहीं है। उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.294,
+     "cer": 0.309,
+     "prisma_request_id": "01a1c680-04dc-7309-bd8e-cf571ab9471d"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "H-402 में प्रेशर कम है, लेकिन कोई रिसाव नहीं है, उत्पादन चल रहा है।",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.235,
+     "cer": 0.164,
+     "prisma_request_id": "01a1c680-0612-7c39-9848-233bfddc8c8a"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.23,
+     "transcript": "एच-चार सौ दो में प्रेशर कम है, लेकिन कोई रिसाव नहीं है। उत्पादन चल रहा है।",
+     "detected": "hi-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-01",
+   "language": "te",
+   "text": "ఎం రెండు వందల నాలుగు మోటార్ బేరింగ్ లో వైబ్రేషన్ వస్తోంది, ప్రొడక్షన్ నడుస్తోంది.",
+   "expected": {
+    "equipment": "M-204",
+    "symptoms": [
+     "bearing_vibration"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-7167-7aff-9acd-a9d9cff11994",
+    "seconds": 5.28,
+    "sha256": "452b8796bbbdfb4ce21d29fa9201ad3d4e81bb8aeecb62388b4d49657642cbc7"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ఎం రెండు వందల నాలుగు మోటార్ బేరింగ్ లో వైబ్రేషన్ వస్తోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "bearing_vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "ఎం రెండు వందల నాలుగు మోటార్ బేరింగ్ లో వైబ్రేషన్ వస్తోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "bearing_vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-0807-7df1-9a9a-8cf90d3094df"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.39,
+     "transcript": "ఎం రెండు వందల నాలుగు మోటార్ బేరింగ్ లో వైబ్రేషన్ వస్తోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-204",
+      "heard": "M-204",
+      "symptoms": [
+       "bearing_vibration"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-0981-7636-af48-1933fd92e12b"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "ఎం రెండు వందల నాలుగు మోటార్ బేరింగ్ లో వైబ్రేషన్ వస్తోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-02",
+   "language": "te",
+   "text": "హెచ్ నాలుగు వందల ఒకటి నుండి ఆయిల్ లీక్ అవుతోంది, ప్రొడక్షన్ ఆగిపోయింది.",
+   "expected": {
+    "equipment": "H-401",
+    "symptoms": [
+     "oil_leak"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-7410-7c32-b6be-e038f8201257",
+    "seconds": 5.22,
+    "sha256": "07cab99514a5b6210c1c4f0ca8597c352237c756e0d5363cb5bf1477fd8e808b"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "హెచ్ నాలుగు వందల ఒకటి నుండి ఆయిల్ లీక్ అవుతోంది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "హెచ్ నాలుగు వందల ఒకటి నుండి ఆయిల్ లీక్ అవుతోంది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-0bdf-77c5-b8f5-f8ccf890a894"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.36,
+     "transcript": "హెచ్ నాలుగు వందల ఒకటి నుండి ఆయిల్ లీక్ అవుతోంది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-401",
+      "heard": "H-401",
+      "symptoms": [
+       "oil_leak"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-0d3c-7e0b-91b7-6f4b25ac5982"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.26,
+     "transcript": "హెచ్ నాలుగు వందల ఒకటి నుండి ఆయిల్ లీక్ అవుతోంది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-03",
+   "language": "te",
+   "text": "ఈ నూట పది ప్యానెల్ పదే పదే ట్రిప్ అవుతోంది, కరెంట్ పోయింది, ప్రొడక్షన్ ఆగిపోయింది.",
+   "expected": {
+    "equipment": "E-110",
+    "symptoms": [
+     "tripping",
+     "power_failure"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-7680-72f4-9728-61746d63f058",
+    "seconds": 5.33,
+    "sha256": "24290c7fc36c4e72e20fd27891eb1d3568902a076b3a19684854b57b3a37685e"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ఈ నూట పది ప్యానెల్ పదే పదే ట్రిప్ అవుతోంది, కరెంట్ పోయింది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "power_failure",
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "ఈ నూట పది ప్యానెల్ పదే పదే ట్రిప్ అవుతోంది, కరెంట్ పోయింది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "power_failure",
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-0f65-75db-b8b1-ea92d6895a1c"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.44,
+     "transcript": "ఈ నూట పది ప్యానెల్ పదే పదే ట్రిప్ అవుతోంది, కరెంట్ పోయింది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 2,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "E-110",
+      "heard": "E-110",
+      "symptoms": [
+       "power_failure",
+       "tripping"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "confirm_preview",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-10f9-7e81-93ec-b37ade755b1e"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.31,
+     "transcript": "ఈ నూట పది ప్యానెల్ పదే పదే ట్రిప్ అవుతోంది, కరెంట్ పోయింది, ప్రొడక్షన్ ఆగిపోయింది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-04",
+   "language": "te",
+   "text": "కన్వేయర్ మోటార్ ఎం మూడు వందల ఐదు చాలా వేడిగా ఉంది, ప్రొడక్షన్ నెమ్మదిగా నడుస్తోంది.",
+   "expected": {
+    "equipment": "M-305",
+    "symptoms": [
+     "overheating"
+    ],
+    "production_impact": "degraded",
+    "safety_concern": false,
+    "category": [
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-795d-7205-8153-ff3609be0f07",
+    "seconds": 5.44,
+    "sha256": "8b5034e51b3d1111068515462997bcc78af196b20cd24421fadf103d8c5e8679"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "కన్వేయర్ మోటార్ ఎం మూడు వందల ఐదు చాలా వేడిగా ఉంది, ప్రొడక్షన్ నెమ్మదిగా నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.29,
+     "transcript": "కన్వేయర్ మోటార్ ఎం మూడు వందల ఐదు చాలా వేడిగా ఉంది, ప్రొడక్షన్ నెమ్మదిగా నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-13a0-7c76-94c0-6fb1cfd0ddf0"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.39,
+     "transcript": "కన్వేయర్ మోటార్ ఎం మూడు వందల ఐదు చాలా వేడిగా ఉంది, ప్రొడక్షన్ నెమ్మదిగా నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "M-305",
+      "heard": "M-305",
+      "symptoms": [
+       "overheating"
+      ],
+      "production_impact": "degraded",
+      "safety_concern": false,
+      "category": "mechanical",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-1527-7145-949a-84d524e79962"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "కన్వేయర్ మోటార్ ఎం మూడు వందల ఐదు చాలా వేడిగా ఉంది, ప్రొడక్షన్ నెమ్మదిగా నడుస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-05",
+   "language": "te",
+   "text": "పి ఐదు వందల ఒకటి క్లాంప్ లైన్ లో గాలి లీక్ అవుతోంది, ప్రొడక్షన్ నడుస్తోంది.",
+   "expected": {
+    "equipment": "P-501",
+    "symptoms": [
+     "air_leak"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "pneumatic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-7c1b-79a1-955b-9e2811c5a983",
+    "seconds": 5.04,
+    "sha256": "356aec852e59fd8c98a9c43fbc1c5363c795f33d63264bb5c0b53efa487d3735"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "పి ఐదు వందల ఒకటి క్లాంప్ లైన్ లో గాలి లీక్ అవుతోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "పి ఐదు వందల ఒకటి క్లాంప్ లైన్ లో గాలి లీక్ అవుతోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-1776-780a-a09c-1dd614e21bc8"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.37,
+     "transcript": "పి ఐదు వందల ఒకటి క్లాంప్ లైన్ లో గాలి లీక్ అవుతోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "P-501",
+      "heard": "P-501",
+      "symptoms": [
+       "air_leak"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "pneumatic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-18eb-7599-a6d1-4f7c52e76a93"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "పి ఐదు వందల ఒకటి క్లాంప్ లైన్ లో గాలి లీక్ అవుతోంది, ప్రొడక్షన్ నడుస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-06",
+   "language": "te",
+   "text": "ఐ ఆరు వందల ఒకటి ప్రెషర్ ట్రాన్స్మిటర్ రీడింగ్ తప్పుగా చూపిస్తోంది, బాయిలర్ నడుస్తోంది.",
+   "expected": {
+    "equipment": "I-601",
+    "symptoms": [
+     "erratic_reading"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "instrumentation"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-7f21-749e-8cf7-1150b3c3c6f4",
+    "seconds": 5.33,
+    "sha256": "f5e907133731fe8e3af7b9def87c2d10a097072824ce335af92571e578582b63"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ఐ ఆరు వందల ఒకటి ప్రెషర్ ట్రాన్స్మిటర్ రీడింగ్ తప్పుగా చూపిస్తోంది, బాయిలర్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "ఐ ఆరు వందల ఒకటి ప్రెషర్ ట్రాన్స్మిటర్ రీడింగ్ తప్పుగా చూపిస్తోంది, బాయిలర్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-1b2e-7bd4-9034-9eebf9a9ea52"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.42,
+     "transcript": "ఐ ఆరు వందల ఒకటి ప్రెషర్ ట్రాన్స్‌మిటర్ రీడింగ్ తప్పుగా చూపిస్తోంది, బాయిలర్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": false,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "I-601",
+      "heard": "I-601",
+      "symptoms": [
+       "erratic_reading"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": false,
+      "category": "instrumentation",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.091,
+     "cer": 0.014,
+     "prisma_request_id": "01a1c680-1ccf-7973-a69e-0bb8418ed9c3"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "ఐ-ఆరు వందల ఒకటి ప్రెషర్ ట్రాన్స్మిటర్ రీడింగ్ తప్పుగా చూపిస్తోంది. బాయిలర్ నడుస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-07",
+   "language": "te",
+   "text": "ఈ రెండు వందల ఇరవై స్టార్టర్ దగ్గర నిప్పు రవ్వలు వస్తున్నాయి, కాలిన వాసన వస్తోంది.",
+   "expected": {
+    "equipment": "E-220",
+    "symptoms": [
+     "sparking",
+     "burning_smell"
+    ],
+    "production_impact": "unknown",
+    "safety_concern": true,
+    "category": [
+     "electrical"
+    ],
+    "next_action": "ask_follow_up"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-8317-7f4c-b70e-47a7042632f3",
+    "seconds": 5.44,
+    "sha256": "5bcc862f2a0beab3abb8dfbbd159afe3b26c806c5dba21c3aee490ee6258a494"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ఈ రెండు వందల ఇరవై స్టార్టర్ దగ్గర నిప్పు రవ్వలు వస్తున్నాయి, కాలిన వాసన వస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "ఈ రెండు వందల ఇరవై స్టార్టర్ దగ్గర నిప్పు రవ్వలు వస్తున్నాయి, కాలిన వాసన వస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-1f3f-73a1-9b33-745e905b7c92"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.38,
+     "transcript": "ఈ రెండు వందల ఇరవై స్టార్టర్ దగ్గర నిప్పు, రవ్వలు వస్తున్నాయి, కాలిన వాసన వస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": false,
+      "symptoms_lenient": false,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 1,
+     "predicted": {
+      "equipment": "E-220",
+      "heard": "E-220",
+      "symptoms": [
+       "burning_smell"
+      ],
+      "production_impact": "unknown",
+      "safety_concern": true,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "critical"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-20bd-70eb-806a-ed0c3efc6ede"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "ఈ రెండు వందల ఇరవై స్టార్టర్ దగ్గర నిప్పు రవ్వలు వస్తున్నాయి, కాలిన వాసన వస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-08",
+   "language": "te",
+   "text": "ఎల్ ఏడు వందల ఒకటి ప్యాకింగ్ లైన్ లో డబ్బాలు ఇరుక్కుపోతున్నాయి, లైన్ ఆగిపోయింది.",
+   "expected": {
+    "equipment": "L-701",
+    "symptoms": [
+     "jam_stuck"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "mechanical",
+     "production"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 0.92,
+    "gnani_request_id": "01a1c67f-86b6-7d40-8548-9608101e8e78",
+    "seconds": 5.39,
+    "sha256": "3529c8293e125be44748d2a0bedfbed58a6ea2f5735bb8ea55eb364f603cbb09"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "ఎల్ ఏడు వందల ఒకటి ప్యాకింగ్ లైన్ లో డబ్బాలు ఇరుక్కుపోతున్నాయి, లైన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.3,
+     "transcript": "ఎల్-ఏడు వందల ఒకటి ప్యాకింగ్ లైన్ లో డబ్బాలు ఇరుక్కుపోతున్నాయి, లైన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-22fd-7591-997b-ec8a1c0236bb"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.37,
+     "transcript": "ఎల్ ఏడు వందల ఒకటి ప్యాకింగ్ లైన్ లో డబ్బాలు ఇరుక్కుపోతున్నాయి, లైన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "L-701",
+      "heard": "L-701",
+      "symptoms": [
+       "jam_stuck"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "production",
+      "next_action": "confirm_preview",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-247d-7350-8387-551174274d1c"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.27,
+     "transcript": "ఎల్-ఏడు వందల ఒకటి ప్యాకింగ్ లైన్ లో డబ్బాలు ఇరుక్కుపోతున్నాయి, లైన్ ఆగిపోయింది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-09",
+   "language": "te",
+   "text": "మెషిన్ నంబర్ నూట ఒకటి స్టార్ట్ అవ్వడం లేదు, ప్రొడక్షన్ ఆగిపోయింది.",
+   "expected": {
+    "equipment": "M-101",
+    "symptoms": [
+     "not_starting"
+    ],
+    "production_impact": "stopped",
+    "safety_concern": false,
+    "category": [
+     "electrical",
+     "mechanical"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.08,
+    "gnani_request_id": "01a1c67f-8a33-72a7-ab58-dc92439a5abe",
+    "seconds": 4.15,
+    "sha256": "217218b5c53b0deb406aa55d8ff73ffc349bd923b35c3b224caa8bfcca23508b"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "మెషిన్ నంబర్ నూట ఒకటి స్టార్ట్ అవ్వడం లేదు, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "not_starting"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.25,
+     "transcript": "మెషిన్ నంబర్ నూట ఒకటి స్టార్ట్ అవ్వడం లేదు, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "not_starting"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-26b2-7bb9-b72c-92f8be349e16"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.32,
+     "transcript": "మెషిన్ నంబర్ నూట ఒకటి స్టార్ట్ అవ్వడం లేదు, ప్రొడక్షన్ ఆగిపోయింది.",
+     "fields": {
+      "equipment": false,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": false,
+      "priority": true,
+      "fully_correct": false
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": null,
+      "heard": null,
+      "symptoms": [
+       "not_starting"
+      ],
+      "production_impact": "stopped",
+      "safety_concern": false,
+      "category": "electrical",
+      "next_action": "ask_follow_up",
+      "priority": "high"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-27f3-7882-97ab-5524c0faac6a"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.24,
+     "transcript": "మెషిన్ నంబర్ నూట ఒకటి స్టార్ట్ అవ్వడం లేదు, ప్రొడక్షన్ ఆగిపోయింది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  },
+  {
+   "id": "te-10",
+   "language": "te",
+   "text": "హెచ్ నాలుగు వందల రెండు లో ప్రెషర్ తక్కువగా ఉంది, కానీ పొగ లేదు, ప్రొడక్షన్ నడుస్తోంది.",
+   "expected": {
+    "equipment": "H-402",
+    "symptoms": [
+     "abnormal_pressure"
+    ],
+    "production_impact": "running",
+    "safety_concern": false,
+    "category": [
+     "hydraulic"
+    ],
+    "next_action": "confirm_preview"
+   },
+   "audio": {
+    "voice": "Suhana",
+    "speed": 1.0,
+    "gnani_request_id": "01a1c67f-8d7a-71d0-9220-f26c63a3a393",
+    "seconds": 5.92,
+    "sha256": "eaf7d1b952e89b676ee9094d773be59ac00921a7e1f169704f0498772dbff9fa"
+   },
+   "runs": {
+    "text": {
+     "status": 200,
+     "seconds": 0.02,
+     "transcript": "హెచ్ నాలుగు వందల రెండు లో ప్రెషర్ తక్కువగా ఉంది, కానీ పొగ లేదు, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     }
+    },
+    "clean": {
+     "status": 200,
+     "seconds": 0.95,
+     "transcript": "హెచ్ నాలుగు వందల రెండు లో ప్రెషర్ తక్కువగా ఉంది, కానీ పొగ లేదు, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-2c42-7696-9c95-f1702214dde0"
+    },
+    "noisy": {
+     "status": 200,
+     "seconds": 0.45,
+     "transcript": "హెచ్ నాలుగు వందల రెండు లో ప్రెషర్ తక్కువగా ఉంది, కానీ పొగ లేదు, ప్రొడక్షన్ నడుస్తోంది.",
+     "fields": {
+      "equipment": true,
+      "symptoms_exact": true,
+      "symptoms_lenient": true,
+      "production_impact": true,
+      "safety_concern": true,
+      "category": true,
+      "next_action": true,
+      "priority": true,
+      "fully_correct": true
+     },
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "predicted": {
+      "equipment": "H-402",
+      "heard": "H-402",
+      "symptoms": [
+       "abnormal_pressure"
+      ],
+      "production_impact": "running",
+      "safety_concern": false,
+      "category": "hydraulic",
+      "next_action": "confirm_preview",
+      "priority": "medium"
+     },
+     "wer": 0.0,
+     "cer": 0.0,
+     "prisma_request_id": "01a1c680-2e31-7b84-94b8-b80152e264e1"
+    },
+    "auto": {
+     "status": 200,
+     "seconds": 0.28,
+     "transcript": "హెచ్ నాలుగు వందల రెండు లో ప్రెషర్ తక్కువగా ఉంది, కానీ పొగ లేదు, ప్రొడక్షన్ నడుస్తోంది.",
+     "detected": "te-IN",
+     "detection_ok": true
+    }
+   }
+  }
+ ]
+}

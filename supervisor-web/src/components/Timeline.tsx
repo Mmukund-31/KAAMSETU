@@ -15,6 +15,7 @@ const ACTION_LABEL: Record<string, string> = {
   "handover.create": "Handover submitted",
   "handover.review": "Handover reviewed",
   "user.create": "Account created",
+  "user.update": "Language changed",
 };
 
 export function actionLabel(action: string): string {

@@ -55,3 +55,9 @@ class UserCreate(BaseModel):
     preferred_language: LanguageCode = LanguageCode.EN
     # Defaults to the creating user's site when omitted.
     site_id: uuid.UUID | None = None
+
+
+class ProfileUpdate(BaseModel):
+    """What a user may change about themselves."""
+
+    preferred_language: LanguageCode

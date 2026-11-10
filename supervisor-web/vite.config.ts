@@ -32,6 +32,13 @@ export default defineConfig(({ mode }) => {
       setupFiles: ["./src/test/setup.ts"],
       css: false,
       restoreMocks: true,
+      coverage: {
+        provider: "v8",
+        include: ["src/**"],
+        // type-only and entry files have no logic to cover
+        exclude: ["src/test/**", "src/types/**", "src/main.tsx", "src/vite-env.d.ts"],
+        reporter: ["text-summary", "text"],
+      },
     },
   };
 });

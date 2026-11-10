@@ -11,7 +11,7 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 7 complete (end-to-end verified; phone run pending).** Spoken or typed
+> **Project status: Phase 8 complete (measured, reviewed, containerised; phone run pending).** Spoken or typed
 > reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
 > moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
 > close) with a full audit trail. Supervisors run that lifecycle in the web console, which has
@@ -21,7 +21,10 @@ Built for the Gnani AI Great Indian AI Internship Challenge.
 > the SOP checklist and hand over the shift, hearing Timbre replies in their language. One command
 > (`e2e/`) runs the whole demo across both apps plus twelve failure cases against the real
 > backend, Prisma and Timbre (74/74 checks). The run on a physical phone is a manual checklist in
-> [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md). See [docs/ROADMAP.md](docs/ROADMAP.md) and
+> [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md). Measured accuracy on held-out synthetic speech is in
+> [evaluation/RESULTS.md](evaluation/RESULTS.md) (45% of new reports fully right on the first pass,
+> equipment 95%, most misses become a follow-up question); the security review is
+> [docs/SECURITY.md](docs/SECURITY.md). See [docs/ROADMAP.md](docs/ROADMAP.md) and
 > [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
@@ -54,7 +57,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 |---|---|
 | Backend | Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic, PostgreSQL 16, PyJWT, argon2 |
 | Speech | Gnani Prisma v3.0 (STT), Gnani Timbre v2.5 (TTS) via REST (`httpx`) |
-| Supervisor web | React 18, TypeScript 5, Vite 6, Tailwind CSS 3, TanStack Query 5, React Router 6, Recharts 3, Vitest |
+| Supervisor web | React 18, TypeScript 5, Vite 6, Tailwind CSS 3, TanStack Query 5, React Router 7, Recharts 3, Vitest 5 |
 | Technician app | React Native 0.88, Expo SDK 58, TypeScript 6, expo-audio, expo-secure-store, React Navigation 7, TanStack Query 5, Jest + RNTL 14 |
 | Infra | Docker Compose (Postgres + backend) |
 
@@ -65,7 +68,7 @@ backend/          FastAPI application, Alembic migrations, tests
 supervisor-web/   Supervisor console (Vite + React), see supervisor-web/README.md
 technician-app/   Technician mobile app (Expo), see technician-app/README.md
 e2e/              End-to-end harness (both apps, real APIs, fault injection), see e2e/README.md
-evaluation/       Labelled multilingual test set + runner  - created in Phase 8
+evaluation/       Labelled multilingual sets, runner and measured results (evaluation/RESULTS.md)
 docs/             Architecture, DB design, API, Gnani integration, testing, demo script, roadmap
 docker-compose.yml
 ```
@@ -163,6 +166,8 @@ any role, and supervisors create technicians for their own site.
 - [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)
 - [docs/GNANI_INTEGRATION.md](docs/GNANI_INTEGRATION.md)
 - [docs/TESTING.md](docs/TESTING.md)
+- [docs/SECURITY.md](docs/SECURITY.md)
+- [evaluation/RESULTS.md](evaluation/RESULTS.md) (measured accuracy)
 - [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) (measured timings, recovery lines)
 - [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md) (real-phone checklist)
 - [e2e/README.md](e2e/README.md)
@@ -176,5 +181,6 @@ any role, and supervisors create technicians for their own site.
   company-approved SOP content.
 - Speech recognition and synthesis are real Gnani API calls. If the API is
   unavailable the app falls back to text and says so; it never fakes a result.
-- Measured results in `evaluation/RESULTS.md` (Phase 8) are on a synthetic
-  labelled set, not a real-world pilot.
+- Measured results in `evaluation/RESULTS.md` are on Timbre-generated speech for a
+  synthetic labelled set, not human speech and not a pilot. The held-out figure (45% of
+  unseen reports fully right on the first pass) is reported as measured, before any tuning.

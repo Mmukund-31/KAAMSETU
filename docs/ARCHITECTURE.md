@@ -139,3 +139,6 @@ the single source of truth for `services/state_machine.py`.
 | 29 | Timbre audio written to the cache before playback on phones | Native players do not take `data:` URIs. The text is always on screen, so playback failure never blocks work. |
 | 30 | Fault injection by a pass-through proxy, not mocks | The harness's second backend talks to Gnani through a local proxy that forwards to the real API, or returns Gnani-shaped 429 and 500 responses on demand, so the error handling is tested against real behaviour on both sides of the fault. |
 | 31 | Duration of fragmented MP4 read from the fragments | Browser recorders write moov plus moof/mdat; the header alone understates the length. Track-run sample durations give the real length. |
+| 32 | Held-out evaluation, reported before tuning | v1 was measured before any rule change and v2 was written after the fixes and run once. Tuned results are labelled as not held out, so the headline accuracy is an honest one. |
+| 33 | Route security tested from the app's own route list | A new route without an auth dependency, or a supervisor route reachable by a technician, fails the suite. |
+| 34 | Users can change only their own language | `PATCH /auth/me` takes `preferred_language` alone; role, site and email remain supervisor and manager actions. |

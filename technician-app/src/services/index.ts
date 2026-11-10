@@ -22,6 +22,9 @@ export const authApi = {
   login: (email: string, password: string) =>
     request<TokenResponse>("/auth/login", { method: "POST", body: { email, password } }),
   me: () => request<User>("/auth/me"),
+  /** Saves the technician's language on the server, so spoken task announcements use it too. */
+  setLanguage: (preferred_language: Language) =>
+    request<User>("/auth/me", { method: "PATCH", body: { preferred_language } }),
 };
 
 export const voiceApi = {

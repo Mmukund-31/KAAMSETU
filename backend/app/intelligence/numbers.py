@@ -183,6 +183,48 @@ def words_to_digits(values: list[tuple[int, str]]) -> str | None:
     return out
 
 
+# Words that announce a machine number with no letter prefix: "machine number one zero one", "नंबर एक सौ एक".
+_NUMBER_CUES = {"number", "num", "नंबर", "नम्बर", "నంబర్", "నెంబర్", "నంబరు"}
+
+
+def numbered_codes(text: str) -> list[tuple[str, str]]:
+    """Digits announced by a number cue, spoken or written: returns (digits, heard_text).
+
+    "number one zero one" -> 101, "नंबर एक सौ एक" -> 101, "నంబర్ నూట ఒకటి" -> 101, and "number 1-01"
+    (how Prisma sometimes formats a spoken 101) -> 101. Digit groups are joined as written, so "1 01" is
+    101, not 1 + 1. Only 2-4 digit results count; the register decides whether a code is real.
+    """
+    toks = normalize(text).split()
+    found = []
+    for i, tok in enumerate(toks):
+        if tok not in _NUMBER_CUES:
+            continue
+        j = i + 1
+        values, raw = [], []
+        while j < len(toks):
+            parsed = number_token(toks[j])
+            if parsed is None and toks[j] in _FILLERS and values and j + 1 < len(toks) \
+                    and number_token(toks[j + 1]) is not None:
+                j += 1
+                continue
+            if parsed is None:
+                break
+            values.append(parsed)
+            raw.append(toks[j])
+            j += 1
+        if not values:
+            continue
+        if all(kind == "digits" for _, kind in values):
+            digits = "".join(raw)
+        elif any(kind == "digits" for _, kind in values):
+            continue  # "number 2 sau" style mixtures are not read
+        else:
+            digits = words_to_digits(values)
+        if digits and 2 <= len(digits) <= 4:
+            found.append((digits, " ".join(toks[i:j])))
+    return found
+
+
 def spoken_codes(text: str) -> list[tuple[str, str, str]]:
     """Find spoken codes: letter name followed by number words/digits.
 

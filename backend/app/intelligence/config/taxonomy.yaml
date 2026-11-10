@@ -95,7 +95,7 @@ symptoms:
     severity: low
     label: {en: Air leak, hi: हवा का रिसाव, te: ఎయిర్ లీక్}
     any: [=air, =hawa, हवा, एयर, గాలి, ఎయిర్]
-    with_any: [leak, hiss, nikal, लीक, निकल, లీక్]
+    with_any: [leak, hiss, nikal, लीक, निकल, रिसाव, रिस, లీక్, రిసా]
 
   gas_leak:
     category: other
@@ -128,7 +128,7 @@ symptoms:
     negation_ok: true
     label: {en: Power failure, hi: बिजली नहीं, te: కరెంట్ పోవడం}
     any: [power, =bijli, =current, बिजली, पावर, करंट, కరెంట్, పవర్]
-    with_any: [cut, fail, =gone, =nahi, =nahin, =nhi, =gayi, =gaya, =off, नहीं, गई, गया, कट, ऑफ, లేదు, పోయ, కట్]
+    with_any: [cut, fail, =gone, no power, lost, outage, =nahi, =nahin, =nhi, =gayi, =gaya, =off, नहीं, गई, गया, कट, ऑफ, లేదు, పోయ, కట్]
 
   sparking:
     category: electrical
@@ -136,7 +136,7 @@ symptoms:
     severity: high
     safety: true
     label: {en: Sparking, hi: चिंगारी, te: స్పార్క్}
-    any: [spark, चिंगारी, स्पार्क, స్పార్క్, నిప్పురవ్వ]
+    any: [spark, chingar, chingaar, चिंगारि, चिंगारी, स्पार्क, స్పార్క్, నిప్పురవ్వ, నిప్పు రవ్వ]
 
   burning_smell:
     category: electrical
@@ -176,7 +176,7 @@ symptoms:
     severity: high
     safety: true
     label: {en: Injury, hi: चोट, te: గాయం}
-    any: [injur, =hurt, =chot, चोट, घायल, గాయ, దెబ్బ]
+    any: [injur, =hurt, =chot, ghayal, चोट, घायल, గాయ, దెబ్బ]
 
   erratic_reading:
     category: instrumentation
@@ -201,14 +201,14 @@ symptoms:
     severity: high
     negation_ok: true
     label: {en: Not starting, hi: चालू नहीं हो रहा, te: స్టార్ట్ కావడం లేదు}
-    any: [not start, wont start, cannot start, start nahi, start nahin, start nhi, chalu nahi, चालू नहीं, स्टार्ट नहीं, స్టార్ట్ కావడం, స్టార్ట్ అవ్వ]
+    any: [not start, wont start, cannot start, start nahi, start nahin, start nhi, start hi nahi, chalu nahi, chal hi nahi, चालू नहीं, स्टार्ट नहीं, स्टार्ट ही नहीं, चल ही नहीं, స్టార్ట్ కావడం, స్టార్ట్ అవ్వ]
 
   jam_stuck:
     category: mechanical
     specific: false
     severity: medium
     label: {en: Jammed or stuck, hi: जाम या अटका हुआ, te: జామ్ లేదా ఇరుక్కుపోవడం}
-    any: [=jam, jammed, stuck, =atak, atka, अटक, =जाम, फंस, ఇరుక్కు, జామ్]
+    any: [=jam, jamm, stuck, =atak, atka, अटक, =जाम, फंस, ఇరుక్కు, జామ్]
 
   belt_issue:
     category: mechanical
@@ -216,7 +216,7 @@ symptoms:
     severity: medium
     label: {en: Belt problem, hi: बेल्ट की समस्या, te: బెల్ట్ సమస్య}
     any: [belt, बेल्ट, బెల్ట్]
-    with_any: [slip, =loose, =dhila, broke, =toot, tight, फिसल, ढीला, टूट, జారు, తెగ, వదులు]
+    with_any: [slip, =loose, dhil, broke, =toot, tight, फिसल, ढील, टूट, జారు, తెగ, వదులు]
 
   misalignment:
     category: mechanical
@@ -238,7 +238,8 @@ symptoms:
 # Within a clause, precedence is stopped > degraded > running. Across clauses, the LAST mention wins
 # ("pehle ruk gaya tha, ab chal raha hai" -> running).
 production_impact:
-  subjects: [production, =line, machine, motor, plant, output, उत्पादन, प्रोडक्शन, लाइन, मशीन, मोटर, प्लांट, ప్రొడక్షన్, ఉత్పత్తి, లైన్, మెషిన్, మోటార్, ప్లాంట్]
+  # Machine types count as subjects too: "the boiler is still running" is about production at that machine.
+  subjects: [production, =line, machine, motor, plant, output, boiler, compressor, =pump, conveyor, =press, उत्पादन, प्रोडक्शन, लाइन, मशीन, मोटर, प्लांट, बॉयलर, कंप्रेसर, पंप, ప్రొడక్షన్, ఉత్పత్తి, లైన్, మెషిన్, మోటార్, ప్లాంట్, బాయిలర్, కంప్రెసర్, పంప్]
   stopped:
     - '\bstop'
     - '\bhalt'
@@ -250,6 +251,7 @@ production_impact:
     - '\bchalu (nahi|nahin|nhi)'
     - '\bband (ho|hai|pad|kar|he)'
     - '\bruk (gaya|gayi|gai|gya|gyi|chuka|chuki|gaye)'
+    - '\bruk(a|i|e) (hua|hui|hue|hai|he|pada|padi)'
     - '\bdown hai'
     - 'रुक गय|रुक गई|रुक चुक|रुका|बंद|ठप|नहीं चल|चालू नहीं'
     - 'ఆగిపో|ఆగింది|ఆగి ఉంది|నిలిచిపో|నడవడం లేదు|నడవటం లేదు|నడవట్లేదు|నడవడంలేదు|బంద్|ఆపేశ'

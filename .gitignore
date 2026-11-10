@@ -45,3 +45,6 @@ Thumbs.db
 
 # end-to-end harness output (reports, screenshots, logs, builds)
 e2e/.run/
+
+# evaluation: Timbre clips are regenerated on the first run (see evaluation/README.md)
+evaluation/audio/generated/

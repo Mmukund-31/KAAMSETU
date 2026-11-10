@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "export:web": "expo export --platform web",
-    "export:native": "expo export --platform android --platform ios --output-dir dist-native"
+    "export:native": "expo export --platform android --platform ios --output-dir dist-native",
+    "coverage": "jest --coverage --coverageReporters=text-summary --coverageReporters=text"
   },
   "dependencies": {
     "@expo/metro-runtime": "~58.0.17",
@@ -53,6 +54,11 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@tanstack/.*)"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/test/**",
+      "!src/types/**"
     ]
   }
 }

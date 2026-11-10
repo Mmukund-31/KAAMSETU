@@ -76,6 +76,8 @@ class Settings(BaseSettings):
             secret = self.jwt_secret_key.get_secret_value()
             if secret in _PLACEHOLDER_SECRETS or len(secret) < 32:
                 raise ValueError("JWT_SECRET_KEY must be a random value of at least 32 characters in production")
+            if "*" in self.cors_origin_list:
+                raise ValueError("CORS_ORIGINS must list the app origins explicitly in production, not '*'")
         return self
 
     @property

@@ -13,7 +13,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | done 2026-11-10 (37 web tests; 31-check live UI run against the real backend) |
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | done 2026-11-10 (29 app tests; 27-check live run with real Prisma + Timbre; M4A verified) |
 | 7 | 2 d | End-to-end verification of the demo scenario + error paths | done 2026-11-10 (`e2e/` 74/74 against real APIs; phone checklist pending, run by the user) |
-| 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | pending |
+| 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | done 2026-11-10 (held-out 45% whole-report; coverage 96% / 92% / 92%; 0 vulns in shipped web deps; Docker verified) |
 | 9 | 2 d | README, screenshots, demo script, limitations, submission write-up | pending |
 
 ## Phase 0 output
@@ -178,6 +178,36 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - `docs/DEMO_SCRIPT.md` rewritten with measured timings, the DB evidence of one run, and "if something goes wrong on
   stage" lines that were each triggered for real. `docs/DEVICE_TEST.md` is a 13-step phone checklist.
   `docs/screenshots/` holds 10 screenshots from the run.
+
+## Phase 8 output
+
+- **Evaluation** (`evaluation/`):
+  - v1, 40 held-out reports, measured as-is: whole report correct 72% for text, 68% clean, 68% noisy. The gaps
+    were then fixed, with regression tests.
+  - v2, 20 new held-out reports, run once: 45% / 45% / 45%. Equipment 95%, category 100%, safety 95%, symptom
+    precision 0.95 and recall 0.79, production impact 65–70%.
+  - 9 of 20 v2 misses became a follow-up question, and 2 a wrong preview, one of them a missed safety concern
+    (fixed afterwards).
+  - Prisma: WER about 0 in en, Hinglish and te, and 0.3 in Hindi (script, not meaning). Auto-detection labels
+    Hinglish as hi-IN, which confirms the explicit en-IN choice.
+- **Coverage:** backend 95.9% of app lines (every layer ≥ 84%; services 94%, workflows 96%, intelligence 96%);
+  supervisor-web 91.6% lines (49 tests); technician-app 91.7% lines (39 tests).
+- **Security** (`docs/SECURITY.md`):
+  - route-by-route auth and role tests generated from the app's route list;
+  - security headers; API docs hidden in production; production refuses `CORS_ORIGINS=*`;
+  - React Router 7.18.5 and Vitest 5.1.0 upgrades (0 npm vulnerabilities in supervisor-web);
+  - pip-audit clean; bandit clean apart from 2 false positives; git history free of secrets.
+- **Docker:** non-root image with a health check. 489 backend tests pass inside the container on Python 3.12, and
+  `docker compose up` was healthy, with migrations at 0002, real Prisma working and clean logs.
+- **Polish:** `PATCH /auth/me` (own language). The technician app saves a language switch on the account, so task
+  announcements follow it. This closes a Phase 6 limitation.
+- **Regression:** `e2e/` 74 of 74 after all changes.
+
+## Phase 9 inputs from Phase 8
+
+- Submission write-up should quote the held-out numbers (v2 45%, v1 68%) alongside the after-fix ones, and the
+  outcome breakdown (most misses become a follow-up).
+- The phone run (`docs/DEVICE_TEST.md`) is still the one unverified link.
 
 ## Phase 8 inputs from Phase 7
 

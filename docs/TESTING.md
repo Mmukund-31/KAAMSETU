@@ -53,6 +53,13 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 7: backend after the fragmented-MP4 duration fix | 410 passed, 15 skipped (integration) |
 | 2026-11-10 | Phase 7: supervisor-web after the session-expiry fix | 39 passed |
 | 2026-11-10 | Phase 7: technician-app after the 29.5 s stop, session notice and kept-text fixes | 30 passed |
+| 2026-11-10 | Phase 8: evaluation v1 held-out (40 reports, real Prisma), before any change | whole report 72% text / 68% clean / 68% noisy |
+| 2026-11-10 | Phase 8: evaluation v2 held-out (20 new reports), run once | whole report 45% / 45% / 45% |
+| 2026-11-10 | Phase 8: backend incl. security, profile and rule-fix tests | 489 passed, 15 skipped; coverage 95.9% of app lines |
+| 2026-11-10 | Phase 8: backend inside the Docker image (Python 3.12, non-root) | 489 passed, 15 skipped |
+| 2026-11-10 | Phase 8: supervisor-web after the React Router 7 / Vitest 5 upgrade | 49 passed; coverage 91.6% lines |
+| 2026-11-10 | Phase 8: technician-app | 39 passed; coverage 91.7% lines |
+| 2026-11-10 | Phase 8: `e2e/` full regression after all Phase 8 changes | 74 of 74 checks passed |
 
 Concurrency is covered by the end-to-end harness (Phase 7, E8):
 - two supervisors approving one order at the same moment give 200 + 409, with exactly one approval audited;
@@ -80,6 +87,16 @@ measured on synthetic data; they are not pilot results.
 Targets (aspirational, not guaranteed): at least 90 % required-field extraction accuracy on the
 labelled set; 100 % pass on permission and state-transition tests; zero work orders for
 invalid equipment IDs; real Prisma + Timbre demonstrated end to end.
+
+### Evaluation and coverage (Phase 8)
+
+- Accuracy: `evaluation/run_eval.py` (see `evaluation/RESULTS.md`). The v1 and v2 held-out numbers were measured
+  before any tuning on them, and later runs are labelled as not held out.
+- Coverage: backend `python -m pytest --cov=app --cov-report=json:coverage.json` then
+  `python scripts/coverage_by_layer.py coverage.json`; web and app `npm run coverage`. These are line coverage
+  figures. The 15 real-API integration tests are not included in the backend number.
+- Security checks: `app/tests/api/test_security.py` (route inventory, 401 / 403, forged tokens, headers,
+  production settings) and `docs/SECURITY.md` for the audit commands.
 
 ### End-to-end harness (Phase 7)
 

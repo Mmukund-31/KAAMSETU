@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.errors import Conflict, Forbidden, Unprocessable
 from app.core.security import hash_password
 from app.models import Site, User, UserRole
+from app.models.enums import LanguageCode
 from app.schemas.user import UserCreate
 from app.services import audit
 
@@ -60,6 +61,19 @@ def create_user(db: Session, actor: User, data: UserCreate) -> User:
         entity_id=user.id,
         new_value={"email": user.email, "role": user.role, "site_id": user.site_id, "name": user.name},
     )
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def update_language(db: Session, user: User, language: LanguageCode) -> User:
+    """A user's own preferred language. Audited; a no-op when unchanged."""
+    if user.preferred_language == language:
+        return user
+    previous = user.preferred_language.value
+    user.preferred_language = language
+    audit.record(db, actor_id=user.id, action="user.update", entity_type="user", entity_id=user.id,
+                 previous_value={"preferred_language": previous}, new_value={"preferred_language": language.value})
     db.commit()
     db.refresh(user)
     return user

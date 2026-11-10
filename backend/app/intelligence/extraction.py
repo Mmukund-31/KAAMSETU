@@ -16,7 +16,7 @@ from app.intelligence.models import (
     SymptomMatch,
     UILanguage,
 )
-from app.intelligence.numbers import spoken_codes
+from app.intelligence.numbers import numbered_codes, spoken_codes
 from app.intelligence.text import Keyword, clauses, is_negated, normalize, sentence_clauses, yes_no
 
 # "M-204", "M204", "M 204", "HX-12". Must not start inside a word ("NUMBER 204" is not "BER-204").
@@ -58,6 +58,10 @@ def _equipment_candidates(text: str) -> list[EquipmentCandidate]:
         digits = m.group(1)
         if digits not in letter_digit_codes:
             add(digits, digits, m.group(0), "digits_only", "low")
+    # spoken numbers after "number" / "नंबर" / "నంబర్", and digit groups such as "1-01"
+    for digits, heard in numbered_codes(text):
+        if digits not in letter_digit_codes:
+            add(digits, digits, heard, "digits_only", "low")
     return found
 
 
