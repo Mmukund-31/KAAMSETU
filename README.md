@@ -11,12 +11,13 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 4 complete (backend feature-complete).** Spoken or typed
+> **Project status: Phase 5 complete (backend plus supervisor console).** Spoken or typed
 > reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
 > moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
-> close) with a full audit trail. Shift handovers, the equipment history and the dashboard
-> numbers all come from real records, with spoken acknowledgements from Gnani Timbre.
-> The supervisor web app is next (Phase 5). See [docs/ROADMAP.md](docs/ROADMAP.md) and
+> close) with a full audit trail. Supervisors run that lifecycle in the web console, which has
+> a live dashboard, approvals, work-order detail with the original transcript, equipment,
+> technicians, handovers, analytics, the audit log and SOP templates. The technician mobile
+> app is next (Phase 6). See [docs/ROADMAP.md](docs/ROADMAP.md) and
 > [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
@@ -49,7 +50,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 |---|---|
 | Backend | Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic, PostgreSQL 16, PyJWT, argon2 |
 | Speech | Gnani Prisma v3.0 (STT), Gnani Timbre v2.5 (TTS) via REST (`httpx`) |
-| Supervisor web | React 18, TypeScript, Vite, Tailwind CSS, TanStack Query, Recharts |
+| Supervisor web | React 18, TypeScript 5, Vite 6, Tailwind CSS 3, TanStack Query 5, React Router 6, Recharts 3, Vitest |
 | Technician app | React Native, Expo SDK 58, TypeScript, expo-audio, expo-secure-store |
 | Infra | Docker Compose (Postgres + backend) |
 
@@ -57,7 +58,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ```
 backend/          FastAPI application, Alembic migrations, tests
-supervisor-web/   Supervisor dashboard (Vite + React)      - created in Phase 5
+supervisor-web/   Supervisor console (Vite + React), see supervisor-web/README.md
 technician-app/   Technician mobile app (Expo)             - created in Phase 6
 evaluation/       Labelled multilingual test set + runner  - created in Phase 8
 docs/             Architecture, DB design, API, Gnani integration, testing, demo script, roadmap
@@ -97,8 +98,9 @@ $env:DISABLE_SQLALCHEMY_CEXT="1"   # see Windows note below
 .\.venv\Scripts\python.exe scripts\gnani_smoke.py
 $env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integration
 
-# 4. Supervisor web (Phase 5+)
+# 4. Supervisor console (proxies /api to the backend on 8001)
 cd ..\supervisor-web ; npm install ; npm run dev     # http://localhost:5173
+npm test ; npm run build
 
 # 5. Technician app (Phase 6+)
 cd ..\technician-app ; npm install ; npx expo start

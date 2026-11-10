@@ -10,7 +10,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 2 | 2 d | Prisma + Timbre httpx adapters, real smoke test, mocked unit tests, gated integration tests | done 2026-11-10 (156 tests + 12 real-API tests passing) |
 | 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | done 2026-11-10 (334 tests + 14 real-API tests passing) |
 | 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | done 2026-11-10 (406 tests passing; live demo scenario verified) |
-| 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | pending |
+| 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | done 2026-11-10 (37 web tests; 31-check live UI run against the real backend) |
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | pending |
 | 7 | 2 d | End-to-end verification of the demo scenario + error paths | pending |
 | 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | pending |
@@ -100,8 +100,34 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - The approval queue is `GET /work-orders?status=under_review&status=escalated&sort=priority`.
 - Every dashboard tile maps to one field of `GET /dashboard/overview`.
 
-## Phase 5 file list (next)
+## Phase 5 output
 
-`supervisor-web/` (Vite + React + TS + Tailwind): `src/services/api.ts`, typed clients per domain, `layouts/AppShell`,
-shared components (DataTable, FilterBar, StatusBadge, PriorityBadge, StatCard, states), and pages: Login, Overview,
-WorkOrders, WorkOrderDetail, Approvals, Equipment (+detail), Technicians, Handovers (+detail), Analytics, Settings.
+- `supervisor-web/`: React 18 + TypeScript (strict) + Vite 6 + Tailwind 3 + TanStack Query 5 + Recharts 3.
+  It uses a fetch wrapper rather than axios, since one wrapper with the error envelope and 401 handling was all
+  that was needed.
+- Pages: Login, Overview (15 s polling), Approvals (new reports, completion review), Work orders (URL filters),
+  Work-order detail, Equipment and detail, Technicians (add account), Handovers and detail (review), Analytics,
+  Audit log, Settings (SOP template versions).
+- The work-order detail page shows the verbatim transcript next to the structured order. Action buttons come from
+  `allowed_actions`, with disabled reasons. It covers approve with a priority override and reason, reject or
+  escalate with a reason, assign or reassign, edit with audit, the checklist with progress, and history.
+- Tests: 37 Vitest + Testing Library tests: API client, formatting, login and role gate, session expiry, list
+  filters, approval queue, detail actions, assign, handover review, template publish, and empty states.
+- Live check (headless Edge, real backend on 8001, real PostgreSQL), 31 checks, all passed. A technician reported
+  through `/voice/process-text`. The supervisor then approved with a priority override, assigned, watched the
+  technician finish through the API, and closed the order. The checks covered the audit trail, dashboard and
+  equipment updates, every page, no horizontal scroll at 390 px, the mobile menu, sign-out and zero console
+  errors. The test orders (WO-1009 to WO-1014) were removed afterwards; the dev DB is back to the seed.
+- Found and fixed during the live run:
+  - The Close dialog had two controls labelled "Close". They are now "Close work order" and "Dismiss dialog".
+  - At phone width the overview scrolled sideways, because grid columns grew to fit a wide table. Cards are now
+    `min-w-0`.
+  - The trend chart smoothed daily counts. It now draws straight segments with daily dots.
+  - The supervisor view had a block for the task announcement, but the API sends that text only to the assigned
+    technician, so the block could never show. It was removed.
+
+## Phase 6 inputs from Phase 5
+
+- Technician flows the web app does not cover: recording, transcript review, follow-up questions, preview and
+  confirm, my tasks, starting work, checklist steps, completion, handovers by voice.
+- `task_announcement` is returned only to the assignee, so the mobile app should play it with Timbre.

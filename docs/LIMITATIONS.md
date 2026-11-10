@@ -33,6 +33,16 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 - Concurrent actions on one work order are serialised by a row lock, but no automated multi-connection race test
   exists yet.
 
+## Supervisor web (Phase 5)
+
+- The access token is stored in `localStorage` (60-minute expiry). A cross-site-scripting bug could read it. The app
+  renders no raw HTML, but httpOnly cookies would be safer for a pilot.
+- Updates arrive by 15-second polling. Two supervisors acting on one order at once get a clear `409` from the
+  server, but the second screen refreshes only on the next poll or action.
+- Light theme only. The layout works at phone width, but the console is designed for desktop use.
+- Supervisors cannot record checklist steps; by design only the assigned technician can (mobile app).
+- The UI is English only. Technician-facing language support lives in the mobile app and the spoken responses.
+
 ## Platform
 
 - The rate limiter is in memory and per process.

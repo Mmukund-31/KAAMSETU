@@ -39,6 +39,9 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 3: real Gnani integration incl. end-to-end report pipeline (Hinglish demo, Telugu with voice follow-up) | 14 passed |
 | 2026-11-10 | Phase 4: unit + API incl. lifecycle, permissions, checklists, handovers, dashboard, audit | 406 passed |
 | 2026-11-10 | Phase 4: live HTTP walk-through of the demo scenario on the dev server (real Prisma + Timbre, real PostgreSQL) | passed (13 checks) |
+| 2026-11-10 | Phase 5: supervisor-web Vitest + Testing Library, API mocked with backend-shaped fixtures | 37 passed |
+| 2026-11-10 | Phase 5: live UI run in headless Edge against the real backend and PostgreSQL (report, approve with override, assign, technician completes, close; every page; 390 px layout; console errors) | 31 of 31 checks passed |
+| 2026-11-10 | Phase 5: backend regression after the web work | 406 passed, 14 skipped (integration) |
 
 Not yet covered by automated tests: two requests acting on the same work order at the same moment. The code takes a
 row lock (`SELECT ... FOR UPDATE OF work_orders`) for every action, but a multi-connection race test is still to be
@@ -66,6 +69,22 @@ Targets (aspirational, not guaranteed): at least 90 % required-field extraction 
 labelled set; 100 % pass on permission and state-transition tests; zero work orders for
 invalid equipment IDs; real Prisma + Timbre demonstrated end to end.
 
+### Supervisor web (Phase 5)
+
+`supervisor-web/src/test/`: `harness.tsx` replaces `fetch` with a route table and fixtures shaped exactly like
+the backend schemas. Unmatched requests fail loudly. The tests cover:
+
+- the API client: error envelope, a 401 clears the session, network errors;
+- labels and audit rendering;
+- login, including refusing technicians, and session restore and expiry;
+- work-order list filters and the approval-queue query;
+- detail actions built from `allowed_actions`: blocked reasons, the priority override needing a reason, reject
+  needing a reason, server errors shown in the dialog, assignment;
+- handover review, template publishing, and empty states.
+
+The live UI run used Playwright (`playwright-core` driving the installed Microsoft Edge). It ran from the session
+scratchpad and is not a project dependency yet. A committed Playwright smoke test is a Phase 8 option.
+
 ## Commands
 
 ```powershell
@@ -74,4 +93,7 @@ cd backend
 .\.venv\Scripts\python.exe -m pytest                       # unit + api (integration auto-skipped)
 $env:RUN_GNANI_INTEGRATION="1"; .\.venv\Scripts\python.exe -m pytest -m integration
 .\.venv\Scripts\python.exe -m ruff check app
+
+cd ..\supervisor-web
+npm test ; npm run typecheck ; npm run build
 ```

@@ -129,3 +129,7 @@ the single source of truth for `services/state_machine.py`.
 | 19 | Row lock per action | `SELECT ... FOR UPDATE OF work_orders` serialises concurrent actions on one order, for example two approvals. |
 | 20 | Out-of-scope records return 404 | Users cannot discover the existence of other sites' or other technicians' work orders. |
 | 21 | Audit ordered by an identity sequence | Several audit rows are written per transaction, and `now()` is the transaction start time. |
+| 22 | Web UI buttons come from `allowed_actions` | The state machine stays the only authority. The client shows what the server allows and explains blocked actions, with no duplicated rules. |
+| 23 | Vite dev proxy for `/api` | Same-origin requests in development, so no CORS configuration. `VITE_API_BASE_URL` covers split hosting. |
+| 24 | Polling, not websockets | The dashboard and queues refetch every 15 s through React Query, which is enough for the demo and adds no server push infrastructure. |
+| 25 | Web console limited to supervisors and managers | Technicians work in the mobile app. The console refuses their sign-in, and the API still enforces roles on every route. |
