@@ -11,10 +11,12 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 2 complete (Gnani integration).** The API runs with
-> PostgreSQL, JWT login and role-based access, and transcribes and speaks through real
-> Gnani Prisma and Timbre calls (`/api/v1/voice/transcribe`, `/api/v1/voice/synthesize`).
-> Work-order extraction starts in Phase 3. See [docs/ROADMAP.md](docs/ROADMAP.md).
+> **Project status: Phase 3 complete (intelligence engine).** A spoken or typed fault
+> report becomes a structured, register-validated work-order preview, in English, Hindi,
+> Telugu or Hinglish. It covers equipment, symptoms, category, production impact and a
+> rule-based priority. Short follow-up questions are spoken back through Gnani Timbre.
+> Saving work orders and the approval lifecycle come in Phase 4. See
+> [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
 
@@ -147,6 +149,7 @@ any role, and supervisors create technicians for their own site.
 - [docs/TESTING.md](docs/TESTING.md)
 - [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
 - [docs/ROADMAP.md](docs/ROADMAP.md)
+- [docs/LIMITATIONS.md](docs/LIMITATIONS.md)
 
 ## Honesty notes
 

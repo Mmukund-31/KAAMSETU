@@ -1,0 +1,49 @@
+# Spoken / displayed responses. Short, one question at a time.
+# Placeholders: {code} registered equipment code, {heard} code as heard, {priority} priority label.
+# Hindi and Telugu strings were written for this prototype and should be reviewed by native speakers
+# before any pilot (see docs/LIMITATIONS.md).
+
+version: 1
+
+priority_labels:
+  en:       {low: low, medium: medium, high: high, critical: critical}
+  hinglish: {low: low, medium: medium, high: high, critical: critical}
+  hi:       {low: कम, medium: मध्यम, high: उच्च, critical: गंभीर}
+  te:       {low: తక్కువ, medium: మధ్యస్థ, high: అధిక, critical: అత్యవసర}
+
+messages:
+  ask_equipment:
+    en: "Which machine has the problem? Please tell me the machine number."
+    hinglish: "Kis machine mein problem hai? Machine number batayiye."
+    hi: "किस मशीन में समस्या है? कृपया मशीन नंबर बताइए।"
+    te: "ఏ మెషిన్‌లో సమస్య ఉంది? దయచేసి మెషిన్ నంబర్ చెప్పండి."
+
+  equipment_unknown:
+    en: "I could not find machine {heard} in the register. Please say the correct machine number or pick it from the list."
+    hinglish: "Machine {heard} register mein nahi mili. Sahi machine number batayiye ya list se chuniye."
+    hi: "मशीन {heard} रजिस्टर में नहीं मिली। कृपया सही मशीन नंबर बताइए या सूची से चुनिए।"
+    te: "మెషిన్ {heard} రిజిస్టర్‌లో లేదు. దయచేసి సరైన మెషిన్ నంబర్ చెప్పండి లేదా జాబితా నుండి ఎంచుకోండి."
+
+  ask_symptoms:
+    en: "What is the problem with {code}? Please describe what you see or hear."
+    hinglish: "{code} mein kya problem hai? Thoda detail mein batayiye."
+    hi: "{code} में क्या समस्या है? कृपया थोड़ा विस्तार से बताइए।"
+    te: "{code} లో ఏ సమస్య ఉంది? దయచేసి కొంచెం వివరంగా చెప్పండి."
+
+  ask_production_impact:
+    en: "I am preparing a maintenance request for {code}. Is production still running?"
+    hinglish: "{code} ke liye maintenance request bana raha hoon. Kya production abhi bhi chal raha hai?"
+    hi: "{code} के लिए मेंटेनेंस रिक्वेस्ट तैयार कर रहा हूँ। क्या उत्पादन अभी भी चल रहा है?"
+    te: "{code} కోసం మెయింటెనెన్స్ రిక్వెస్ట్ తయారు చేస్తున్నాను. ప్రొడక్షన్ ఇంకా నడుస్తోందా?"
+
+  confirm_preview:
+    en: "The maintenance request for {code} is ready with {priority} priority. Please check it and submit."
+    hinglish: "{code} ke liye maintenance request taiyaar hai. Priority {priority} hai. Check karke submit kijiye."
+    hi: "{code} के लिए मेंटेनेंस रिक्वेस्ट तैयार है। प्राथमिकता {priority} है। कृपया जाँच कर के सबमिट करें।"
+    te: "{code} కోసం మెయింటెనెన్స్ రిక్వెస్ట్ సిద్ధంగా ఉంది. ప్రాధాన్యత {priority}. దయచేసి సరిచూసి సబ్మిట్ చేయండి."
+
+  safety_warning:
+    en: "You reported a safety hazard. Keep clear and follow the site emergency procedure."
+    hinglish: "Aapne safety hazard report kiya hai. Door rahiye aur site emergency procedure follow kijiye."
+    hi: "आपने सुरक्षा खतरे की सूचना दी है। दूर रहें और साइट की आपातकालीन प्रक्रिया का पालन करें।"
+    te: "మీరు భద్రతా ప్రమాదాన్ని నివేదించారు. దూరంగా ఉండి సైట్ అత్యవసర విధానాన్ని పాటించండి."

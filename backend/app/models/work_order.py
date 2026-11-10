@@ -27,9 +27,9 @@ from app.models.enums import (
     ProductionImpact,
     ReportChannel,
     WorkOrderStatus,
-    pg_enum,
 )
 from app.models.equipment import Equipment
+from app.models.types import pg_enum
 from app.models.user import User
 
 

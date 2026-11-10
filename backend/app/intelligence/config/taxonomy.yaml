@@ -1,0 +1,279 @@
+# KAAMSETU fault taxonomy (configurable).
+#
+# Each symptom is detected from keywords in the transcript. It never infers a diagnosis.
+#   any:          the symptom needs at least one of these keywords in a clause
+#   with_any:     (optional) ...and at least one of these in the SAME clause
+#   suppressed_by:(optional) drop this symptom if any of the listed symptoms was found
+#   negation_ok:  the symptom's meaning already contains a negation ("power nahi hai"), so skip negation checks
+#   safety:       an explicit report of this symptom sets safety_concern
+#   specific:     strongly indicates its category (weight 2) vs generic (weight 1) in classification
+#   severity:     low | medium | high, used by priority rules
+#
+# Keyword syntax: matched per whitespace token after normalisation (lower-case, nukta and punctuation removed).
+#   "vibrat"   - stem: matches vibration, vibrating ...   (last token of a phrase is a stem)
+#   "=aag"     - exact token only (so "aag" does not match "aage")
+#   "power cut"- phrase: tokens must be consecutive
+
+version: 1
+
+categories:
+  mechanical:      {en: Mechanical, hi: यांत्रिक, te: యాంత్రిక}
+  electrical:      {en: Electrical, hi: विद्युत, te: విద్యుత్}
+  instrumentation: {en: Instrumentation, hi: इंस्ट्रूमेंटेशन, te: ఇన్స్ట్రుమెంటేషన్}
+  hydraulic:       {en: Hydraulic, hi: हाइड्रोलिक, te: హైడ్రాలిక్}
+  pneumatic:       {en: Pneumatic, hi: न्यूमेटिक, te: న్యూమాటిక్}
+  production:      {en: Production, hi: उत्पादन, te: ఉత్పత్తి}
+  other:           {en: Other, hi: अन्य, te: ఇతర}
+
+symptoms:
+  bearing_vibration:
+    category: mechanical
+    specific: true
+    severity: medium
+    label: {en: Bearing vibration, hi: बेयरिंग में कंपन, te: బేరింగ్ వైబ్రేషన్}
+    any: [bearing, बेयरिंग, बियरिंग, బేరింగ్]
+    with_any: [vibrat, =कंपन, वाइब्रेशन, वाईब्रेशन, वायब्रेशन, వైబ్రేష, కంపన, కంపిస్త]
+
+  bearing_issue:
+    category: mechanical
+    specific: true
+    severity: medium
+    label: {en: Bearing problem, hi: बेयरिंग में समस्या, te: బేరింగ్ సమస్య}
+    any: [bearing, बेयरिंग, बियरिंग, బేరింగ్]
+    suppressed_by: [bearing_vibration]
+
+  vibration:
+    category: mechanical
+    specific: true
+    severity: medium
+    label: {en: Vibration, hi: कंपन, te: వైబ్రేషన్}
+    any: [vibrat, =कंपन, वाइब्रेशन, वाईब्रेशन, वायब्रेशन, వైబ్రేష, కంపన, కంపిస్త]
+    suppressed_by: [bearing_vibration]
+
+  abnormal_noise:
+    category: mechanical
+    specific: false
+    severity: medium
+    label: {en: Abnormal noise, hi: असामान्य आवाज़, te: అసాధారణ శబ్దం}
+    any: [noise, noisy, =sound, sounds, grinding, knocking, rattl, squeal, awaaz, awaz, aawaz, =shor, आवाज, शोर, घरघर, खटखट, శబ్ద, సౌండ్, చప్పుడు]
+
+  overheating:
+    category: mechanical
+    specific: false
+    severity: high
+    label: {en: Overheating, hi: ज़्यादा गरम होना, te: అధిక వేడి}
+    any: [overheat, =hot, heating up, =garam, =garm, गरम, गर्म, ओवरहीट, ओवर हीट, వేడెక్క, వేడిగా, ఓవర్హీట్]
+
+  high_temperature:
+    category: mechanical
+    specific: false
+    severity: high
+    label: {en: High temperature, hi: तापमान ज़्यादा, te: ఉష్ణోగ్రత ఎక్కువ}
+    any: [temperature, temp, टेम्परेचर, तापमान, టెంపరేచర్, ఉష్ణోగ్రత]
+    with_any: [high, rising, =zyada, =jyada, =badh, ज्यादा, बढ, ఎక్కువ, పెరుగు]
+    suppressed_by: [overheating]
+
+  abnormal_pressure:
+    category: hydraulic
+    specific: false
+    severity: medium
+    label: {en: Abnormal pressure, hi: असामान्य प्रेशर, te: అసాధారణ ప్రెషర్}
+    any: [pressure, प्रेशर, प्रेसर, दबाव, ప్రెషర్, ప్రెజర్, ఒత్తిడి]
+    with_any: [abnormal, =high, =low, drop, fluctuat, unstable, =zyada, =jyada, =kam, =badh, =gir, एबनॉर्मल, एब्नॉर्मल, असामान्य, ज्यादा, =कम, गिर, बढ, ऊपर, ఎక్కువ, తక్కువ, అసాధారణ, అబ్నార్మల్, ఎబ్నార్మల్, పడిపో]
+
+  oil_leak:
+    category: hydraulic
+    specific: true
+    severity: medium
+    label: {en: Oil leak, hi: तेल का रिसाव, te: ఆయిల్ లీక్}
+    any: [=oil, =tel, =tael, तेल, ऑयल, आयल, ఆయిల్, నూనె]
+    with_any: [leak, tapak, =beh, nikal, लीक, टपक, रिस, बह, లీక్, కారుతో, కారడం, కారు]
+
+  air_leak:
+    category: pneumatic
+    specific: true
+    severity: low
+    label: {en: Air leak, hi: हवा का रिसाव, te: ఎయిర్ లీక్}
+    any: [=air, =hawa, हवा, एयर, గాలి, ఎయిర్]
+    with_any: [leak, hiss, nikal, लीक, निकल, లీక్]
+
+  gas_leak:
+    category: other
+    specific: true
+    severity: high
+    safety: true
+    label: {en: Gas leak, hi: गैस रिसाव, te: గ్యాస్ లీక్}
+    any: [=gas, गैस, గ్యాస్]
+    with_any: [leak, smell, badbu, gandh, लीक, गंध, बदबू, లీక్, వాసన]
+
+  leak:
+    category: hydraulic
+    specific: false
+    severity: medium
+    label: {en: Leak, hi: रिसाव, te: లీక్}
+    any: [leak, tapak, लीक, टपक, రిసా, లీక్]
+    suppressed_by: [oil_leak, air_leak, gas_leak]
+
+  tripping:
+    category: electrical
+    specific: true
+    severity: high
+    label: {en: Tripping, hi: ट्रिप होना, te: ట్రిప్ అవ్వడం}
+    any: [trip, ट्रिप, ట్రిప్]
+
+  power_failure:
+    category: electrical
+    specific: true
+    severity: high
+    negation_ok: true
+    label: {en: Power failure, hi: बिजली नहीं, te: కరెంట్ పోవడం}
+    any: [power, =bijli, =current, बिजली, पावर, करंट, కరెంట్, పవర్]
+    with_any: [cut, fail, =gone, =nahi, =nahin, =nhi, =gayi, =gaya, =off, नहीं, गई, गया, कट, ऑफ, లేదు, పోయ, కట్]
+
+  sparking:
+    category: electrical
+    specific: true
+    severity: high
+    safety: true
+    label: {en: Sparking, hi: चिंगारी, te: స్పార్క్}
+    any: [spark, चिंगारी, स्पार्क, స్పార్క్, నిప్పురవ్వ]
+
+  burning_smell:
+    category: electrical
+    specific: false
+    severity: high
+    safety: true
+    label: {en: Burning smell, hi: जलने की गंध, te: కాలిన వాసన}
+    any: [burning smell, burnt smell, burning, =jalne, =jal, जलने, जली, కాలిన, కాలుతు]
+
+  smoke:
+    category: other
+    specific: false
+    severity: high
+    safety: true
+    label: {en: Smoke, hi: धुआँ, te: పొగ}
+    any: [smoke, =dhuan, =dhua, =dhuaan, =dhuan, धुआं, धुआँ, धुंआ, धुँआ, =పొగ, పొగలు]
+
+  fire:
+    category: other
+    specific: false
+    severity: high
+    safety: true
+    label: {en: Fire, hi: आग, te: మంటలు}
+    any: [=fire, =flames, =aag, =आग, =మంట, మంటలు, అగ్ని]
+
+  electric_shock:
+    category: electrical
+    specific: true
+    severity: high
+    safety: true
+    label: {en: Electric shock, hi: करंट लगना, te: కరెంట్ షాక్}
+    any: [shock, current laga, current lag, करंट लग, करंट मार, షాక్]
+
+  injury:
+    category: other
+    specific: false
+    severity: high
+    safety: true
+    label: {en: Injury, hi: चोट, te: గాయం}
+    any: [injur, =hurt, =chot, चोट, घायल, గాయ, దెబ్బ]
+
+  erratic_reading:
+    category: instrumentation
+    specific: true
+    severity: medium
+    label: {en: Erratic reading, hi: गलत रीडिंग, te: తప్పు రీడింగ్}
+    any: [reading, gauge, =meter, display, transmitter, रीडिंग, मीटर, डिस्प्ले, గేజ్, రీడింగ్, మీటర్, డిస్ప్లే]
+    with_any: [erratic, wrong, =galat, fluctuat, jump, incorrect, unstable, गलत, उतार, తప్పు, మారుతో, హెచ్చుతగ్గు]
+
+  sensor_fault:
+    category: instrumentation
+    specific: true
+    severity: medium
+    negation_ok: true
+    label: {en: Sensor fault, hi: सेंसर खराब, te: సెన్సార్ లోపం}
+    any: [sensor, transmitter, probe, thermocouple, सेंसर, ట్రాన్స్మిటర్, సెన్సార్]
+    with_any: [fail, fault, =kharab, dead, error, not working, kaam nahi, खराब, काम नहीं, ఎర్రర్, పనిచేయ, పాడై]
+
+  not_starting:
+    category: electrical
+    specific: false
+    severity: high
+    negation_ok: true
+    label: {en: Not starting, hi: चालू नहीं हो रहा, te: స్టార్ట్ కావడం లేదు}
+    any: [not start, wont start, cannot start, start nahi, start nahin, start nhi, chalu nahi, चालू नहीं, स्टार्ट नहीं, స్టార్ట్ కావడం, స్టార్ట్ అవ్వ]
+
+  jam_stuck:
+    category: mechanical
+    specific: false
+    severity: medium
+    label: {en: Jammed or stuck, hi: जाम या अटका हुआ, te: జామ్ లేదా ఇరుక్కుపోవడం}
+    any: [=jam, jammed, stuck, =atak, atka, अटक, =जाम, फंस, ఇరుక్కు, జామ్]
+
+  belt_issue:
+    category: mechanical
+    specific: true
+    severity: medium
+    label: {en: Belt problem, hi: बेल्ट की समस्या, te: బెల్ట్ సమస్య}
+    any: [belt, बेल्ट, బెల్ట్]
+    with_any: [slip, =loose, =dhila, broke, =toot, tight, फिसल, ढीला, टूट, జారు, తెగ, వదులు]
+
+  misalignment:
+    category: mechanical
+    specific: true
+    severity: medium
+    label: {en: Misalignment, hi: अलाइनमेंट की समस्या, te: అలైన్మెంట్ సమస్య}
+    any: [misalign, alignment, अलाइनमेंट, అలైన్మెంట్]
+
+  quality_defect:
+    category: production
+    specific: true
+    severity: low
+    label: {en: Quality defect, hi: गुणवत्ता दोष, te: నాణ్యత లోపం}
+    any: [defect, rejection, =reject, quality, डिफेक्ट, रिजेक्ट, क्वालिटी, లోపం, రిజెక్ట్, క్వాలిటీ]
+
+# Production impact. Patterns are regular expressions over normalised clause text.
+# A clause must also mention a subject (production, line, machine ...) unless the question asked was
+# about production, in which case short answers like "haan, chal raha hai" are accepted.
+# Within a clause, precedence is stopped > degraded > running. Across clauses, the LAST mention wins
+# ("pehle ruk gaya tha, ab chal raha hai" -> running).
+production_impact:
+  subjects: [production, =line, machine, motor, plant, output, उत्पादन, प्रोडक्शन, लाइन, मशीन, मोटर, प्लांट, ప్రొడక్షన్, ఉత్పత్తి, లైన్, మెషిన్, మోటార్, ప్లాంట్]
+  stopped:
+    - '\bstop'
+    - '\bhalt'
+    - '\bshut ?down'
+    - '\bbreak ?down'
+    - '\bnot (running|working)'
+    - '\bisnt running'
+    - '\b(nahi|nahin|nhi|na) chal'
+    - '\bchalu (nahi|nahin|nhi)'
+    - '\bband (ho|hai|pad|kar|he)'
+    - '\bruk (gaya|gayi|gai|gya|gyi|chuka|chuki|gaye)'
+    - '\bdown hai'
+    - 'रुक गय|रुक गई|रुक चुक|रुका|बंद|ठप|नहीं चल|चालू नहीं'
+    - 'ఆగిపో|ఆగింది|ఆగి ఉంది|నిలిచిపో|నడవడం లేదు|నడవటం లేదు|నడవట్లేదు|నడవడంలేదు|బంద్|ఆపేశ'
+  degraded:
+    - '\bslow'
+    - '\breduced'
+    - '\bdh(ee|i)r'
+    - '\bdh(ee|i)m'
+    - '\b(kam|less|low) (output|speed|production)'
+    - '\b(output|speed|production) (kam|less|low|reduced)'
+    # "not affected" means running; the lookbehinds stop it counting as degraded.
+    - '(?<!not )(?<!isnt )(?<!wasnt )\b(affected|impacted)'
+    - 'धीम|धीरे|स्पीड कम|उत्पादन कम|प्रोडक्शन कम|कम उत्पादन|प्रभावित(?! नहीं)'
+    - 'నెమ్మది|స్పీడ్ తక్కువ|తక్కువ ప్రొడక్షన్|ప్రొడక్షన్ తక్కువ|ప్రభావిత'
+  running:
+    - '\brunning'
+    - '\bchal (raha|rahi|rha|rhi|rahe|rhe)'
+    - '\bchalu (hai|he)\b'
+    - '\b(still|is) (running|working|on)\b'
+    - '\bon hai\b'
+    - '\bnot (affected|impacted)|\bunaffected'
+    - 'चल रह|चालू है|चालू|प्रभावित नहीं'
+    - 'నడుస్తో|నడుస్తు|నడుస్తున్న|రన్ అవుతో|రన్నింగ్|జరుగుతో'
+
+# Optional free-text location ("Bay 2", "Line A"). The registered equipment location is always shown too.
+# The id must not be the start of an equipment code: "line L-701" is not location "Line L".
+location_pattern: '\b(bay|line|cell|hall|shop|section|area|zone|floor|panel|room|unit)\s+(?:no\s+|number\s+)?(\d{1,3}\b|[a-z]\b(?!\s*\d))'

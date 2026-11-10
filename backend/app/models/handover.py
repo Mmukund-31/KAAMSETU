@@ -7,7 +7,8 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base, CreatedAt, UUIDPrimaryKey
-from app.models.enums import HandoverStatus, pg_enum
+from app.models.enums import HandoverStatus
+from app.models.types import pg_enum
 
 
 class Handover(UUIDPrimaryKey, CreatedAt, Base):

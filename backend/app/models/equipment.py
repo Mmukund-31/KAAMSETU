@@ -5,8 +5,9 @@ from sqlalchemy import Boolean, ForeignKey, String, false
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 from app.database.base import Base, CreatedAt, UUIDPrimaryKey
-from app.models.enums import EquipmentCategory, OperationalStatus, pg_enum
+from app.models.enums import EquipmentCategory, OperationalStatus
 from app.models.site import Site
+from app.models.types import pg_enum
 
 
 def normalize_equipment_code(code: str) -> str:

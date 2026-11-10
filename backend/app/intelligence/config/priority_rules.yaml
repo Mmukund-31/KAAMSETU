@@ -1,0 +1,53 @@
+# Deterministic, ordered priority rules. The FIRST rule whose conditions all hold decides the level.
+# These are organisation policy, not a diagnosis. Supervisors can override with a recorded reason (Phase 4).
+#
+# Supported conditions (all optional; every listed condition must hold):
+#   safety_concern: true|false             technician explicitly reported a safety hazard
+#   production_impact: [stopped, ...]      reported production state
+#   equipment_critical: true|false         equipment flagged critical in the asset register
+#   has_symptoms: true|false               at least one recognised symptom
+#   max_symptom_severity: [high, ...]      highest severity among recognised symptoms
+#   category: [electrical, ...]            classified issue category
+
+version: 1
+
+rules:
+  - id: safety_reported
+    level: critical
+    when: {safety_concern: true}
+    explanation: {en: "A safety hazard was explicitly reported."}
+
+  - id: critical_equipment_stopped
+    level: critical
+    when: {production_impact: [stopped], equipment_critical: true}
+    explanation: {en: "Production has stopped on equipment registered as critical."}
+
+  - id: production_stopped
+    level: high
+    when: {production_impact: [stopped]}
+    explanation: {en: "Production has stopped."}
+
+  - id: production_degraded
+    level: high
+    when: {production_impact: [degraded]}
+    explanation: {en: "Production is running at reduced output."}
+
+  - id: high_severity_symptom
+    level: high
+    when: {max_symptom_severity: [high]}
+    explanation: {en: "A high-severity symptom was reported (for example overheating or tripping)."}
+
+  - id: critical_equipment_fault
+    level: high
+    when: {equipment_critical: true, has_symptoms: true}
+    explanation: {en: "A fault was reported on equipment registered as critical."}
+
+  - id: fault_reported
+    level: medium
+    when: {has_symptoms: true}
+    explanation: {en: "A fault was reported; production is not affected."}
+
+  - id: observation
+    level: low
+    when: {}
+    explanation: {en: "No recognised fault symptom; treated as an observation."}

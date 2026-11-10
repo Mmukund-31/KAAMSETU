@@ -1,0 +1,16 @@
+# Report workflow policy (configurable).
+
+version: 1
+
+# Mandatory fields, in the order follow-up questions are asked (one question at a time).
+#   equipment_code     must resolve to a registered machine at the reporter's site
+#   symptoms           at least one recognised symptom; after the technician has answered the
+#                      symptom question once, their own description is accepted instead
+#   production_impact  running / degraded / stopped
+required_fields: [equipment_code, symptoms, production_impact]
+
+# Roles whose reports need supervisor approval before work starts.
+approval_required_for_roles: [technician, supervisor, manager]
+
+# Maximum utterances (report + corrections + follow-up answers) kept as evidence for one report.
+max_utterances: 8

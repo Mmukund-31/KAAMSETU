@@ -59,6 +59,39 @@ The original transcript is stored verbatim in `work_order_evidence` and is never
 overwritten by edits; technician corrections are stored as the work order's
 `issue_description` and the extracted JSON, and the diff is auditable.
 
+### Signed evidence between recording and submission (Phase 3)
+
+The preview is stateless: no database row exists until the technician confirms. The draft
+fields travel to the device and back, and the technician may edit them. What was actually said
+must not be editable, so every utterance (the Prisma transcript, corrections, follow-up answers,
+each with its Gnani request id) is carried in an **evidence token**. This is an HS256 JWT signed
+with the server secret, bound to the user and valid for 2 hours. On submission (Phase 4) the
+server verifies the token and stores its utterances as immutable evidence. Draft fields are
+always re-validated server-side:
+
+- unknown symptom keys are dropped;
+- a safety concern cannot be cleared while a safety symptom is present;
+- equipment is re-matched against the register;
+- priority is recomputed.
+
+### How the engine reads a transcript
+
+- **Equipment codes**: direct forms (`M-204`, `M204`, `M 204`), spoken forms (letter names plus
+  number words in English, Hindi, Hinglish and Telugu, e.g. `ఎం రెండు వందల నాలుగు`), and bare
+  digits after "number" / "नंबर" / "నంబర్". These are candidates only. A code is accepted
+  only if it exists in the register at the reporter's site. Bare digits are accepted only when
+  exactly one registered code has them.
+- **Symptoms**: keyword groups per symptom in `config/taxonomy.yaml`, matched per clause on
+  normalised tokens. The engine does not use Python's `\b`, because it is unreliable with Indic
+  vowel signs. Negation is scoped: "no smoke" looks before the word, "leak nahi", "పొగ లేదు"
+  look after it.
+- **Production impact**: regex per state with a subject requirement. The subject carries over
+  within a sentence ("production ruk gaya tha, ab chal raha hai" gives running), and the last
+  mention wins.
+- **Classification**: specific symptom 2, generic 1, registered equipment category 1.5.
+- **Priority**: first matching rule in `config/priority_rules.yaml`. The rules are policy, not
+  a diagnosis, and supervisors can override them in Phase 4.
+
 ## Work-order lifecycle
 
 ```
@@ -88,3 +121,6 @@ the single source of truth for `services/state_machine.py`.
 | 11 | Role re-read from DB on every request | A role change or deactivation takes effect immediately, even for tokens already issued. |
 | 12 | DB errors classified by SQLSTATE | pg8000 reports foreign-key violations as `ProgrammingError`; `app/database/errors.py` gives one driver-independent check. |
 | 13 | Dev ports 5433 (DB) and 8001 (API) | A native PostgreSQL 17 service and another project already use 5432 and 8000 on the dev machine. |
+| 14 | Stateless preview plus signed evidence token | No half-finished rows in the database; the original transcript stays tamper-proof while draft fields stay editable. |
+| 15 | Domain enums in `app/domain` (no SQLAlchemy) | Keeps `intelligence/` importable without the ORM; a test enforces this in a fresh interpreter. |
+| 16 | Response text from templates only | Spoken replies are fixed, reviewable strings per language. No generated text reaches the technician. |

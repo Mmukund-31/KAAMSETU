@@ -56,9 +56,29 @@ Gnani failures are reported, never hidden:
 | Key not set | `503 speech_not_configured` |
 
 Error details carry `gnani_request_id` when Gnani returned one. User-facing messages suggest text input as the fallback.
-| POST | `/voice/process-report` | T | multipart `audio`, `language` -> `ReportOutcome` (transcript, extracted, equipment_status, suggestions, missing_fields, follow_up_question, priority, next_action, response_text, response_audio_base64?, tts_available) |
-| POST | `/voice/process-text` | T | `{text, language}` -> same `ReportOutcome` (text fallback / after transcript edit) |
-| POST | `/voice/follow-up` | T | `{draft, answer_text?}` or multipart with `answer_audio` -> updated `ReportOutcome` |
+| POST | `/voice/process-report` | any role | multipart `audio`, `language?`, `speak?` (default true) -> `ReportOutcome` |
+| POST | `/voice/process-text` | any role | JSON `{text, language?, evidence_token?, speak?}` -> `ReportOutcome`. Without a token this is a typed report (voice fallback). With a token it is a **transcript correction**: the original Prisma transcript is kept and the corrected text is re-extracted |
+| POST | `/voice/follow-up` | any role | multipart `evidence_token`, `draft` (JSON), `field`, then `answer_text` or `audio`, `speak?` -> updated `ReportOutcome` |
+| POST | `/voice/evaluate-draft` | any role | JSON `{evidence_token, draft, speak?}` -> `ReportOutcome`; re-validates a draft after manual edits, such as a machine picked from the suggestions |
+
+**Implemented in Phase 3.** None of these endpoints writes to the database. The work order is created only when the technician confirms (Phase 4, `POST /work-orders`), and that step re-validates everything.
+
+`ReportOutcome` fields:
+
+| Field | Meaning |
+|---|---|
+| `next_action` | `fix_equipment` (code not in register), `ask_follow_up` (a mandatory field is missing), `confirm_preview` (ready to submit) |
+| `draft` | Editable fields: `equipment_code`, `issue_description` (technician's own words), `symptoms` (taxonomy keys), `production_impact`, `safety_concern`, `location_note`, `category_override` |
+| `equipment` | `status` matched / unknown / missing, `heard`, the matched register row, `suggestions` (same-site register rows only) |
+| `symptoms`, `category` | Recognised symptoms with labels in the report language; category with `basis` (symptoms / equipment / override / none) |
+| `priority` | `level`, `rule_id`, `explanation`, `provisional` (true while production impact or equipment is unknown) |
+| `missing_fields`, `follow_up` | All missing mandatory fields with questions; `follow_up` is the next single question |
+| `response` | `text` always; `audio_base64`, `content_type`, `voice`, `gnani_request_id` when Timbre succeeded; `tts_available` false plus `tts_error` when it failed (the flow continues) |
+| `original_transcript`, `utterances` | The first utterance exactly as received, plus every correction and answer, each with its kind and Gnani request id |
+| `evidence_token` | Signed record of the utterances; send it back with every follow-up, correction and the final submission |
+| `requires_approval`, `warnings` | Policy result; warnings such as `unknown_symptoms_ignored`, `equipment_decommissioned` |
+
+Errors specific to the report flow: `422 evidence_invalid` (token modified or not an evidence token), `422 evidence_expired` (older than 2 hours), `403 evidence_wrong_user`, `422 invalid_draft`, `422 empty_answer`, `422 too_many_utterances`.
 
 ## Work orders (Phase 4)
 | Method | Path | Auth | Notes |

@@ -8,7 +8,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 0 | 1 d | Repository scaffold, env template, docs skeleton, Gnani API research | done 2026-11-10 |
 | 1 | 3 d | FastAPI + settings + Postgres + models + Alembic + JWT auth + RBAC + health + seed + tests | done 2026-11-10 (63 tests passing) |
 | 2 | 2 d | Prisma + Timbre httpx adapters, real smoke test, mocked unit tests, gated integration tests | done 2026-11-10 (156 tests + 12 real-API tests passing) |
-| 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | pending |
+| 3 | 3 d | Rule-based extraction / classification / prioritisation / missing fields, orchestrator, `/voice/*` | done 2026-11-10 (334 tests + 14 real-API tests passing) |
 | 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | pending |
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | pending |
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | pending |
@@ -52,9 +52,32 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - Equipment codes arrive as `M-204`, `M204`, `M 204`, and in Telugu as number words (`ఎం రెండు వందల నాలుగు`). The extractor must normalise all of them and validate against the registry.
 - Hinglish transcripts are Latin script; Hindi transcripts are Devanagari with some English words in Latin; Telugu transcripts are Telugu script with English loanwords transliterated (`వైబ్రేషన్`, `ప్రొడక్షన్`).
 
-## Phase 3 file list (next)
+## Phase 3 output
 
-`app/intelligence/{extraction,classification,prioritization,missing_fields,response,numbers}.py`,
-`app/intelligence/config/{taxonomy,priority_rules,required_fields,responses}.yaml`, `app/workflows/orchestrator.py`,
-`app/schemas/report.py`, additions to `app/api/v1/voice.py` (`process-report`, `process-text`, `follow-up`),
-and table-driven tests in `app/tests/unit/test_extraction.py` and siblings.
+- `app/intelligence/`: `text` (normalisation, clauses, negation, yes/no), `numbers` (spoken letters and numbers in
+  4 languages), `extraction`, `classification`, `prioritization`, `missing_fields`, `drafting`, `response`, plus a typed
+  `config_loader` that rejects invalid YAML at load time.
+- `app/intelligence/config/`: `taxonomy.yaml` (26 symptoms, production-impact patterns), `priority_rules.yaml`
+  (8 ordered rules), `workflow_policy.yaml`, `responses.yaml` (6 messages x 4 languages).
+- `app/workflows/evidence.py` (signed evidence token) and `app/workflows/orchestrator.py`.
+- Routes: `process-report`, `process-text` (typed report or transcript correction), `follow-up`, `evaluate-draft`.
+- `app/domain/enums.py`: pure enums; `app.models.enums` re-exports them.
+- Fixed a Phase 2 bug: `/openapi.json` and `/docs` returned 500 because of an invalid `responses=` declaration on
+  `/voice/synthesize`. A test now covers the schema.
+- Tests: 44 labelled extraction cases (en / hinglish / hi / te, 14 of them real Prisma transcripts); number parsing;
+  every priority rule; classification; drafting; templates; config integrity; evidence tokens; 34 API flow tests;
+  a layering guard; 2 real end-to-end pipeline tests.
+
+## Phase 4 inputs from Phase 3
+
+- `POST /work-orders` must take `{evidence_token, draft, submission_key}`. It verifies the token, re-runs
+  `orchestrator.evaluate`, requires `next_action == confirm_preview`, then writes `work_orders`,
+  `work_order_evidence` (from the token's utterances) and `audit_logs`.
+- `priority_rule` is already a column on `work_orders`.
+
+## Phase 4 file list (next)
+
+`app/services/state_machine.py`, `app/workflows/{work_order,assignment,escalation}.py`, `app/services/{work_orders,
+checklists,handovers,dashboard,equipment}.py`, `app/schemas/{work_order,checklist,handover,dashboard,equipment}.py`,
+`app/api/v1/{work_orders,equipment,checklists,handovers,dashboard,audit,users}.py`, and API tests for every allowed
+and forbidden transition.

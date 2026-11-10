@@ -4,8 +4,9 @@ from sqlalchemy import Boolean, ForeignKey, String, true
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base, CreatedAt, UUIDPrimaryKey
-from app.models.enums import LanguageCode, UserRole, pg_enum
+from app.models.enums import LanguageCode, UserRole
 from app.models.site import Site
+from app.models.types import pg_enum
 
 
 class User(UUIDPrimaryKey, CreatedAt, Base):

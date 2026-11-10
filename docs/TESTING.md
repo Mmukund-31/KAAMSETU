@@ -35,6 +35,15 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 2: unit + API, Gnani mocked | 156 passed |
 | 2026-11-10 | Phase 2: real Gnani integration (`-m integration`) | 12 passed |
 | 2026-11-10 | `scripts/gnani_smoke.py`, real round trip in en / hi / te / hinglish | passed |
+| 2026-11-10 | Phase 3: unit + API (extraction, rules, evidence, report flow), Gnani mocked | 334 passed |
+| 2026-11-10 | Phase 3: real Gnani integration incl. end-to-end report pipeline (Hinglish demo, Telugu with voice follow-up) | 14 passed |
+
+### Extraction test set (Phase 3)
+
+`app/tests/unit/extraction_cases.py` holds 44 labelled cases: 14 English, 12 Hinglish, 10 Hindi, 8 Telugu.
+14 of them are real Prisma transcripts captured in Phase 2. All 44 pass. That is a regression
+test the rules were written against, not an independent accuracy measurement. The independent
+measurement on held-out recordings, including human speech, is Phase 8.
 
 The integration tests and smoke script use Timbre-generated speech as input, so they prove
 the integration works. They do not measure accuracy on human speech.

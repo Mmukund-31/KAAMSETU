@@ -17,7 +17,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base, CreatedAt, UUIDPrimaryKey
-from app.models.enums import ChecklistResponseValue, ChecklistStatus, EquipmentCategory, pg_enum
+from app.models.enums import ChecklistResponseValue, ChecklistStatus, EquipmentCategory
+from app.models.types import pg_enum
 
 
 class ChecklistTemplate(UUIDPrimaryKey, CreatedAt, Base):
