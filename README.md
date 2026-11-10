@@ -11,15 +11,17 @@ request, a supervisor approves and assigns it on a web dashboard, and Gnani
 
 Built for the Gnani AI Great Indian AI Internship Challenge.
 
-> **Project status: Phase 6 complete (backend, supervisor console and technician app).** Spoken or typed
+> **Project status: Phase 7 complete (end-to-end verified; phone run pending).** Spoken or typed
 > reports in English, Hindi, Telugu or Hinglish become validated work orders. Each order
 > moves through a role-checked lifecycle (approval, assignment, SOP checklist, completion,
 > close) with a full audit trail. Supervisors run that lifecycle in the web console, which has
 > a live dashboard, approvals, work-order detail with the original transcript, equipment,
 > technicians, handovers, analytics, the audit log and SOP templates. Technicians report by voice
 > in the Expo app, answer follow-up questions, confirm the preview, work their assigned tasks through
-> the SOP checklist and hand over the shift, hearing Timbre replies in their language. End-to-end
-> verification on real devices is next (Phase 7). See [docs/ROADMAP.md](docs/ROADMAP.md) and
+> the SOP checklist and hand over the shift, hearing Timbre replies in their language. One command
+> (`e2e/`) runs the whole demo across both apps plus twelve failure cases against the real
+> backend, Prisma and Timbre (74/74 checks). The run on a physical phone is a manual checklist in
+> [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md). See [docs/ROADMAP.md](docs/ROADMAP.md) and
 > [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Why
@@ -62,6 +64,7 @@ Full details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 backend/          FastAPI application, Alembic migrations, tests
 supervisor-web/   Supervisor console (Vite + React), see supervisor-web/README.md
 technician-app/   Technician mobile app (Expo), see technician-app/README.md
+e2e/              End-to-end harness (both apps, real APIs, fault injection), see e2e/README.md
 evaluation/       Labelled multilingual test set + runner  - created in Phase 8
 docs/             Architecture, DB design, API, Gnani integration, testing, demo script, roadmap
 docker-compose.yml
@@ -112,6 +115,12 @@ npm test ; npm run typecheck
 
 Or run DB + backend together: `docker compose up --build`.
 
+End-to-end check of everything (Windows with Microsoft Edge; spends a few Gnani credits; leaves the DB as it was):
+
+```powershell
+cd e2e ; npm install ; node run.mjs
+```
+
 ### Windows note (Smart App Control)
 
 On a Windows machine with Smart App Control on, unsigned native binaries inside a
@@ -154,7 +163,9 @@ any role, and supervisors create technicians for their own site.
 - [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)
 - [docs/GNANI_INTEGRATION.md](docs/GNANI_INTEGRATION.md)
 - [docs/TESTING.md](docs/TESTING.md)
-- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
+- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) (measured timings, recovery lines)
+- [docs/DEVICE_TEST.md](docs/DEVICE_TEST.md) (real-phone checklist)
+- [e2e/README.md](e2e/README.md)
 - [docs/ROADMAP.md](docs/ROADMAP.md)
 - [docs/LIMITATIONS.md](docs/LIMITATIONS.md)
 

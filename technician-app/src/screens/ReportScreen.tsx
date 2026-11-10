@@ -30,6 +30,8 @@ export function ReportScreen() {
   const { t } = useSession();
   const language = useLanguage();
   const flow = useReportFlow(language);
+  // Kept here, not in the text box, so a failed send (network down, server busy) never loses what was typed.
+  const [typed, setTyped] = useState("");
 
   // One recorder serves the first report and spoken follow-up answers.
   const onRecording = useCallback(
@@ -70,7 +72,13 @@ export function ReportScreen() {
           <Muted>{flow.submitted.duplicate ? t("err_duplicate") : t("submittedBody", { number: flow.submitted.number })}</Muted>
         </Card>
         <SpokenReply response={flow.submitted.response} />
-        <Button label={t("newReport")} onPress={flow.reset} />
+        <Button
+          label={t("newReport")}
+          onPress={() => {
+            setTyped("");
+            flow.reset();
+          }}
+        />
       </Screen>
     );
   }
@@ -91,6 +99,8 @@ export function ReportScreen() {
       <ErrorBanner error={flow.error ?? micError} />
       {flow.phase === "typing" ? (
         <TypeReport
+          text={typed}
+          onChange={setTyped}
           busy={flow.busy}
           onSend={(text) => void flow.submitText(text)}
           onCancel={() => {
@@ -112,12 +122,23 @@ export function ReportScreen() {
   );
 }
 
-function TypeReport({ busy, onSend, onCancel }: { busy: boolean; onSend: (text: string) => void; onCancel: () => void }) {
+function TypeReport({
+  text,
+  onChange,
+  busy,
+  onSend,
+  onCancel,
+}: {
+  text: string;
+  onChange: (text: string) => void;
+  busy: boolean;
+  onSend: (text: string) => void;
+  onCancel: () => void;
+}) {
   const { t } = useSession();
-  const [text, setText] = useState("");
   return (
     <Card style={{ marginTop: 12 }}>
-      <Field label={t("typeReport")} value={text} onChangeText={setText} multiline maxLength={2000} testID="report-text" />
+      <Field label={t("typeReport")} value={text} onChangeText={onChange} multiline maxLength={2000} testID="report-text" />
       <Button label={t("send")} onPress={() => onSend(text)} disabled={!text.trim()} loading={busy} testID="send-text" />
       <Button label={t("cancel")} variant="ghost" onPress={onCancel} style={{ marginTop: 6 }} />
     </Card>

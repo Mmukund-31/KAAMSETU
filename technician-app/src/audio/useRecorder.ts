@@ -30,7 +30,10 @@ const OPTIONS: RecordingOptions = {
   web: { mimeType: webMimeType() ?? "audio/mp4", bitsPerSecond: 64000 },
 };
 
-export type RecorderError = "mic_denied" | "mic_unavailable" | "too_short";
+/** When the recorder stops itself (29.5 s): inside Prisma's 30 s limit after stop latency. */
+export const AUTO_STOP_MILLIS = (MAX_RECORDING_SECONDS - 0.5) * 1000;
+
+export type RecorderError ="mic_denied" | "mic_unavailable" | "too_short";
 
 export interface RecorderApi {
   supported: boolean;
@@ -105,13 +108,16 @@ export function useRecorder(onAutoStop?: (recording: Recording | null) => void):
     await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => undefined);
   }, [active, recorder]);
 
-  // Prisma takes at most 30 s, so stop at the limit and hand the recording on.
-  const seconds = Math.floor((state.durationMillis ?? 0) / 1000);
+  // Prisma takes at most 30 s per request. Stopping takes a moment and the status is polled every 200 ms,
+  // so stop half a second early: a file that ends up longer than 30 s would be refused.
+  const millis = state.durationMillis ?? 0;
+  const seconds = Math.floor(millis / 1000);
+  const limitReached = millis >= AUTO_STOP_MILLIS;
   useEffect(() => {
-    if (active && seconds >= MAX_RECORDING_SECONDS) {
+    if (active && limitReached) {
       void stop().then((r) => onAutoStop?.(r));
     }
-  }, [active, seconds, stop, onAutoStop]);
+  }, [active, limitReached, stop, onAutoStop]);
 
   return { supported, isRecording: active, seconds: active ? seconds : 0, error, start, stop, cancel };
 }

@@ -51,7 +51,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!WEB_ROLES.has(user.role)) logout("The supervisor console is for supervisors and managers.");
         else setState({ status: "authenticated", user });
       })
-      .catch(() => !cancelled && logout());
+      // a 401 has already signed out via onUnauthorized with the "session ended" notice; keep it
+      .catch((err) => !cancelled && !(err instanceof ApiError && err.status === 401) && logout());
     return () => {
       cancelled = true;
     };

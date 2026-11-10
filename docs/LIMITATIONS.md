@@ -31,8 +31,9 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 - Notifications are pull-based: technicians see new tasks when their app refreshes. There are no push messages.
 - Handover summaries sort the author's sentences by cue words only. A sentence with no cue word is listed as an
   observation even if it implies an action.
-- Concurrent actions on one work order are serialised by a row lock, but no automated multi-connection race test
-  exists yet.
+- Concurrent actions on one work order are serialised by a row lock. The end-to-end harness proves it for
+  simultaneous approvals and for parallel submissions of one report. Other action pairs rely on the same lock but are
+  not each raced.
 
 ## Supervisor web (Phase 5)
 
@@ -46,10 +47,10 @@ Kept current as phases land. KAAMSETU is a prototype built for a challenge demon
 
 ## Technician app (Phase 6)
 
-- Not yet run on a physical phone or an emulator. This machine has no Android system image or connected device. The
-  app was verified through its Jest suite, by compiling the Android and iOS Hermes bundles, and by driving its web
-  build against the real backend, Prisma and Timbre (with a fake microphone playing a Timbre-generated clip). Phase 7
-  runs it in Expo Go on a phone.
+- Not yet run on a physical phone or an emulator: this machine has no Android system image or connected device. The
+  app is verified by its Jest suite, by compiling the Android and iOS Hermes bundles, and end to end (Phase 7) by
+  driving its web build with the real recorder against the real backend, Prisma and Timbre, using a fake microphone
+  that plays a Timbre-generated clip. The phone run is the manual checklist in `docs/DEVICE_TEST.md`.
 - The language choice is stored on the device. Task announcements use the account's `preferred_language` on the
   server, so a technician who switches language in the app still hears announcements in the account language until
   an admin changes it.

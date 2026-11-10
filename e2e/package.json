@@ -1,0 +1,14 @@
+{
+  "name": "kaamsetu-e2e",
+  "private": true,
+  "type": "module",
+  "description": "End-to-end harness: both KAAMSETU apps against the real backend, Prisma and Timbre",
+  "scripts": {
+    "all": "node run.mjs all",
+    "demo": "node run.mjs demo",
+    "errors": "node run.mjs errors"
+  },
+  "devDependencies": {
+    "playwright-core": "1.56.1"
+  }
+}

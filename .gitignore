@@ -42,3 +42,6 @@ Thumbs.db
 
 # Small synthetic (Timbre-generated) audio fixtures used by tests
 !backend/app/tests/fixtures/audio/*
+
+# end-to-end harness output (reports, screenshots, logs, builds)
+e2e/.run/

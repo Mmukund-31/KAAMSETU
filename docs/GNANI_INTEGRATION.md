@@ -161,7 +161,7 @@ is still unmeasured. Check the remaining balance at https://app.gnani.ai/voice a
 
 | # | Status |
 |---|---|
-| a | M4A (AAC in MP4): **accepted**, measured in Phase 6 (see above). Not yet measured: an actual iPhone or Android recording over a real microphone. That is Phase 7 on a device, and the codec and container are the same. |
+| a | M4A (AAC in MP4): **accepted**, measured in Phase 6 (see above). Phase 7: browser MediaRecorder writes *fragmented* MP4, whose header says about 0.06 s, so KAAMSETU's own validator rejected it as too short. The backend now sums the fragment durations, and Prisma transcribes these files correctly. Not yet measured: an actual iPhone or Android recording over a real microphone. That is Phase 7 on a device, and the codec and container are the same. |
 | b | Hinglish TTS language: **settled** (`hi-en`; `auto` also works). |
 | c | `timbre-v3.0` parameters: not needed; v2.5 is used. |
 | d | Max upload size: **open** but low-risk. The app caps uploads at 10 MB and 30 s; 30 s of 128 kbps AAC is about 0.5 MB. |

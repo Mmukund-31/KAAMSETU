@@ -47,10 +47,17 @@ Integration test results are reported separately with request IDs and latencies.
 | 2026-11-10 | Phase 6: M4A (AAC/MP4) through real Prisma: Media Foundation files via `/voice/process-report`, plus new gated test `test_prisma_accepts_aac_m4a_like_phone_recordings` | passed |
 | 2026-11-10 | Phase 6: live run of the technician web build in headless Edge with a fake microphone, real backend, Prisma and Timbre | 27 of 27 checks passed |
 | 2026-11-10 | Phase 6: backend after adding the m4a fixture | 407 passed, 15 skipped (integration) |
+| 2026-11-10 | Phase 7: `e2e/` demo scenario across both apps (real backend, Prisma, Timbre, PostgreSQL evidence) | 32 of 32 checks passed |
+| 2026-11-10 | Phase 7: `e2e/` error paths E1–E12 (fault proxy for Gnani 429/500, real short-lived tokens, races, roles, offline) | 34 of 34 checks passed |
+| 2026-11-10 | Phase 7: full `node run.mjs all` from fresh builds, incl. preflight, cleanup back to seed counts, log secret scan | 74 of 74 checks passed |
+| 2026-11-10 | Phase 7: backend after the fragmented-MP4 duration fix | 410 passed, 15 skipped (integration) |
+| 2026-11-10 | Phase 7: supervisor-web after the session-expiry fix | 39 passed |
+| 2026-11-10 | Phase 7: technician-app after the 29.5 s stop, session notice and kept-text fixes | 30 passed |
 
-Not yet covered by automated tests: two requests acting on the same work order at the same moment. The code takes a
-row lock (`SELECT ... FOR UPDATE OF work_orders`) for every action, but a multi-connection race test is still to be
-written (Phase 8).
+Concurrency is covered by the end-to-end harness (Phase 7, E8):
+- two supervisors approving one order at the same moment give 200 + 409, with exactly one approval audited;
+- five parallel submissions of one report give one 201 and four 409, both with the same idempotency key and with
+  different keys.
 
 ### Extraction test set (Phase 3)
 
@@ -73,6 +80,14 @@ measured on synthetic data; they are not pilot results.
 Targets (aspirational, not guaranteed): at least 90 % required-field extraction accuracy on the
 labelled set; 100 % pass on permission and state-transition tests; zero work orders for
 invalid equipment IDs; real Prisma + Timbre demonstrated end to end.
+
+### End-to-end harness (Phase 7)
+
+`e2e/run.mjs` starts its own stack, drives both apps in headless Edge with a fake microphone, and checks the API
+payloads, Timbre playback, the recording format, timings and the PostgreSQL rows (`e2e/tools/db.py`). Gnani failures
+are injected by a pass-through proxy in front of a second backend, so the real API is used before and after each
+fault. Details and the list of scenarios: `e2e/README.md`. The phone run is the manual checklist in
+`docs/DEVICE_TEST.md`.
 
 ### Technician app (Phase 6)
 
@@ -115,4 +130,7 @@ npm test ; npm run typecheck ; npm run build
 
 cd ..\technician-app
 npm test ; npm run typecheck ; npm run export:native
+
+cd ..\e2e
+npm install ; node run.mjs            # all scenarios; real Gnani calls
 ```

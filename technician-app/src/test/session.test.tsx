@@ -51,6 +51,8 @@ describe("sign-in and language", () => {
     mockApi({ "GET /auth/me": () => ({ status: 401, body: { error: { code: "token_expired", message: "expired" } } }) });
     await renderApp();
     expect(await screen.findByTestId("sign-in")).toBeOnTheScreen();
+    // the reason is shown, not just a blank sign-in form
+    expect(screen.getByText("Session khatam ho gaya. Phir se sign in karein.")).toBeOnTheScreen();
   });
 
   it("restores a saved session straight into the report screen", async () => {

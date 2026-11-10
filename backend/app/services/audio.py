@@ -73,9 +73,95 @@ def wav_duration(data: bytes) -> float | None:
     return None
 
 
+def _mp4_boxes(data: bytes, start: int = 0, end: int | None = None):
+    """Yields (type, body_start, body_end) for the ISO-BMFF boxes between start and end."""
+    end = len(data) if end is None else end
+    pos = start
+    while pos + 8 <= end:
+        size, kind = struct.unpack_from(">I4s", data, pos)
+        header = 8
+        if size == 1 and pos + 16 <= end:  # 64-bit size
+            size = struct.unpack_from(">Q", data, pos + 8)[0]
+            header = 16
+        elif size == 0:  # box runs to the end
+            size = end - pos
+        if size < header or pos + size > end:
+            return
+        yield kind.decode("latin1"), pos + header, pos + size
+        pos += size
+
+
+def _child(data: bytes, start: int, end: int, kind: str):
+    return next(((s, e) for k, s, e in _mp4_boxes(data, start, end) if k == kind), None)
+
+
+def fragmented_mp4_duration(data: bytes) -> float | None:
+    """Duration of a fragmented MP4 (moov + moof/mdat pairs), as browsers' MediaRecorder writes it.
+
+    The moov header of such files carries (almost) no duration, so general-purpose readers report ~0 s.
+    The real duration is the sum of the sample durations in every fragment's track run (trun), using
+    the track's timescale (mdhd) and the default sample duration from tfhd or trex when a run omits it.
+    Returns None when the file is not fragmented or cannot be read.
+    """
+    top = list(_mp4_boxes(data))
+    moov = next(((s, e) for k, s, e in top if k == "moov"), None)
+    if moov is None or not any(k == "moof" for k, _, _ in top):
+        return None
+    trak = _child(data, *moov, "trak")
+    mdia = trak and _child(data, *trak, "mdia")
+    mdhd = mdia and _child(data, *mdia, "mdhd")
+    if not mdhd:
+        return None
+    version = data[mdhd[0]]
+    timescale = struct.unpack_from(">I", data, mdhd[0] + (20 if version == 1 else 12))[0]
+    if not timescale:
+        return None
+    trex_default = 0
+    mvex = _child(data, *moov, "mvex")
+    trex = mvex and _child(data, *mvex, "trex")
+    if trex:
+        trex_default = struct.unpack_from(">I", data, trex[0] + 12)[0]  # after version/flags, track_ID, desc index
+
+    total = 0
+    for kind, start, end in top:
+        if kind != "moof":
+            continue
+        for traf_kind, ts, te in _mp4_boxes(data, start, end):
+            if traf_kind != "traf":
+                continue
+            default = trex_default
+            tfhd = _child(data, ts, te, "tfhd")
+            if tfhd:
+                flags = int.from_bytes(data[tfhd[0] + 1:tfhd[0] + 4], "big")
+                offset = tfhd[0] + 8  # version/flags + track_ID
+                if flags & 0x01:
+                    offset += 8  # base_data_offset
+                if flags & 0x02:
+                    offset += 4  # sample_description_index
+                if flags & 0x08:
+                    default = struct.unpack_from(">I", data, offset)[0]
+            for run_kind, rs, _ in _mp4_boxes(data, ts, te):
+                if run_kind != "trun":
+                    continue
+                flags = int.from_bytes(data[rs + 1:rs + 4], "big")
+                count = struct.unpack_from(">I", data, rs + 4)[0]
+                pos = rs + 8 + (4 if flags & 0x01 else 0) + (4 if flags & 0x04 else 0)
+                if not flags & 0x100:
+                    total += count * default
+                    continue
+                stride = 4 * sum(1 for bit in (0x100, 0x200, 0x400, 0x800) if flags & bit)
+                for i in range(count):
+                    total += struct.unpack_from(">I", data, pos + i * stride)[0]
+    return total / timescale if total else None
+
+
 def audio_duration(data: bytes, fmt: str) -> float | None:
     if fmt == "wav":
         return wav_duration(data)
+    if fmt == "m4a":
+        fragmented = fragmented_mp4_duration(data)
+        if fragmented is not None:
+            return fragmented
     try:
         import mutagen
 

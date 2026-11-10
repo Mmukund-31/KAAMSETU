@@ -42,11 +42,13 @@ describe("voice report", () => {
     expect(screen.getByTestId("type-instead")).toBeOnTheScreen();
   });
 
-  it("stops by itself at 30 seconds and sends the recording", async () => {
+  it("stops by itself at 29.5 s, inside Prisma's 30 s limit, and sends the recording", async () => {
     const { calls } = await signedInReport({ "POST /voice/process-report": outcome() });
     await fireEvent.press(screen.getByTestId("mic-button"));
     await waitFor(() => expect(audioMock().__recorder.record).toHaveBeenCalled());
-    await act(async () => audioMock().__set({ durationMillis: 30_000 }));
+    await act(async () => audioMock().__set({ durationMillis: 29_000 }));
+    expect(audioMock().__recorder.stop).not.toHaveBeenCalled();
+    await act(async () => audioMock().__set({ durationMillis: 29_500 }));
     await waitFor(() => expect(calls.some((c) => c.path === "/voice/process-report")).toBe(true));
     expect(audioMock().__recorder.stop).toHaveBeenCalled();
   });
@@ -137,6 +139,22 @@ describe("typed report and submission", () => {
     const body = calls.find((c) => c.path === "/work-orders")!.body as { submission_key: string; evidence_token: string };
     expect(body.evidence_token).toBe("evidence-token-1");
     expect(body.submission_key).toMatch(/^[0-9a-f-]{36}$/);
+  });
+
+  it("keeps the typed report when sending fails, so it can be sent again", async () => {
+    let online = false;
+    const { calls } = await signedInReport({
+      "POST /voice/process-text": () => (online ? { body: outcome() } : { status: 503, body: { error: { code: "speech_rate_limited", message: "busy" } } }),
+    });
+    await fireEvent.press(screen.getByTestId("type-instead"));
+    await fireEvent.changeText(screen.getByTestId("report-text"), "M-204 vibration, production chal raha hai");
+    await fireEvent.press(screen.getByTestId("send-text"));
+    expect(await screen.findByText(/Speech service busy hai/)).toBeOnTheScreen();
+    expect(screen.getByTestId("report-text")).toHaveDisplayValue("M-204 vibration, production chal raha hai");
+    online = true;
+    await fireEvent.press(screen.getByTestId("send-text"));
+    await screen.findByTestId("preview-machine");
+    expect(calls.filter((c) => c.path === "/voice/process-text")).toHaveLength(2);
   });
 
   it("treats a duplicate submission as already sent", async () => {

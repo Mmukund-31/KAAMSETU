@@ -137,3 +137,5 @@ the single source of truth for `services/state_machine.py`.
 | 27 | One idempotency key per report in the app | A double tap or a retry after a lost reply returns `409 duplicate_submission`, which the app shows as already sent. |
 | 28 | Language chosen on the device | It drives the Prisma language hint, the Timbre voice and the UI labels, and is asked once before anything else. |
 | 29 | Timbre audio written to the cache before playback on phones | Native players do not take `data:` URIs. The text is always on screen, so playback failure never blocks work. |
+| 30 | Fault injection by a pass-through proxy, not mocks | The harness's second backend talks to Gnani through a local proxy that forwards to the real API, or returns Gnani-shaped 429 and 500 responses on demand, so the error handling is tested against real behaviour on both sides of the fault. |
+| 31 | Duration of fragmented MP4 read from the fragments | Browser recorders write moov plus moof/mdat; the header alone understates the length. Track-run sample durations give the real length. |

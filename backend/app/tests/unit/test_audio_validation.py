@@ -92,3 +92,28 @@ def test_unreadable_duration_is_allowed_through():
     # Prisma enforces its own limits; an unknown duration must not block a valid recording.
     info = validate_audio(b"\x00\x00\x00\x1cftypM4A " + b"\x00" * 64, fake_settings())
     assert info.format == "m4a" and info.duration_seconds is None
+
+
+def test_fragmented_mp4_from_a_browser_recorder_has_its_real_duration():
+    # MediaRecorder writes moov + moof/mdat fragments; the moov header alone says ~0.06 s, which used to be
+    # rejected as "too short". The duration comes from the fragments' track runs.
+    from app.services.audio import fragmented_mp4_duration
+
+    data = (FIXTURES / "browser_fragmented_3s.m4a").read_bytes()
+    assert 2.8 < fragmented_mp4_duration(data) < 3.1
+    info = validate_audio(data, fake_settings())
+    assert info.format == "m4a"
+    assert 2.8 < info.duration_seconds < 3.1
+
+
+def test_regular_mp4_is_not_treated_as_fragmented():
+    from app.services.audio import fragmented_mp4_duration
+
+    assert fragmented_mp4_duration((FIXTURES / "hinglish_m204.m4a").read_bytes()) is None
+
+
+def test_fragment_parser_ignores_garbage():
+    from app.services.audio import fragmented_mp4_duration
+
+    junk = (24).to_bytes(4, "big") + b"ftypisom" + bytes([0xFF]) * 40
+    assert fragmented_mp4_duration(junk) is None

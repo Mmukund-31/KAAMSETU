@@ -12,7 +12,7 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 | 4 | 3 d | Work-order CRUD, state machine, approvals, assignment, checklists, handovers, audit, dashboard APIs | done 2026-11-10 (406 tests passing; live demo scenario verified) |
 | 5 | 4 d | Supervisor web (Vite + React + Tailwind + Recharts) | done 2026-11-10 (37 web tests; 31-check live UI run against the real backend) |
 | 6 | 4 d | Technician Expo app (record, upload, preview, confirm, tasks, checklist, handover) | done 2026-11-10 (29 app tests; 27-check live run with real Prisma + Timbre; M4A verified) |
-| 7 | 2 d | End-to-end verification of the demo scenario + error paths | pending |
+| 7 | 2 d | End-to-end verification of the demo scenario + error paths | done 2026-11-10 (`e2e/` 74/74 against real APIs; phone checklist pending, run by the user) |
 | 8 | 3 d | Evaluation dataset + measured results, coverage, security review, Docker check, polish | pending |
 | 9 | 2 d | README, screenshots, demo script, limitations, submission write-up | pending |
 
@@ -155,6 +155,34 @@ next starts only on confirmation. "Done" means implemented **and** verified.
 - Fixed during the run: emoji icons looked inconsistent on Windows (now Ionicons); the Telugu title was clipped (title
   line height); the task screen showed the announcement only as audio (now also text).
 - No Gnani key, host or auth header in any client bundle (scanned).
+
+## Phase 7 output
+
+- `e2e/`: one-command harness (`node run.mjs`). It starts two backends, a Gnani fault proxy, the supervisor console
+  and two technician web builds; drives three browser contexts with a fake microphone; cites PostgreSQL rows; cleans
+  up to the starting counts; and scans the logs for secrets.
+- Demo scenario, 32 checks: Hinglish voice report → preview (2.4–2.9 s) → work order with spoken acknowledgement
+  (1.1–1.5 s) → visible in the supervisor queue (0.8–1.3 s) → approve and assign → Telugu announcement → 7 steps →
+  complete → close. The audit trail is in exact order and the Prisma request id and verbatim transcript are in
+  `work_order_evidence`.
+- Error paths, 34 checks: unknown machine, follow-up, silence, 30 s limit, Prisma 429 and recovery, Prisma 500 with
+  typing, Timbre 500 with text-only, double tap and parallel submissions, simultaneous approvals (the race test
+  carried over from Phase 4), roles and scope, checklist gate, token expiry in both apps, server unreachable.
+- Bugs found and fixed:
+  1. **Fragmented MP4 measured as 0.06 s.** Browser MediaRecorder output was rejected as "too short". The backend
+     now reads fragment durations (`fragmented_mp4_duration`), with fixture `browser_fragmented_3s.m4a` and tests.
+  2. **The 30 s auto-stop overshot to over 30 s.** It now stops at 29.5 s and measured 29.68 s, which was accepted.
+  3. **"Session ended" notice lost.** A restored, expired session lost the notice in both apps, because the restore
+     code signed out a second time.
+  4. **Typed report lost after a failed send.** The text now survives errors.
+- `docs/DEMO_SCRIPT.md` rewritten with measured timings, the DB evidence of one run, and "if something goes wrong on
+  stage" lines that were each triggered for real. `docs/DEVICE_TEST.md` is a 13-step phone checklist.
+  `docs/screenshots/` holds 10 screenshots from the run.
+
+## Phase 8 inputs from Phase 7
+
+- Run `docs/DEVICE_TEST.md` on a phone (the user), and feed real recordings into the evaluation set.
+- The harness is the regression gate: run `node e2e/run.mjs` after every change in Phase 8.
 
 ## Phase 7 inputs from Phase 6
 

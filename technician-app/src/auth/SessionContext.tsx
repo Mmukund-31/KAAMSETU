@@ -65,8 +65,9 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         if (me.role !== "technician") return void logout("technicianOnly");
         setUser(me);
         setStatus("signed_in");
-      } catch {
-        if (!cancelled) await logout();
+      } catch (err) {
+        // A 401 has already signed out through onUnauthorized with the "session ended" notice; keep it.
+        if (!cancelled && !(err instanceof ApiError && err.status === 401)) await logout();
       }
     })();
     return () => {

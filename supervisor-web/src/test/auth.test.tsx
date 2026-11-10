@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { OVERVIEW, mockApi, page, renderApp, signedIn, user } from "./harness";
@@ -54,6 +54,28 @@ describe("login and route protection", () => {
     await userEvent.type(screen.getByLabelText(/password/i), "wrong-pass1");
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Invalid email or password");
+  });
+
+  it("explains an expired saved session on the sign-in page", async () => {
+    signedIn({ "GET /auth/me": () => ({ status: 401, body: { error: { code: "token_expired", message: "expired" } } }) });
+    renderApp("/work-orders");
+    expect(await screen.findByRole("heading", { name: "Sign in" })).toBeInTheDocument();
+    expect(screen.getByText("Your session has ended. Please sign in again.")).toBeInTheDocument();
+    expect(localStorage.getItem("kaamsetu.supervisor.token")).toBeNull();
+  });
+
+  it("signs out with the reason when the token expires mid-session", async () => {
+    let expired = false;
+    const expiredBody = { status: 401, body: { error: { code: "token_expired", message: "expired" } } };
+    signedIn({
+      "GET /work-orders": () => (expired ? expiredBody : { body: page([]) }),
+      "GET /dashboard/overview": () => (expired ? expiredBody : { body: OVERVIEW }),
+    });
+    renderApp("/work-orders");
+    expect(await screen.findByText("No work orders match")).toBeInTheDocument();
+    expired = true;
+    await userEvent.click(within(screen.getByRole("group", { name: "Status" })).getByRole("button", { name: "Blocked" }));
+    expect(await screen.findByText("Your session has ended. Please sign in again.")).toBeInTheDocument();
   });
 
   it("restores a saved session and signs out when the token is rejected later", async () => {
